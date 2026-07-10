@@ -34,9 +34,13 @@ sitemap.xml, robots.txt, llms.txt
 _headers, _redirects        Netlify config (security headers, caching, non-www redirect)
 seo-strategy.md             SEO/content strategy notes (keyword clusters, internal linking plan)
 css/
-  global.css                Base/reset + shared tokens
-  style.css                 Main visual styling (primary stylesheet, ~1400 lines)
-  main.css, pages.css        Currently empty — referenced/reserved but unused
+  main.css                  Production stylesheet actually linked from every page's <head> — minified,
+                             single-line, so `wc -l` misleadingly reports 0/1 lines; check byte size instead
+  pages.css                 Minified per-page-type overrides, linked alongside main.css on `pages/*.html`
+  style.css, global.css     Stale/unused — use a different, non-matching class naming convention
+                             (dash-case `.footer-grid` etc. vs. the BEM `.footer__grid` etc. actually used in
+                             the HTML) and are not `<link>`ed from any page. Edit main.css/pages.css directly
+                             (append minified rules in the same style) rather than these files.
 js/main.js                  All interactive behavior (nav scroll state, hamburger menu, FAQ accordion, etc.),
                              wrapped in a single DOMContentLoaded handler, vanilla JS, ES5-style (var, function)
 pages/                      Secondary pages: about, contact, faq, how-it-works, services, and one page per
