@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rapidhousebuyer.co.uk/sitemap.xml
+
+# Block admin/utility paths if any
+Disallow: /admin/
+Disallow: /.netlify/

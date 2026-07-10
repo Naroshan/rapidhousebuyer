@@ -4,20 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository state (important)
 
-The `main`/`claude/init-hilgo0` branch currently contains **only one file**:
-`deploy-6a3e69d87a695733a8217959.zip` — a zipped snapshot of the static site as it was uploaded for
-deployment. There is no extracted source tree, no `package.json`, and no build tooling committed to git.
+The site's source files (`index.html`, `css/`, `js/`, `pages/`, `locations/`, etc.) are committed directly
+at the repo root — there is no `package.json` and no build tooling. Edit files in place; there is no
+zip/package step required before committing.
 
-To work on the site, unzip the archive first:
-
-```bash
-unzip deploy-*.zip -d site/
-```
-
-Make edits inside the extracted `site/` directory, then re-zip (or otherwise package) before committing,
-matching whatever delivery convention the user asks for. If the user wants the extracted files committed
-directly instead of the zip, confirm with them before restructuring the repo — this is a workflow change,
-not just a code edit.
+Note: this repo previously stored the site as a single zipped deploy archive
+(`deploy-*.zip`) instead of extracted source. That archive was extracted and committed directly to `main`
+after it became clear Netlify's continuous deployment builds straight from this repo's root — shipping the
+zip (with no `index.html` at root) produced a live 404 on the production site. Do not reintroduce a
+zip-only repo state; keep the actual site files committed.
 
 ## What the site is
 
@@ -26,7 +21,7 @@ Rapid House Buyer (rapidhousebuyer.co.uk) — a marketing site for a UK cash pro
 package manager** — every page is hand-authored HTML with shared `css/` and `js/` assets. It's deployed to
 Netlify (see `_headers` / `_redirects` at the site root).
 
-### Site structure (inside the unzipped archive)
+### Site structure
 
 ```
 index.html                 Homepage
@@ -69,7 +64,6 @@ locations/                  One HTML page per London borough + notable sub-area 
 ## Working conventions
 
 - No build/lint/test commands exist for this project — it's static files served as-is. Validate changes by
-  opening the HTML directly or serving the extracted directory (e.g. `python3 -m http.server`) from within
-  `site/`.
+  opening the HTML directly or serving the repo root (e.g. `python3 -m http.server`).
 - Keep new/edited pages consistent with the existing head boilerplate (favicons, meta description, canonical,
   Open Graph/Twitter tags, JSON-LD) found in `index.html` and `pages/*.html`.

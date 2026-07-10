@@ -1,0 +1,4 @@
+# Netlify _redirects — force non-www (matches live server config)
+https://www.rapidhousebuyer.co.uk/* https://rapidhousebuyer.co.uk/:splat 301!
+http://www.rapidhousebuyer.co.uk/*  https://rapidhousebuyer.co.uk/:splat 301!
+http://rapidhousebuyer.co.uk/*      https://rapidhousebuyer.co.uk/:splat 301!
