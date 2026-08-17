@@ -42,9 +42,13 @@ pages/                      Secondary pages: about, contact, faq, how-it-works, 
                              "situation" (repossession, probate, landlords, debt, divorce, urgent-sale,
                              relocation), plus locations.html (hub), blog.html, legal pages (privacy, terms,
                              cookies, complaints)
-locations/                  One HTML page per London borough + notable sub-area (~60 pages), e.g.
-                             locations/hackney.html, locations/canary-wharf.html. These are generated from a
-                             repeating template — same structure, different place names/copy.
+locations/                  One HTML page per London borough + notable sub-area (~60 pages) plus ~60 M25-corridor
+                             town pages across Hertfordshire, Essex, Kent, Surrey, Buckinghamshire and Berkshire
+                             (120 pages total), e.g. locations/hackney.html, locations/watford.html. These follow
+                             a shared structural template, but each carries genuinely distinct per-location data
+                             (prices, transport, landmarks, testimonial, seller-profile copy) rather than a pure
+                             name find/replace — see gen/towns_data.py and gen/generate.py for the M25 town-page
+                             generator and its source data.
 ```
 
 ### Content architecture
