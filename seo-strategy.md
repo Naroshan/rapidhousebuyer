@@ -20,12 +20,18 @@ rapidhousebuyer.co.uk/
 │   ├── relocation.html
 │   ├── contact.html
 │   ├── faq.html                  (FAQPage schema)
-│   ├── locations.html            (Locations hub)
-│   └── blog.html                 (Content hub)
+│   ├── locations.html            (Locations hub — 120 links, grouped London + 6 M25 counties)
+│   ├── blog.html                 (Content hub)
+│   └── [complaints/privacy/terms/cookies]
+├── gen/
+│   ├── towns_data.py             (Source data for M25 town-page generation)
+│   └── generate.py               (Generator script — reuse this pattern for future location pages)
 └── locations/
-    ├── [33 borough pages]        (Priority 0.85)
-    └── [72 sub-area pages]       (Priority 0.7)
+    ├── [60 London borough/sub-area pages]  (Priority 0.85)
+    └── [60 M25-corridor town pages]        (Priority 0.7 — Herts, Essex, Kent, Surrey, Bucks, Berks)
 ```
+
+Coverage note: the business now positions as **England & Wales**-wide (not London-only) — deepest expertise in the 32 London boroughs plus the M25 corridor, with the rest of England & Wales served but without dedicated location pages. Homepage/about/hero copy and JSON-LD `areaServed` already reflect this; keyword targeting below should too.
 
 ## 2. Target Keyword Clusters
 
@@ -34,7 +40,9 @@ rapidhousebuyer.co.uk/
 |---|---|---|
 | sell house fast london | homepage | 2,400 |
 | cash property buyers london | homepage | 1,600 |
+| we buy any house | homepage | 1,900 |
 | quick house sale london | homepage | 1,200 |
+| cash house buyers | homepage / services.html | 720 |
 | sell property fast for cash london | homepage | 900 |
 | stop repossession london | repossession.html | 1,100 |
 | sell house repossession notice | repossession.html | 800 |
@@ -49,11 +57,12 @@ rapidhousebuyer.co.uk/
 | urgent house sale london | urgent-sale.html |
 | sell house relocation london | relocation.html |
 
-### Tier 3 — Location Pages (x105 pages)
-Pattern: "cash property buyers [borough/area]", "sell house fast [area]", "quick sale [area] london"
+### Tier 3 — Location Pages (x120 pages)
+- London boroughs/sub-areas (60 pages): "cash property buyers [borough]", "sell house fast [area]", "quick sale [area] london"
+- M25-corridor towns (60 pages, Herts/Essex/Kent/Surrey/Bucks/Berks): "cash house buyers [town]", "sell house fast [town]", "we buy houses [town]"
 
 ### Tier 4 — Informational / Blog
-Pattern: how-to guides on repossession, probate, landlord exit, london market analysis
+Pattern: how-to guides on repossession, probate, landlord exit, England & Wales property market analysis, plus "property buying company" (590/mo, informational — currently untargeted, good blog fit)
 
 ## 3. Topical Authority Clusters
 
@@ -81,10 +90,10 @@ Pattern: how-to guides on repossession, probate, landlord exit, london market an
 - Intent: informational + transactional
 
 ### Cluster E: Location Pages
-- Core: locations.html
-- Spokes: all 33 borough pages
-- Sub-spokes: 72+ sub-area pages
-- Each borough page links to related service pages
+- Core: locations.html (sectioned by London boroughs, then by M25 county)
+- Spokes: 60 London borough/sub-area pages
+- Spokes: 60 M25-corridor town pages (Hertfordshire, Essex, Kent, Surrey, Buckinghamshire, Berkshire)
+- Each location page links to related service pages and to nearby location pages
 
 ## 4. Internal Linking Strategy
 
@@ -149,35 +158,34 @@ Pattern: how-to guides on repossession, probate, landlord exit, london market an
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 ```
 
-### URL Structure (Production)
-Remove `.html` extensions and use clean URLs:
-- `/pages/repossession.html` → `/repossession/`
-- `/locations/camden.html` → `/locations/camden/`
-- Configure via .htaccess or server redirects
+### URL Structure ✓
+Netlify's default pretty-URL behaviour already serves clean URLs without needing an explicit rewrite rule — canonical tags, internal links, and JSON-LD all use extensionless paths (`/locations/camden`, `/pages/repossession`) while the actual files remain `.html` on disk. Non-www is forced to the canonical `https://rapidhousebuyer.co.uk` host via `_redirects` (301). Nothing further needed here.
 
 ### Canonical Tags ✓
-All pages have canonical tags — ensure these match production URLs exactly.
+All pages have canonical tags matching the extensionless production URLs.
 
 ### Hreflang
-Not required (English-language UK site only).
+Not required (English-language site, England & Wales only).
 
 ## 7. EEAT Signals (Experience, Expertise, Authoritativeness, Trustworthiness)
 
 ### Implemented
-- ✓ Named team members with credentials (Mark Patel MRICS, etc.)
-- ✓ Founding date and years of operation stated
-- ✓ NAPB membership prominently displayed
-- ✓ TPO registration with complaint escalation path
-- ✓ ICO registration number
-- ✓ Company registration number
+- ✓ Founding date and years of operation stated ("direct cash buyer since 2012")
+- ✓ In-house RICS-accredited surveyors mentioned (no named individual credential — avoid inventing one)
+- ✓ NAPB, TPO and ICO membership prominently displayed
+- ✓ Trading style disclosure: "Rapid House Buyer is a trading style and subsidiary of The LeadGenCo LTD" (Companies House no. 17274904)
 - ✓ Physical office address (30 St Mary Axe)
-- ✓ Review schema with AggregateRating
-- ✓ Verified review labels on testimonials
+- ✓ Review schema with AggregateRating (4.9★ stated)
 - ✓ Transparent pricing disclosure (75-85% of market value)
 - ✓ "We recommend independent advice" statements
 
+### Needs verification before further reliance (flagged, not yet confirmed)
+- [ ] NAPB / TPO / ICO membership numbers — currently stated but not individually verified against the registers
+- [ ] "347+ properties since 2012" and "4.9★" stats — need a source or should be softened/removed if unverifiable
+- [ ] Testimonial authenticity/consent
+
 ### Still to Implement
-- [ ] Add author bylines with credentials to blog posts
+- [ ] Add author bylines to blog posts (with real, verifiable credentials only)
 - [ ] Obtain and embed Google Business Profile reviews
 - [ ] Add Trustpilot widget with live review count
 - [ ] Add company photo (registered office) to About page
@@ -196,6 +204,7 @@ Not required (English-language UK site only).
 - "London Property Market By Borough: 2025 Analysis"
 - "Best and Worst London Boroughs to Sell Property in 2025"
 - "The Impact of Crossrail/Elizabeth Line on Property Values by Station"
+- "Selling Property Along the M25 Corridor: A Town-by-Town Guide" (ties into the 60 new M25 town pages)
 
 ### Month 7-9: Legal/Financial Depth
 - "Capital Gains Tax When Selling a Buy-to-Let Property in London"
@@ -216,11 +225,12 @@ Not required (English-language UK site only).
 - Add urgency: show office hours and "We respond within 2 hours" prominently
 
 ### WhatsApp First Strategy
-- WhatsApp float button visible on all pages ✓
+- WhatsApp float button visible on all pages (desktop) ✓
+- Persistent mobile contact bar (call + WhatsApp) replaces the float on screens ≤768px ✓
 - Nav WhatsApp button on desktop ✓
 - WhatsApp as primary CTA in urgent pages (repossession) ✓
 - Pre-filled WhatsApp message text ✓
-- Track WhatsApp clicks separately from form submissions in GA4
+- Track WhatsApp clicks separately from form submissions in GA4 (not yet instrumented — see §12)
 
 ### Trust Trigger Sequencing
 Homepage scroll order optimised:
@@ -285,21 +295,25 @@ document.addEventListener('mouseleave', (e) => {
 
 ## 12. Analytics & Tracking Setup
 
-### GA4 Events to Track
+### Tag management ✓
+Google Tag Manager (container `GTM-ML5MZDK3`) is installed sitewide — the loader snippet in every page's `<head>` plus the `<noscript>` iframe immediately after `<body>`. All tag config (GA4, Google Ads conversion tag, triggers) lives in the GTM container itself, not in this repo. GTM does not expose a global `gtag()` — pages must never call `gtag(...)` directly.
+
+### Events pushed from page JS
 ```js
-// Key conversion events
-gtag('event', 'form_submit', { event_category: 'Lead', value: 1 });
-gtag('event', 'phone_click', { event_category: 'Contact' });
-gtag('event', 'whatsapp_click', { event_category: 'Contact' });
-gtag('event', 'scroll_depth', { percent: 50 }); // 50%, 75%, 100%
-gtag('event', 'form_start', { event_category: 'Engagement' });
+// Enquiry form success handler (homepage + every locations/*.html copy)
+window.dataLayer.push({ event: 'generate_lead', event_category: 'Lead' });
 ```
+`generate_lead` is the GA4-recommended event name and is what the Google Ads "Submit lead form" conversion action is wired to in GTM — keep this name in sync with the GTM trigger if either side changes.
+
+### Still to instrument (not yet in page JS)
+- [ ] phone_click (tel: link clicks)
+- [ ] whatsapp_click (wa.me link clicks)
+- [ ] scroll_depth (50%/75%/100%)
+- [ ] form_start (on first field focus)
 
 ### Google Ads Conversion Tracking
-- Form submission: high value conversion (£50 CPA target)
-- Phone click: micro-conversion
-- WhatsApp click: micro-conversion
-- Page scroll >75%: engagement event
+- `generate_lead`: primary conversion, confirm it shows "Recording" (not "Unverified") in the Ads UI
+- Phone click / WhatsApp click: intended as micro-conversions once instrumented above
 
 ### Search Console Setup
 - Verify via DNS TXT record
@@ -326,4 +340,4 @@ gtag('event', 'form_start', { event_category: 'Engagement' });
 
 ---
 
-*Strategy document prepared for rapidhousebuyer.co.uk. Review quarterly.*
+*Strategy document prepared for rapidhousebuyer.co.uk. Review quarterly. Last synced to live site: 2026-08-20 (120 location pages, England & Wales positioning, GTM/dataLayer analytics).*
