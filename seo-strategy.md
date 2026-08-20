@@ -67,6 +67,33 @@ Coverage note: the business now positions as **England & Wales**-wide (not Londo
 - Live: how-fast-can-you-sell-a-house-uk.html (sell house fast, average time to sell a house uk, how long to sell a house uk), what-is-a-property-buying-company.html (property buying company), property-valuation-guide.html (property valuation london, house valuation uk)
 - Pattern for future posts: how-to guides on repossession, probate, landlord exit, England & Wales property market analysis
 
+### Keyword-to-Page Map
+
+One primary target URL per keyword cluster, so each high-value topic has a single defined ranking destination rather than competing pages. Search intent: **C** = commercial (buyer/seller ready to act), **I** = informational (research stage).
+
+| Primary keyword | Secondary variants | Intent | Target URL | Conversion goal |
+|---|---|---|---|---|
+| sell house fast uk | sell house uk, sell my house, selling my house, sell house quickly | C/I | / (homepage) | `generate_lead` form submit |
+| cash house buyers | we buy any house, cash property buyers uk | C | / , /pages/services.html | form submit / call |
+| property buying company | the property buying company (competitor brand — do not target directly) | I | /blog/what-is-a-property-buying-company.html | click-through to /pages/services.html |
+| value my house uk | house worth uk, house valuation uk, house valuation london | C/I | /pages/how-it-works.html (commercial), /blog/property-valuation-guide.html (informational) | form submit / read-through |
+| average time to sell a house uk | how long to sell a house uk, selling a house | I | /blog/how-fast-can-you-sell-a-house-uk.html | click-through to /#valuation-form |
+| stop repossession | sell house repossession notice | C | /pages/repossession.html | form submit / call (highest urgency) |
+| sell house probate | probate property sale | C | /pages/probate.html | form submit |
+| landlord sell property fast | sell tenanted property | C | /pages/landlords.html | form submit |
+| sell house due to debt | avoid bankruptcy sale | C | /pages/debt.html | form submit |
+| urgent house sale | sell house quickly (deadline-driven) | C | /pages/urgent-sale.html | form submit / call |
+| sell house divorce | divorce property sale fast | C | /pages/divorce.html | form submit |
+| sell house relocation | sell house moving abroad | C | /pages/relocation.html | form submit |
+| cash property buyers [area] | sell house fast [area], quick sale [area] | C | /locations/[slug].html (120 pages) | form submit / call |
+| sell my house fast london | sell house fast london | C | /pages/faq.html | form submit / call |
+
+Not yet mapped to a page (tracked for future content, no dedicated URL currently): capital gains tax selling rental property, inheritance tax selling property, Renters Reform Bill impact for landlords — see §8 Blog Content Strategy.
+
+**Cannibalization check**: "sell house fast" variants are intentionally split by qualifier — the bare/UK-wide phrase on the homepage, borough/town-qualified phrases on location pages, and the pure timeline question ("how long/average time to sell") on the blog post — so no two indexed pages should compete for an identical exact-match query.
+
+**Still needed**: Google Search Console isn't connected in this environment, so the map above hasn't been validated against actual impression data per Semrush's step 4 (checking which existing pages already receive impressions for these themes, to catch real-world cannibalization the table above can't see from content alone). Pull that from Search Console's Performance report (filter by query, group by page) and flag anything showing 2+ indexed pages both getting impressions for the same query.
+
 ## 3. Topical Authority Clusters
 
 ### Cluster A: Cash Property Buyers
