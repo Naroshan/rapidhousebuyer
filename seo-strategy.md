@@ -21,14 +21,16 @@ rapidhousebuyer.co.uk/
 │   ├── contact.html
 │   ├── faq.html                  (FAQPage schema)
 │   ├── locations.html            (Locations hub — 120 links, grouped London + 6 M25 counties)
-│   ├── blog.html                 (Content hub)
+│   ├── blog.html                 (Property Insights hub — card grid linking to blog/*.html)
 │   └── [complaints/privacy/terms/cookies]
 ├── gen/
 │   ├── towns_data.py             (Source data for M25 town-page generation)
 │   └── generate.py               (Generator script — reuse this pattern for future location pages)
-└── locations/
-    ├── [60 London borough/sub-area pages]  (Priority 0.85)
-    └── [60 M25-corridor town pages]        (Priority 0.7 — Herts, Essex, Kent, Surrey, Bucks, Berks)
+├── locations/
+│   ├── [60 London borough/sub-area pages]  (Priority 0.85)
+│   └── [60 M25-corridor town pages]        (Priority 0.7 — Herts, Essex, Kent, Surrey, Bucks, Berks)
+└── blog/                         (Priority 0.7 — one page per post, Article + BreadcrumbList JSON-LD,
+                                    Organization author — no named individual to attribute posts to)
 ```
 
 Coverage note: the business now positions as **England & Wales**-wide (not London-only) — deepest expertise in the 32 London boroughs plus the M25 corridor, with the rest of England & Wales served but without dedicated location pages. Homepage/about/hero copy and JSON-LD `areaServed` already reflect this; keyword targeting below should too.
@@ -61,8 +63,9 @@ Coverage note: the business now positions as **England & Wales**-wide (not Londo
 - London boroughs/sub-areas (60 pages): "cash property buyers [borough]", "sell house fast [area]", "quick sale [area] london"
 - M25-corridor towns (60 pages, Herts/Essex/Kent/Surrey/Bucks/Berks): "cash house buyers [town]", "sell house fast [town]", "we buy houses [town]"
 
-### Tier 4 — Informational / Blog
-Pattern: how-to guides on repossession, probate, landlord exit, England & Wales property market analysis, plus "property buying company" (590/mo, informational — currently untargeted, good blog fit)
+### Tier 4 — Informational / Blog (blog/*.html, linked from pages/blog.html hub)
+- Live: how-fast-can-you-sell-a-house-uk.html (sell house fast, average time to sell a house uk, how long to sell a house uk), what-is-a-property-buying-company.html (property buying company), property-valuation-guide.html (property valuation london, house valuation uk)
+- Pattern for future posts: how-to guides on repossession, probate, landlord exit, England & Wales property market analysis
 
 ## 3. Topical Authority Clusters
 
