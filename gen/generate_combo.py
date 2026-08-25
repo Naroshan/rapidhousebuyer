@@ -23,20 +23,39 @@ def extract_location_data(slug):
     path = os.path.join(LOCATIONS_DIR, f"{slug}.html")
     html = open(path, encoding="utf-8").read()
 
-    name_m = re.search(r'<title>Sell (?:Your )?([^|<]*?)(?:Property Fast for Cash|Fast for Cash)', html)
+    # Name: pull from the BreadcrumbList schema's position-3 entry -- this is
+    # the one field that's consistent across all three location-page template
+    # generations the site has accumulated (rich borough pages, sub-area
+    # pages, M25-town generator pages).
+    name_m = re.search(r'"position":3,"name":"([^"]+)"', html)
     if not name_m:
         raise ValueError(f"Could not extract name for {slug}")
     name = name_m.group(1).strip()
 
+    # Zone/region: try the explicit Zone:/County: sidebar label first, then
+    # the hero label (used on sub-area pages, e.g. "West London — Ealing"),
+    # then fall back to a generic phrase.
     zone_m = re.search(r'(?:Zone|County):</strong>\s*([^<]+)', html)
-    zone = zone_m.group(1).strip() if zone_m else "the surrounding area"
+    if zone_m:
+        zone = zone_m.group(1).strip()
+    else:
+        label_m = re.search(r'page-hero__label">([^<]+)</div>', html)
+        zone = label_m.group(1).strip() if label_m else "the surrounding area"
 
+    # Price: try the flat/house pair first (rich borough + M25 town pages),
+    # then fall back to the single "Average Property Price" figure used on
+    # sub-area pages.
     flat_m = re.search(r'Avg flat:</strong>\s*([^<]+)', html)
     house_m = re.search(r'Avg house:</strong>\s*([^<]+)', html)
     flat = flat_m.group(1).strip() if flat_m else None
     house = house_m.group(1).strip() if house_m else None
+    single_price = None
+    if not (flat and house):
+        single_m = re.search(r'Average Property Price[^£]*£([\d,]+)', html)
+        if single_m:
+            single_price = f"£{single_m.group(1)}"
 
-    return {"slug": slug, "name": name, "zone": zone, "flat": flat, "house": house}
+    return {"slug": slug, "name": name, "zone": zone, "flat": flat, "house": house, "single_price": single_price}
 
 
 def render_faq_schema(faq_pairs):
@@ -239,6 +258,14 @@ def render_page(loc_slug, sit_slug):
       <div class="local-facts">
         <div class="local-fact"><div class="local-fact__val">{loc["flat"]}</div><div class="local-fact__lbl">Avg Flat Price in {loc["name"]}</div></div>
         <div class="local-fact"><div class="local-fact__val">{loc["house"]}</div><div class="local-fact__lbl">Avg House Price in {loc["name"]}</div></div>
+      </div>
+    </div>
+  </section>'''
+    elif loc.get("single_price"):
+        local_facts_html = f'''  <section class="section section--charcoal" style="padding:1.5rem 0">
+    <div class="container">
+      <div class="local-facts">
+        <div class="local-fact"><div class="local-fact__val">{loc["single_price"]}</div><div class="local-fact__lbl">Average Property Price in {loc["name"]}</div></div>
       </div>
     </div>
   </section>'''

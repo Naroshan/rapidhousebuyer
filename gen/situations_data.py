@@ -31,7 +31,7 @@ SITUATIONS = {
         "label": "Probate",
         "h1": "Sell a Probate Property Fast in {place}",
         "lead": "We handle inherited {place} properties sensitively, working alongside executors and local solicitors to achieve a clean, uncomplicated sale.",
-        "meta_title": "Sell a Probate Property Fast in {place} | Rapid House Buyer",
+        "meta_title": "Probate Sale in {place} | Rapid House Buyer",
         "meta_desc": "Selling an inherited or probate property in {place}? Rapid House Buyer offers fast, discreet cash purchases in any condition. Free offer within 2 hours.",
         "local_para": "We regularly handle probate sales across {place} and the wider {zone} area, working with local solicitors and executors who are familiar with the {place} property market and its typical stock.",
         "sections": [
@@ -77,7 +77,7 @@ SITUATIONS = {
         "label": "Selling Due to Debt",
         "h1": "Sell Your {place} House Fast Due to Debt",
         "lead": "A fast cash sale can provide the financial reset {place} homeowners need — clearing secured debts and stopping creditor action.",
-        "meta_title": "Sell Your {place} House Fast Due to Debt | Rapid House Buyer",
+        "meta_title": "{place} House Sale for Debt | Rapid House Buyer",
         "meta_desc": "Struggling with debt in {place}? A fast cash sale can clear secured debts and stop creditor action. Zero fees, complete discretion. Call 020 7199 1698.",
         "local_para": "We work with {place} homeowners facing mortgage arrears, secured loan defaults, and CCJs, with same-day valuations available across {zone} so you can act before a forced sale takes control of the timeline out of your hands.",
         "sections": [
@@ -123,7 +123,7 @@ SITUATIONS = {
         "label": "Divorce Sale",
         "h1": "Selling a {place} Property During Divorce",
         "lead": "A swift, agreed cash sale of your {place} property removes the main source of dispute and lets both parties move forward cleanly.",
-        "meta_title": "Selling a {place} Property During Divorce | Rapid House Buyer",
+        "meta_title": "{place} Property Sale — Divorce | Rapid House Buyer",
         "meta_desc": "Selling a property during divorce in {place}? A fast, agreed cash sale removes the main point of contention. Zero fees, complete discretion.",
         "local_para": "We work with separating couples across {place} and the wider {zone} area, liaising through solicitors on both sides where preferred, and structuring proceeds however the parties agree.",
         "sections": [
