@@ -1,4 +1,5 @@
 import os, sys, json
+from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(__file__))
 from postcode_pilot_data import POSTCODES
@@ -30,6 +31,7 @@ def render_page(slug, d):
     character = d["character"]
     nearby = [n for n in d["nearby"] if n != slug]
     faqs = render_faq(code, area_name, parent_name, parent_slug)
+    wa_text = quote(f"Hi, I'd like a cash offer for my {code} property")
 
     title = f"Sell Your House Fast in {code} | Rapid House Buyer"
     meta_desc = f"Cash property buyers in {code} ({area_name}). Same-day valuation, 24hr exchange, zero fees. Call 020 7199 1698."
@@ -140,7 +142,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="page-hero__sub">{code} covers {area_name}, part of the London Borough of {parent_name}. We are direct cash buyers across {code} with same-day survey capability and 24-hour exchange available when urgency demands it.</p>
     <div class="page-hero__ctas">
       <a href="#enquiry" class="btn btn--primary btn--lg">Get a Free {code} Cash Offer</a>
-      <a href="https://wa.me/442071991698" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp Us</a>
+      <a href="https://wa.me/442071991698?text={wa_text}" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp Us</a>
       <a href="tel:+442071991698" class="btn btn--outline btn--lg">&#128222; 020 7199 1698</a>
     </div>
   </div>

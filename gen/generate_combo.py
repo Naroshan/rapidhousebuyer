@@ -10,6 +10,7 @@ Usage: python3 gen/generate_combo.py <location-slug> [<location-slug> ...]
        python3 gen/generate_combo.py --all
 """
 import os, re, sys, html as htmllib
+from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
 from situations_data import SITUATIONS, SITUATION_LABELS
 
@@ -163,7 +164,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h1>{h1}</h1>
       <p class="lead">{lead}</p>
       <a href="/#valuation-form" class="btn btn--primary">Get a Free Cash Offer</a>
-      <a href="https://wa.me/442071991698" class="btn btn--wa" target="_blank">WhatsApp Us</a>
+      <a href="https://wa.me/442071991698?text={wa_text}" class="btn btn--wa" target="_blank">WhatsApp Us</a>
     </div>
   </div>
   <div class="content-section">
@@ -278,13 +279,14 @@ def render_page(loc_slug, sit_slug):
     faq_schema = render_faq_schema([(q, a) for q, a in sit["faq"]])
     lb_schema = render_local_business_schema(loc, sit_slug, f"https://rapidhousebuyer.co.uk/locations/{loc_slug}/{sit_slug}")
     bc_schema = render_breadcrumb_schema(loc, sit)
+    wa_text = quote(f"Hi, I'd like a cash offer for my {loc['name']} property regarding {sit['label'].lower()}")
 
     return PAGE_TEMPLATE.format(
         meta_title=fmt(sit["meta_title"]), meta_desc=fmt(sit["meta_desc"]),
         loc_slug=loc_slug, sit_slug=sit_slug, loc_name=loc["name"], sit_label=sit["label"],
         h1=fmt(sit["h1"]), lead=fmt(sit["lead"]), local_para=fmt(sit["local_para"]),
         sections_html=sections_html, faq_html=faq_html, local_facts_html=local_facts_html,
-        related_pills=related_pills, font_url=FONT_URL,
+        related_pills=related_pills, font_url=FONT_URL, wa_text=wa_text,
         faq_schema=faq_schema, local_business_schema=lb_schema, breadcrumb_schema=bc_schema,
     )
 
