@@ -42,3 +42,16 @@ html[data-region-blocked="true"] .region-block-banner a{display:inline!important
 .cookie-banner p{color:#c7ced8}
 .cookie-banner a{color:#93c5fd}
 .valuation-form:not(.hero__form-wrap .valuation-form){box-shadow:0 8px 40px rgba(15,23,42,.08)}
+
+/* --- Full location x situation directory (internal-linking hub) --- */
+.directory{display:flex;flex-direction:column;gap:.75rem}
+.directory__group{background:var(--bg-card);border:1px solid var(--border-faint);border-radius:var(--r12);padding:0 1.25rem}
+.directory__summary{cursor:pointer;padding:1rem 0;font-weight:600;font-size:.95rem;color:var(--txt-dark);list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.directory__summary::-webkit-details-marker{display:none}
+.directory__summary::after{content:'+';font-size:1.2rem;font-weight:400;color:var(--gold-mid);flex-shrink:0}
+.directory__group[open] .directory__summary::after{content:'\2212'}
+.directory__count{font-weight:500;font-size:.8rem;color:var(--txt-muted);margin-left:auto;margin-right:.75rem}
+.directory__links{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem .75rem;padding:0 0 1.25rem}
+.directory__links a{font-size:.825rem;color:#4b5563;text-decoration:none;padding:2px 0}
+.directory__links a:hover{color:var(--gold-mid);text-decoration:underline}
+@media (max-width:600px){.directory__links{grid-template-columns:repeat(2,1fr)}}
