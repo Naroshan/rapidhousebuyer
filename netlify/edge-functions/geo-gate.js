@@ -23,13 +23,13 @@ const BLOCKED_PAGE_HTML = `<!doctype html>
 <title>Not Available in Your Region | Rapid House Buyer</title>
 <style>
   body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:#0a0a0a;color:#f8f7f2;font-family:-apple-system,'Segoe UI',sans-serif;
+    background:#f7f9fc;color:#1f2937;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;
     text-align:center;padding:2rem}
   .box{max-width:480px}
-  h1{font-family:Georgia,'Playfair Display',serif;font-size:1.6rem;font-weight:600;
-    margin-bottom:1rem;color:#f8f7f2}
-  p{font-size:.95rem;line-height:1.7;color:#c0c0c0}
-  a{color:#c9a84c}
+  h1{font-family:'DM Sans',-apple-system,sans-serif;font-size:1.6rem;font-weight:600;
+    margin-bottom:1rem;color:#111827}
+  p{font-size:.95rem;line-height:1.7;color:#4b5563}
+  a{color:#2563eb}
 </style>
 </head>
 <body>
