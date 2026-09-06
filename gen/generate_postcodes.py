@@ -60,6 +60,13 @@ def render_page(slug, d):
         for n in nearby
     )
 
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
+    from situations_data import SITUATIONS
+    situation_links = "\n".join(
+        f'        <a href="/locations/{slug}/{sit_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">{sit_data["label"]}</a>'
+        for sit_slug, sit_data in SITUATIONS.items()
+    )
+
     html = f"""<!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -193,6 +200,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </form>
   </div>
 </section>
+
+  <section class="section section--charcoal" style="padding:2rem 0;">
+    <div class="container">
+      <h2 style="font-family:'DM Sans',-apple-system,sans-serif;font-size:1.2rem;font-weight:600;color:#111827;margin-bottom:1.25rem;letter-spacing:-.01em;">Situations We Help With in {code}</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:.625rem;">
+{situation_links}
+      </div>
+    </div>
+  </section>
 
   <section class="section section--charcoal nearby-areas" style="padding:2.5rem 0;">
     <div class="container">

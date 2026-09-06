@@ -16,7 +16,7 @@ from situations_data import SITUATIONS, SITUATION_LABELS
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOCATIONS_DIR = os.path.join(ROOT, "locations")
 
-FONT_URL = "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+FONT_URL = "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
 
 
 def extract_location_data(slug):
@@ -107,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#f7f9fc">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>{meta_title}</title>
 <meta name="description" content="{meta_desc}">
@@ -150,16 +150,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-inner">
     <a href="/" class="logo__main">Rapid <em>House</em> Buyer<span class="logo__sub">Cash Property Buyers &middot; England &amp; Wales</span></a>
     <nav style="display:flex;gap:1.5rem;font-size:.825rem;">
-      <a href="/pages/how-it-works" style="color:#c0c0c0;text-decoration:none;">How It Works</a>
-      <a href="/pages/about" style="color:#c0c0c0;text-decoration:none;">About</a>
-      <a href="/pages/contact" style="color:#c0c0c0;text-decoration:none;">Contact</a>
+      <a href="/pages/how-it-works" style="color:#4b5563;text-decoration:none;">How It Works</a>
+      <a href="/pages/about" style="color:#4b5563;text-decoration:none;">About</a>
+      <a href="/pages/contact" style="color:#4b5563;text-decoration:none;">Contact</a>
     </nav>
   </div>
 </header>
 <main>
   <div class="page-hero">
     <div class="container">
-      <p style="font-size:.75rem;color:#c9a84c;margin-bottom:.5rem;"><a href="/locations/{loc_slug}" style="color:#c9a84c;text-decoration:none;">&larr; {loc_name}</a></p>
+      <p style="font-size:.75rem;color:#2563eb;margin-bottom:.5rem;"><a href="/locations/{loc_slug}" style="color:#2563eb;text-decoration:none;">&larr; {loc_name}</a></p>
       <h1>{h1}</h1>
       <p class="lead">{lead}</p>
       <a href="/#valuation-form" class="btn btn--primary">Get a Free Cash Offer</a>
@@ -172,7 +172,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {sections_html}
       <h2>Frequently Asked Questions</h2>
 {faq_html}
-      <p>To get started, <a href="/#valuation-form" style="color:#c9a84c;">request your free cash offer</a> or call us on <a href="tel:+442071991698" style="color:#c9a84c;">020 7199 1698</a>.</p>
+      <p>To get started, <a href="/#valuation-form" style="color:#2563eb;">request your free cash offer</a> or call us on <a href="tel:+442071991698" style="color:#2563eb;">020 7199 1698</a>.</p>
     </div>
   </div>
 
@@ -180,7 +180,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="content-section" style="padding:1.5rem 0 1rem;">
     <div class="container">
-      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:.875rem;">Other Situations We Help With in {loc_name}</p>
+      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563eb;margin-bottom:.875rem;">Other Situations We Help With in {loc_name}</p>
       <div style="display:flex;flex-wrap:wrap;gap:.625rem;">
 {related_pills}
       </div>
@@ -189,11 +189,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="content-section" style="padding:1.5rem 0 2rem;">
     <div class="container">
-      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:.875rem;">More on {sit_label}</p>
+      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563eb;margin-bottom:.875rem;">More on {sit_label}</p>
       <div style="display:flex;flex-wrap:wrap;gap:.625rem;">
-        <a href="/pages/{sit_slug}" style="display:inline-block;padding:7px 14px;background:#181818;border:1px solid rgba(184,146,42,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#c9a84c;text-decoration:none;">{sit_label} &mdash; Full Guide</a>
-        <a href="/locations/{loc_slug}" style="display:inline-block;padding:7px 14px;background:#181818;border:1px solid rgba(184,146,42,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#c9a84c;text-decoration:none;">All {loc_name} Services</a>
-        <a href="/pages/locations" style="display:inline-block;padding:7px 14px;background:rgba(184,146,42,.1);border:1px solid rgba(184,146,42,.35);border-radius:9999px;font-size:.775rem;font-weight:500;color:#c9a84c;text-decoration:none;">All Locations &rarr;</a>
+        <a href="/pages/{sit_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">{sit_label} &mdash; Full Guide</a>
+        <a href="/locations/{loc_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">All {loc_name} Services</a>
+        <a href="/pages/locations" style="display:inline-block;padding:7px 14px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.35);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">All Locations &rarr;</a>
       </div>
     </div>
   </div>
@@ -271,7 +271,7 @@ def render_page(loc_slug, sit_slug):
   </section>'''
 
     related_pills = "\n".join(
-        f'        <a href="/locations/{loc_slug}/{r}" style="display:inline-block;padding:7px 14px;background:#181818;border:1px solid rgba(184,146,42,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#c9a84c;text-decoration:none;">{SITUATION_LABELS[r]} in {loc["name"]}</a>'
+        f'        <a href="/locations/{loc_slug}/{r}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">{SITUATION_LABELS[r]} in {loc["name"]}</a>'
         for r in sit["related"]
     )
 
