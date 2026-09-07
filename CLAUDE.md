@@ -113,7 +113,9 @@ Several parts of `locations/` are generated from data files rather than hand-aut
 hand-editing generated output, will either be silently clobbered on the next run or drift out of sync with its
 siblings:
 
-- `gen/generate.py` + `gen/towns_data.py` — the 60 M25-corridor town pages.
+- `gen/generate.py` + `gen/towns_data.py` — the 60 M25-corridor town pages. `TOWNS` is a dict keyed by slug with
+  descriptive field names (`m25_junction`, `distance_miles`, `rental_yield`, `testimonial_*`), matching the
+  convention below — not the list-of-dicts-with-a-repeated-slug-field shape it used to be.
 - `gen/generate_combo.py` + `gen/situations_data.py` — the 896 Service x Location combo pages
   (`locations/{slug}/{situation}.html`) for every base location (boroughs, sub-areas, M25 towns, and the 8
   postcode-pilot pages alike). Usage: `python3 gen/generate_combo.py <location-slug> [...]` or `--all` to
