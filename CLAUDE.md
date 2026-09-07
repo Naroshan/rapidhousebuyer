@@ -89,8 +89,13 @@ blog/                       One HTML page per blog post (e.g. blog/how-fast-can-
   across all of them. The 120 borough/sub-area/M25-town pages are static, hand-duplicated files (not
   regenerated from `gen/generate.py` — see "Generators" below for why); the 8 postcode-pilot pages *are*
   generator-produced from `gen/generate_postcodes.py` and should be edited via that generator, not by hand.
-- **Structured data**: pages carry JSON-LD (`@graph` with `LocalBusiness`, etc.) in `<head>` — keep NAP
-  (name/address/phone) and business details consistent across pages when editing.
+- **Structured data**: JSON-LD in `<head>` on effectively every page (1,046 of 1,047 HTML files carry
+  `BreadcrumbList`). The homepage is the one exception that bundles everything into a single `"@graph"` array
+  (`LocalBusiness`, `WebSite`+`SearchAction`, `FAQPage`); every other page — all 128 base location pages, all
+  896 combo pages, the situation/blog/legal pages — instead emits 2-3 separate `<script type="application/
+  ld+json">` blocks (typically `FAQPage`, `LocalBusiness`, `BreadcrumbList`), not a single `@graph`. Don't
+  assume the `@graph` pattern when copying homepage head markup to another page. Keep NAP (name/address/phone)
+  and business details consistent across pages when editing.
 - **Analytics**: Google Tag Manager is installed on every page — the loader script inline in `<head>` plus a
   `<noscript>` iframe right after the opening `<body>` tag, container ID `GTM-ML5MZDK3`. Preserve both
   snippets and the container ID when copying/editing head/body markup. GTM does not expose a global `gtag()`
