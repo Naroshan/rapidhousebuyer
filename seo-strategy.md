@@ -24,7 +24,10 @@ rapidhousebuyer.co.uk/
 │   ├── blog.html                 (Property Insights hub — card grid linking to blog/*.html)
 │   └── [complaints/privacy/terms/cookies]
 ├── gen/
-│   ├── towns_data.py             (Source data for M25 town-page generation)
+│   ├── towns_data.py             (Source data for M25 town-page generation — a dict keyed by slug with
+│   │                               descriptive field names, matching situations_data.py /
+│   │                               postcode_pilot_data.py's convention, not the list-of-dicts shape it
+│   │                               used to be)
 │   ├── generate.py               (M25 town-page generator)
 │   ├── situations_data.py        (Content source for the Service x Location combo pages)
 │   ├── generate_combo.py         (Combo-page generator — one page per situation per location, 896 pages)
