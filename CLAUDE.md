@@ -31,7 +31,13 @@ seo-strategy.md             SEO/content strategy notes (keyword clusters, intern
 css/
   main.css                  Production stylesheet actually linked from every page's <head> — minified,
                              single-line, so `wc -l` misleadingly reports 0/1 lines; check byte size instead
-  pages.css                 Minified per-page-type overrides, linked alongside main.css on `pages/*.html`
+  pages.css                 Minified per-page-type overrides, linked alongside main.css — not just on
+                             `pages/*.html` as the name suggests, but also on all 896 combo pages
+                             (`locations/{slug}/{situation}.html`) and the blog posts (918 files total).
+                             Redeclares its own `:root` subset (colours, fonts) that takes precedence over
+                             main.css's on every page that loads both, since it's linked second — keep the
+                             two in sync when changing shared tokens (this bit both files during the
+                             light/blue redesign and had to be fixed in each separately)
   style.css, global.css     Stale/unused — use a different, non-matching class naming convention
                              (dash-case `.footer-grid` etc. vs. the BEM `.footer__grid` etc. actually used in
                              the HTML) and are not `<link>`ed from any page. Edit main.css/pages.css directly
