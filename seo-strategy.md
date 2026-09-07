@@ -306,10 +306,14 @@ Not required (English-language site, England & Wales only).
 ## 9. Conversion Optimisation Strategy
 
 ### Form Optimisation
-- A/B test: Short 3-field form vs current 5-field form
+- A/B test: Short 3-field form vs current 5-field form (confirmed current: name, phone, email, postcode,
+  reason-for-selling — 5 real fields, matching the stated baseline)
 - Test: "Get Cash Offer" vs "Get Free Valuation" vs "Request Callback" CTA copy
-- Add social proof near form: "247 homeowners contacted us this month"
-- Add urgency: show office hours and "We respond within 2 hours" prominently
+- Add social proof near form: "247 homeowners contacted us this month" (illustrative copy — do not ship a
+  specific number without a real, current source; see the EEAT "needs verification" list in §7)
+- "We respond within 2 hours" is already shown prominently near the form sitewide ✓ — still outstanding:
+  office hours (08:00-20:00 Mon-Fri, 09:00-17:00 Sat) exist only in JSON-LD `openingHoursSpecification`, not
+  as visible on-page text anywhere
 
 ### WhatsApp First Strategy
 - WhatsApp float button visible on all pages (desktop) ✓
