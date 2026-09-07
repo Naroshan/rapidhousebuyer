@@ -25,10 +25,19 @@ rapidhousebuyer.co.uk/
 │   └── [complaints/privacy/terms/cookies]
 ├── gen/
 │   ├── towns_data.py             (Source data for M25 town-page generation)
-│   └── generate.py               (Generator script — reuse this pattern for future location pages)
+│   ├── generate.py               (M25 town-page generator)
+│   ├── situations_data.py        (Content source for the Service x Location combo pages)
+│   ├── generate_combo.py         (Combo-page generator — one page per situation per location, 896 pages)
+│   ├── postcode_pilot_data.py    (Source data for the 8 inner-London postcode pilot pages)
+│   └── generate_postcodes.py     (Postcode pilot page generator)
 ├── locations/
-│   ├── [60 London borough/sub-area pages]  (Priority 0.85)
-│   └── [60 M25-corridor town pages]        (Priority 0.7 — Herts, Essex, Kent, Surrey, Bucks, Berks)
+│   ├── [60 London borough/sub-area pages]     (Priority 0.85)
+│   ├── [60 M25-corridor town pages]           (Priority 0.7 — Herts, Essex, Kent, Surrey, Bucks, Berks)
+│   ├── [8 postcode-pilot pages]               (Priority 0.7 — N1, E1, SE1, SW11, W10, NW3, E8, SE22; see
+│   │                                            §2 Tier 3b and §12 for the pending Search Console review)
+│   └── [slug]/[situation].html                (896 Service x Location combo pages — 128 locations x 7
+│                                                situations: repossession, probate, landlords, debt,
+│                                                urgent-sale, divorce, relocation. Priority 0.6)
 └── blog/                         (Priority 0.7 — one page per post, Article + BreadcrumbList JSON-LD,
                                     Organization author — no named individual to attribute posts to)
 ```
@@ -59,9 +68,19 @@ Coverage note: the business now positions as **England & Wales**-wide (not Londo
 | urgent house sale london | urgent-sale.html |
 | sell house relocation london | relocation.html |
 
-### Tier 3 — Location Pages (x120 pages)
+### Tier 3 — Location Pages (x120 base pages, x896 combo pages)
 - London boroughs/sub-areas (60 pages): "cash property buyers [borough]", "sell house fast [area]", "quick sale [area] london"
 - M25-corridor towns (60 pages, Herts/Essex/Kent/Surrey/Bucks/Berks): "cash house buyers [town]", "sell house fast [town]", "we buy houses [town]"
+- Service x Location combos (896 pages, `/locations/[slug]/[situation]`): "stop repossession in [area]", "probate property sale [area]", "sell tenanted property [area]" — pairs each of the 7 situation keywords with every location, each with its own genuinely distinct content (real local data, not templated find/replace) and its own on-page enquiry form
+
+### Tier 3b — Postcode Pilot (x8 base pages, x56 combo pages) — pilot, not yet scaled
+Targets postcode-district search intent directly rather than area name, e.g. "sell house fast SW11" alongside
+"sell house fast Battersea": `N1`, `E1`, `SE1`, `SW11`, `W10`, `NW3`, `E8`, `SE22`. Modelled on a competitor's
+location-page architecture where postcode-sector pages were the largest single page bucket. Each postcode page
+cross-links to/from its parent borough page and has its own full situation combo set. See `gen/postcode_pilot_data.py`
+for the area data and CLAUDE.md's "Postcode pilot" section for the full mechanics. **A Search Console review
+(indexing + impressions/clicks for these 64 URLs vs. a comparable borough page) is pending before deciding whether
+to extend this to more postcodes or outer London** — see §12.
 
 ### Tier 4 — Informational / Blog (blog/*.html, linked from pages/blog.html hub)
 - Live: how-fast-can-you-sell-a-house-uk.html (sell house fast, average time to sell a house uk, how long to sell a house uk), what-is-a-property-buying-company.html (property buying company), property-valuation-guide.html (property valuation london, house valuation uk)
@@ -86,6 +105,8 @@ One primary target URL per keyword cluster, so each high-value topic has a singl
 | sell house divorce | divorce property sale fast | C | /pages/divorce.html | form submit |
 | sell house relocation | sell house moving abroad | C | /pages/relocation.html | form submit |
 | cash property buyers [area] | sell house fast [area], quick sale [area] | C | /locations/[slug].html (120 pages) | form submit / call |
+| [situation] in [area] (e.g. stop repossession in Croydon) | [situation] property sale [area] | C | /locations/[slug]/[situation].html (896 pages) | on-page form submit |
+| sell house fast [postcode] (e.g. SW11) | cash buyers [postcode] | C | /locations/[postcode-slug].html (8 pilot pages) | form submit / call |
 | sell my house fast london | sell house fast london | C | /pages/faq.html | form submit / call |
 
 Not yet mapped to a page (tracked for future content, no dedicated URL currently): capital gains tax selling rental property, inheritance tax selling property, Renters Reform Bill impact for landlords — see §8 Blog Content Strategy.
@@ -120,9 +141,14 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 - Intent: informational + transactional
 
 ### Cluster E: Location Pages
-- Core: locations.html (sectioned by London boroughs, then by M25 county)
+- Core: locations.html (sectioned by London boroughs, then by M25 county, plus a full situation-grouped
+  directory linking directly to all 896 combo pages so none of them sit more than one click from the hub)
 - Spokes: 60 London borough/sub-area pages
 - Spokes: 60 M25-corridor town pages (Hertfordshire, Essex, Kent, Surrey, Buckinghamshire, Berkshire)
+- Spokes: 8 postcode-pilot pages (N1, E1, SE1, SW11, W10, NW3, E8, SE22), cross-linked to/from their parent
+  borough page
+- Each location page (base and postcode alike) links to its own 7 situation combo pages, and each combo page
+  links back to its location, to the situation's full guide page, and to the locations hub
 - Each location page links to related service pages and to nearby location pages
 
 ## 4. Internal Linking Strategy
@@ -137,9 +163,15 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 - All service pages link to how-it-works and faq
 
 ### Location Pages → Service Pages
-- Each location page sidebar links to all 5 primary service types
+- Each location page sidebar links to all 5 primary service types, plus a "Situations We Help With in
+  [area]" pill row linking to its own 7 combo pages
 - Location pages breadcrumbs link back to locations hub
 - Sub-area pages link to parent borough page
+- Postcode-pilot pages link to their parent borough page; the parent borough's "Nearby Areas We Cover" row
+  links forward to the postcode page (e.g. Battersea ↔ SW11)
+- Combo pages (`/locations/[slug]/[situation]`) link back to their location, sideways to the other 3 related
+  situations in that location, up to the situation's full guide page (`/pages/[situation]`), and to the
+  locations hub — each also has its own on-page enquiry form (not a redirect to the homepage form)
 
 ### Blog → Commercial Pages
 - Each blog post should include at least 2 CTAs linking to relevant service page
@@ -350,6 +382,12 @@ window.dataLayer.push({ event: 'generate_lead', event_category: 'Lead' });
 - Submit sitemap.xml
 - Monitor: repossession, cash buyers, sell house fast clusters
 - Set up weekly performance report email
+- **Pending**: review indexing + Performance data (impressions/clicks/position) for the 8 postcode-pilot pages
+  and their 56 combo pages, filtered to `/locations/n1`, `/locations/e1`, `/locations/se1`, `/locations/sw11`,
+  `/locations/w10`, `/locations/nw3`, `/locations/e8`, `/locations/se22` and subpaths, compared against a
+  similar-age borough page (e.g. Croydon) for context — this determines whether the postcode approach (§2
+  Tier 3b) gets extended to more postcodes/outer London or stays a one-off pilot. No Search Console access
+  from this environment, so this has to be pulled and shared manually.
 
 ## 13. Off-Page / Link Building Strategy
 
@@ -370,4 +408,6 @@ window.dataLayer.push({ event: 'generate_lead', event_category: 'Lead' });
 
 ---
 
-*Strategy document prepared for rapidhousebuyer.co.uk. Review quarterly. Last synced to live site: 2026-08-20 (120 location pages, England & Wales positioning, GTM/dataLayer analytics).*
+*Strategy document prepared for rapidhousebuyer.co.uk. Review quarterly. Last synced to live site: 2026-09-07
+(128 base location pages + 896 Service x Location combo pages, including an 8-postcode inner-London pilot with
+its own 56 combo pages; England & Wales positioning; GTM/dataLayer analytics; light/blue site redesign).*
