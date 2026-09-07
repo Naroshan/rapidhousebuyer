@@ -20,7 +20,9 @@ rapidhousebuyer.co.uk/
 │   ├── relocation.html
 │   ├── contact.html
 │   ├── faq.html                  (FAQPage schema)
-│   ├── locations.html            (Locations hub — 120 links, grouped London + 6 M25 counties)
+│   ├── locations.html            (Locations hub — 1,017 links: 128 base locations grouped London/M25-county,
+│   │                               plus a full situation-grouped directory linking directly to all 896
+│   │                               combo pages so none of them sit more than one click away)
 │   ├── blog.html                 (Property Insights hub — card grid linking to blog/*.html)
 │   └── [complaints/privacy/terms/cookies]
 ├── gen/
@@ -157,8 +159,9 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 ## 4. Internal Linking Strategy
 
 ### Homepage → Service Pages
-- 6 audience cards each link to dedicated service pages
-- Borough pills all link to borough location pages
+- 7 audience cards each link to dedicated service pages (added "Need an Urgent Sale" as the 7th)
+- No borough-pill grid on the homepage — removed on request as duplicating the locations hub; use
+  `/pages/locations` for the full area directory instead
 - Footer links to all primary services and key boroughs
 
 ### Service Pages → Related Services
@@ -166,8 +169,8 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 - All service pages link to how-it-works and faq
 
 ### Location Pages → Service Pages
-- Each location page sidebar links to all 5 primary service types, plus a "Situations We Help With in
-  [area]" pill row linking to its own 7 combo pages
+- Each location page has a "Situations We Help With in [area]" pill row linking to all 7 of its own combo
+  pages (repossession, probate, landlords, debt, urgent-sale, divorce, relocation)
 - Location pages breadcrumbs link back to locations hub
 - Sub-area pages link to parent borough page
 - Postcode-pilot pages link to their parent borough page; the parent borough's "Nearby Areas We Cover" row
@@ -186,39 +189,53 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 
 ### Implemented on Homepage
 - LocalBusiness schema with aggregateRating
-- FAQPage schema (5 key questions)
+- FAQPage schema (5 key questions, matching the visible accordion exactly)
 - WebSite schema with SearchAction
 
 ### Implemented on Service Pages
-- FAQPage schema on repossession, faq pages
+- FAQPage schema on all 7 situation pages, faq page, and all 896 combo pages
 
-### Implement on Location Pages ✓
-- FAQPage schema (borough-specific questions)
+### Implemented on Location Pages ✓
+- FAQPage schema (borough/town/postcode-specific questions, matching visible content)
+- LocalBusiness + BreadcrumbList schema on all 128 base location pages and all 896 combo pages
+
+### Implemented Sitewide ✓
+- BreadcrumbList — static JSON-LD (not JS-injected) on effectively every page (1,046 of 1,047 HTML files)
+- HowTo schema on how-it-works.html
+- Review schema (itemscope/itemtype) on testimonial cards on the 32 rich borough pages and 60 M25 town pages,
+  plus AggregateRating on the homepage's LocalBusiness node (96 files carry Review/AggregateRating markup)
+- Article + BreadcrumbList schema on all 4 blog posts
 
 ### Still to Implement
-- BreadcrumbList on all inner pages (add via JS)
-- HowTo schema on how-it-works.html
-- Review/AggregateRating schema on testimonial-heavy pages
-- Article schema on blog posts
+- HowTo schema elsewhere (currently only on how-it-works.html)
+- Review/AggregateRating schema on the ~25 sub-area location pages (Acton, Battersea, Angel, etc. — the
+  single-average-price template) and the 8 postcode-pilot pages, which don't carry it yet
 
 ## 6. Technical SEO Recommendations
 
 ### Core Web Vitals
-- **LCP (Largest Contentful Paint):** Hero text renders before images; no large above-fold images; Google Fonts preconnect in `<head>` ✓
+- **LCP (Largest Contentful Paint):** Hero text renders before images; the site uses no raster `<img>` tags
+  anywhere (icons are emoji/inline SVG) so there's no LCP image to optimise. Google Fonts load via the async
+  preconnect+preload+`media=print onload` pattern sitewide (not a plain blocking `<link rel=stylesheet>`) ✓
 - **FID/INP:** JavaScript is minimal and deferred ✓; no heavy frameworks
-- **CLS:** All images need explicit width/height attributes; avoid dynamically injected content above fold
-- **Recommendations:**
-  - Serve fonts from self-hosted (remove Google Fonts dependency for production)
-  - Implement critical CSS inline (above-fold CSS in `<style>` tag)
-  - Use `loading="lazy"` on all below-fold images
-  - Add width/height to all `<img>` tags
+- **CLS:** No `<img>` tags to size, and no dynamically injected above-fold content ✓
+- **Resolved this way rather than self-hosting fonts:** the async font-loading pattern above was applied
+  sitewide instead of self-hosting Google Fonts — it removes the render-blocking request without taking on
+  font-file hosting/updates. Self-hosting remains a further option if Search Console still flags fonts as a
+  bottleneck after this.
+- **Not applicable / already N/A:** "add width/height to `<img>` tags" and "`loading=lazy` on below-fold
+  images" — moot, since the site has zero `<img>` elements to apply either to.
 
 ### Technical Implementation
 ```html
-<!-- Add to all pages for speed -->
-<link rel="preload" href="/css/main.css" as="style">
-<link rel="dns-prefetch" href="//wa.me">
-<meta name="theme-color" content="#0a0a0a">
+<!-- Actual pattern used sitewide (see any page's <head>) -->
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:...&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:...&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:...&display=swap" rel="stylesheet"></noscript>
+<meta name="theme-color" content="#f7f9fc">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 ```
@@ -292,23 +309,25 @@ Not required (English-language site, England & Wales only).
 ### WhatsApp First Strategy
 - WhatsApp float button visible on all pages (desktop) ✓
 - Persistent mobile contact bar (call + WhatsApp) replaces the float on screens ≤768px ✓
-- Nav WhatsApp button on desktop ✓
+- Nav has a Call button on desktop; no WhatsApp button in the header itself (WhatsApp lives in the floating
+  button, mobile contact bar, and hero/page CTAs instead)
 - WhatsApp as primary CTA in urgent pages (repossession) ✓
-- Pre-filled WhatsApp message text ✓
+- Pre-filled WhatsApp message text ✓ — personalized per page (names the specific location, and the
+  situation too on combo pages), not a single generic message
 - Track WhatsApp clicks separately from form submissions in GA4 (not yet instrumented — see §12)
 
 ### Trust Trigger Sequencing
-Homepage scroll order optimised:
+Homepage scroll order (current — the boroughs-grid section that used to sit before FAQ was removed on request,
+since it duplicated the locations hub without adding conversion value on the homepage itself):
 1. Hero (what we do + form) — immediate conversion opportunity
 2. Stats bar — credibility
 3. Who we help — identification
 4. How it works — education
 5. Comparison table — rational case
 6. Testimonials — social proof
-7. Trust signals — authority
-8. Boroughs — SEO value + relevance
-9. FAQ — objection handling
-10. CTA band — final conversion push
+7. Trust signals — authority (NAPB/TPO/ICO credentials)
+8. FAQ — objection handling
+9. CTA band — final conversion push
 
 ### Exit Intent (Production)
 Implement exit intent popup with WhatsApp CTA:
@@ -347,9 +366,10 @@ document.addEventListener('mouseleave', (e) => {
 - Semantic HTML (main, nav, header, footer, article) ✓
 - Focus-visible styles ✓
 - prefers-reduced-motion media query ✓
-- Colour contrast: gold on dark background meets AA ✓
+- Colour contrast: blue accent on light background meets AA (site redesigned from dark/gold to light/blue) ✓
 - Form labels explicitly linked to inputs ✓
-- Alt text pattern established in img elements
+- N/A: no `<img>` elements exist sitewide (icons are emoji/inline SVG with `aria-hidden`/`aria-label` as
+  appropriate) — nothing to alt-text
 
 ### Production Checklist
 - [ ] Run automated accessibility audit (axe, Lighthouse)
