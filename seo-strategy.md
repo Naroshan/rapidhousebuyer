@@ -200,7 +200,12 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 - LocalBusiness + BreadcrumbList schema on all 128 base location pages and all 896 combo pages
 
 ### Implemented Sitewide ✓
-- BreadcrumbList — static JSON-LD (not JS-injected) on effectively every page (1,046 of 1,047 HTML files)
+- BreadcrumbList — static JSON-LD (not JS-injected) on every page except the homepage (1,046 of 1,047 HTML
+  files; the homepage is the one exception, and reasonably so — it's the root, nothing to show a trail back
+  to). Note the homepage is also structurally different from every other page here: it bundles LocalBusiness,
+  WebSite+SearchAction and FAQPage into one `"@graph"` array, while every other page (all 128 base locations,
+  all 896 combo pages, situation/blog/legal pages) emits 2-3 separate JSON-LD `<script>` blocks instead — don't
+  use the homepage's head markup as a template for `@graph` elsewhere, it's not the sitewide pattern
 - HowTo schema on how-it-works.html
 - Review schema (itemscope/itemtype) on testimonial cards on the 32 rich borough pages and 60 M25 town pages,
   plus AggregateRating on the homepage's LocalBusiness node (96 files carry Review/AggregateRating markup)
