@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, sys
+from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
 from towns_data import TOWNS
 
@@ -44,14 +45,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#0a0a0a"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#f7f9fc"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Sell {name} Fast for Cash | Rapid House Buyer</title>
 <meta name="description" content="We buy properties in {name}, {county} for cash. Same-day valuation, 24-hour exchange, zero fees. Free offer within 2 hours.">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
 <link rel="canonical" href="https://rapidhousebuyer.co.uk/locations/{slug}">
   <link rel="alternate" hreflang="en-GB" href="https://rapidhousebuyer.co.uk/locations/{slug}">
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/css/main.css">
 <script type="application/ld+json">
 {{
@@ -189,9 +193,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="urgency-bar"><span class="urgency-bar__dot"></span>Actively purchasing in <strong>{name}</strong> &mdash; <a href="tel:+442071991698">020 7199 1698</a> or <a href="https://wa.me/442071991698" target="_blank" rel="noopener">WhatsApp</a></div>
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
-    <a href="/index.html" class="logo"><span class="logo__main">Rapid <em>House</em> Buyer</span><span class="logo__sub">Cash Property Buyers &middot; London &amp; M25</span></a>
+    <a href="/index" class="logo"><span class="logo__main">Rapid <em>House</em> Buyer</span><span class="logo__sub">Cash Property Buyers &middot; London &amp; M25</span></a>
     <nav class="main-nav" id="mainNav" aria-label="Primary navigation">
-      <a href="/pages/how-it-works.html">How It Works</a><a href="/pages/services.html">Services</a><a href="/pages/locations.html">Areas</a><a href="/pages/about.html">About</a><a href="/pages/faq.html">FAQ</a><a href="/pages/contact.html">Contact</a>
+      <a href="/pages/how-it-works">How It Works</a><a href="/pages/services">Services</a><a href="/pages/locations">Areas</a><a href="/pages/about">About</a><a href="/pages/faq">FAQ</a><a href="/pages/contact">Contact</a>
     </nav>
     <div class="header-cta"><a href="tel:+442071991698" class="btn-call">&#128222; 020 7199 1698</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
   </div>
@@ -199,13 +203,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="main-content">
 <div class="page-hero">
   <div class="container">
-    <nav aria-label="Breadcrumb" style="margin-bottom:1.5rem"><ol class="breadcrumb-list"><li class="breadcrumb-item"><a href="/index.html">Home</a><span class="breadcrumb-sep">&rsaquo;</span></li><li class="breadcrumb-item"><a href="/pages/locations.html">Locations</a><span class="breadcrumb-sep">&rsaquo;</span></li><li class="breadcrumb-item">{name}</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="margin-bottom:1.5rem"><ol class="breadcrumb-list"><li class="breadcrumb-item"><a href="/index">Home</a><span class="breadcrumb-sep">&rsaquo;</span></li><li class="breadcrumb-item"><a href="/pages/locations">Locations</a><span class="breadcrumb-sep">&rsaquo;</span></li><li class="breadcrumb-item">{name}</li></ol></nav>
     <div class="page-hero__label">{region}</div>
     <h1 class="page-hero__title">Cash Property Buyers<br>in {name}</h1>
     <p class="page-hero__sub">We are direct cash buyers purchasing residential properties across {name} and the wider {county} stretch of the M25 corridor. Same-day valuations, 24-hour exchange, and zero fees &mdash; a professional service built for {name} homeowners who need to sell fast.</p>
     <div class="page-hero__ctas">
       <a href="#enquiry" class="btn btn--primary btn--lg">Get a Free {name} Cash Offer</a>
-      <a href="https://wa.me/442071991698" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp Us</a>
+      <a href="https://wa.me/442071991698?text={wa_text}" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp Us</a>
       <a href="tel:+442071991698" class="btn btn--outline btn--lg">&#128222; 020 7199 1698</a>
     </div>
   </div>
@@ -277,11 +281,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="sidebar-card">
           <div class="sidebar-card__title">Services in {name}</div>
-          <a href="/pages/repossession.html" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Repossession Help</a>
-          <a href="/pages/probate.html" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Probate Properties</a>
-          <a href="/pages/landlords.html" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Landlord Exit</a>
-          <a href="/pages/debt.html" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Financial Difficulty</a>
-          <a href="/pages/urgent-sale.html" class="footer__link" style="display:block">&#8594; Urgent Sale</a>
+          <a href="/pages/repossession" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Repossession Help</a>
+          <a href="/pages/probate" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Probate Properties</a>
+          <a href="/pages/landlords" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Landlord Exit</a>
+          <a href="/pages/debt" class="footer__link" style="display:block;margin-bottom:.4rem">&#8594; Financial Difficulty</a>
+          <a href="/pages/urgent-sale" class="footer__link" style="display:block">&#8594; Urgent Sale</a>
         </div>
       </div>
     </div>
@@ -290,7 +294,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--charcoal" id="enquiry">
   <div class="container" style="max-width:860px">
     <div class="section__header text-center"><div class="section__label">Free Valuation</div><h2 class="section__title">Get Your Free Cash Offer for Your {name} Property</h2><p class="section__subtitle" style="margin-inline:auto">Response within 2 hours. Same-day survey available in {name}. No obligation whatsoever.</p></div>
-    <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(184,146,42,.35);border-radius:24px;padding:2.25rem;max-width:540px;margin:2rem auto 0" novalidate>
+    <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(37,99,235,.35);border-radius:24px;padding:2.25rem;max-width:540px;margin:2rem auto 0" novalidate>
       <div class="form__header"><h3 class="form__title">{name} Property Valuation</h3><p class="form__subtitle">Response within 2 hours &middot; No obligation &middot; Confidential</p></div>
       <div class="form__group"><label class="form__label" for="lf-name">Full Name *</label><input class="form__input" id="lf-name" name="name" type="text" required autocomplete="name" placeholder="Your full name"></div>
       <div class="form__row">
@@ -305,7 +309,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <option>Urgent relocation</option><option>Landlord exiting</option><option>Other</option>
         </select>
       </div>
-      <div class="form__consent"><input type="checkbox" id="lf-gdpr" name="gdpr" required><label for="lf-gdpr">I consent to being contacted about this enquiry. <a href="/pages/privacy.html">Privacy Policy</a>.</label></div>
+      <div class="form__consent"><input type="checkbox" id="lf-gdpr" name="gdpr" required><label for="lf-gdpr">I consent to being contacted about this enquiry. <a href="/pages/privacy">Privacy Policy</a>.</label></div>
       <button type="submit" class="btn btn--primary btn--lg btn--full">Get My Free {name} Cash Offer &rarr;</button>
       <p class="form__reassurance">&#128274; Strictly confidential &mdash; never shared.</p>
     </form>
@@ -314,7 +318,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section class="section section--charcoal nearby-areas" style="padding:2.5rem 0;">
     <div class="container">
-      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;font-weight:600;color:#f8f7f2;margin-bottom:1.25rem;letter-spacing:-.01em;">Nearby Areas We Cover</h2>
+      <h2 style="font-family:'DM Sans',-apple-system,sans-serif;font-size:1.2rem;font-weight:600;color:#111827;margin-bottom:1.25rem;letter-spacing:-.01em;">Nearby Areas We Cover</h2>
       <div style="display:flex;flex-wrap:wrap;gap:.625rem;">{nearby_pills_alt}
       </div>
     </div>
@@ -341,40 +345,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div>
         <h3 class="footer__col-title">Services</h3>
-        <a href="/pages/services.html" class="footer__link">Sell Property Fast</a>
-        <a href="/pages/repossession.html" class="footer__link">Facing Repossession</a>
-        <a href="/pages/probate.html" class="footer__link">Probate Properties</a>
-        <a href="/pages/landlords.html" class="footer__link">Landlord Exit</a>
-        <a href="/pages/debt.html" class="footer__link">Selling Due to Debt</a>
-        <a href="/pages/urgent-sale.html" class="footer__link">Urgent Sale</a>
-        <a href="/pages/divorce.html" class="footer__link">Divorce Sale</a>
-        <a href="/pages/relocation.html" class="footer__link">Relocation Sale</a>
+        <a href="/pages/services" class="footer__link">Sell Property Fast</a>
+        <a href="/pages/repossession" class="footer__link">Facing Repossession</a>
+        <a href="/pages/probate" class="footer__link">Probate Properties</a>
+        <a href="/pages/landlords" class="footer__link">Landlord Exit</a>
+        <a href="/pages/debt" class="footer__link">Selling Due to Debt</a>
+        <a href="/pages/urgent-sale" class="footer__link">Urgent Sale</a>
+        <a href="/pages/divorce" class="footer__link">Divorce Sale</a>
+        <a href="/pages/relocation" class="footer__link">Relocation Sale</a>
       </div>
       <div>
         <h3 class="footer__col-title">Key Areas</h3>
-        <a href="/locations/{slug}.html" class="footer__link">{name}</a>
-        <a href="/locations/watford.html" class="footer__link">Watford</a>
-        <a href="/locations/guildford.html" class="footer__link">Guildford</a>
-        <a href="/locations/dartford.html" class="footer__link">Dartford</a>
-        <a href="/locations/woking.html" class="footer__link">Woking</a>
-        <a href="/pages/locations.html" class="footer__link">All 120+ Locations →</a>
+        <a href="/locations/{slug}" class="footer__link">{name}</a>
+        <a href="/locations/watford" class="footer__link">Watford</a>
+        <a href="/locations/guildford" class="footer__link">Guildford</a>
+        <a href="/locations/dartford" class="footer__link">Dartford</a>
+        <a href="/locations/woking" class="footer__link">Woking</a>
+        <a href="/pages/locations" class="footer__link">All 120+ Locations →</a>
       </div>
       <div>
         <h3 class="footer__col-title">Company</h3>
-        <a href="/pages/about.html" class="footer__link">About Us</a>
-        <a href="/pages/how-it-works.html" class="footer__link">How It Works</a>
-        <a href="/pages/faq.html" class="footer__link">FAQ</a>
-        <a href="/pages/blog.html" class="footer__link">Property Insights</a>
-        <a href="/pages/contact.html" class="footer__link">Contact</a>
-        <a href="/pages/privacy.html" class="footer__link">Privacy Policy</a>
-        <a href="/pages/terms.html" class="footer__link">Terms</a>
-        <a href="/pages/complaints.html" class="footer__link">Complaints</a>
+        <a href="/pages/about" class="footer__link">About Us</a>
+        <a href="/pages/how-it-works" class="footer__link">How It Works</a>
+        <a href="/pages/faq" class="footer__link">FAQ</a>
+        <a href="/pages/blog" class="footer__link">Property Insights</a>
+        <a href="/pages/contact" class="footer__link">Contact</a>
+        <a href="/pages/privacy" class="footer__link">Privacy Policy</a>
+        <a href="/pages/terms" class="footer__link">Terms</a>
+        <a href="/pages/complaints" class="footer__link">Complaints</a>
       </div>
     </div>
     <div class="footer__bottom">
       <div class="footer__legal">
         <p>© <span id="footerYear"></span> Rapid House Buyer, a trading style of The LeadGenCo LTD. Registered in England &amp; Wales No. 17274904. 30 St Mary Axe, London EC3A 8BF.</p>
-        <p>NAPB Member · TPO Registered · ICO Registered. Not FCA regulated. We typically offer 75–85% of open market value. Independent legal and financial advice is encouraged. <a href="/pages/privacy.html">Privacy</a> · <a href="/pages/cookies.html">Cookies</a> · <a href="/pages/complaints.html">Complaints</a></p>
+        <p>NAPB Member · TPO Registered · ICO Registered. Not FCA regulated. We typically offer 75–85% of open market value. Independent legal and financial advice is encouraged. <a href="/pages/privacy">Privacy</a> · <a href="/pages/cookies">Cookies</a> · <a href="/pages/complaints">Complaints</a></p>
       </div>
       <div class="footer__badges"><span class="footer__badge">🏆 NAPB</span><span class="footer__badge">✓ TPO</span><span class="footer__badge">🔒 ICO</span></div>
     </div>
@@ -389,7 +393,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="https://wa.me/442071991698?text=Hi+I'd+like+a+free+cash+offer" class="mobile-contact-bar__btn mobile-contact-bar__btn--wa" target="_blank" rel="noopener">💬 WhatsApp</a>
 </div>
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
-  <p>We use cookies to improve your experience. <a href="/pages/privacy.html">Privacy Policy</a> · <a href="/pages/cookies.html">Cookie Policy</a>.</p>
+  <p>We use cookies to improve your experience. <a href="/pages/privacy">Privacy Policy</a> · <a href="/pages/cookies">Cookie Policy</a>.</p>
   <div class="cookie-banner__actions">
     <button id="cookieDecline" class="btn btn--outline btn--sm">Essential Only</button>
     <button id="cookieAccept" class="btn btn--primary btn--sm">Accept All</button>
@@ -407,7 +411,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     x.className = 'nav-close-btn';
     x.innerHTML = '&times;';
     x.setAttribute('aria-label','Close menu');
-    x.style.cssText = 'position:fixed;top:14px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.6rem;cursor:pointer;z-index:10001;display:flex;align-items:center;justify-content:center;line-height:1;';
+    x.style.cssText = 'position:fixed;top:14px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.12);color:#111827;font-size:1.6rem;cursor:pointer;z-index:10001;display:flex;align-items:center;justify-content:center;line-height:1;';
     x.addEventListener('click', close);
     nav.insertBefore(x, nav.firstChild);
   }}
@@ -482,7 +486,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if(j.ok){{
           var s=document.createElement('div');
           s.style.cssText='padding:2rem;text-align:center';
-          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:Playfair Display,serif;color:#f8f7f2;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#aaa;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#d4af37">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#d4af37">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
+          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\'DM Sans\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#3b82f6">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#3b82f6">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
           form.style.display='none'; form.parentNode.appendChild(s);
           window.dataLayer = window.dataLayer || []; window.dataLayer.push({{event:'generate_lead',event_category:'Lead'}});
         }} else {{
@@ -530,10 +534,11 @@ def render(t):
 
     pills_alt = []
     for s in t["nearby_new"]:
-        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#181818;border:1px solid rgba(184,146,42,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#c9a84c;text-decoration:none;">%s</a>' % (s, new_town_label(s)))
+        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">%s</a>' % (s, new_town_label(s)))
     for s in t["nearby_existing"]:
-        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#181818;border:1px solid rgba(184,146,42,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#c9a84c;text-decoration:none;">%s</a>' % (s, EXISTING_LABELS.get(s, s.title())))
+        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">%s</a>' % (s, EXISTING_LABELS.get(s, s.title())))
     nearby_pills_alt = "".join(pills_alt)
+    wa_text = quote(f"Hi, I'd like a cash offer for my {t['name']} property")
 
     return PAGE_TEMPLATE.format(
         name=t["name"], county=t["county"], region=t["region"], slug=t["slug"],
@@ -544,7 +549,7 @@ def render(t):
         flat_fmt=fmt_money(t["flat"]), house_fmt=fmt_money(t["house"]), yld=t["yld"],
         stock=t["stock"], seller=t["seller"],
         t_init=t["t_init"], t_name=t["t_name"], t_area=t["t_area"], t_text=t["t_text"], t_year=t["t_year"],
-        nearby_pills_alt=nearby_pills_alt,
+        nearby_pills_alt=nearby_pills_alt, wa_text=wa_text,
         lat=t["lat"], lon=t["lon"],
     )
 
