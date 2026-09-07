@@ -26,6 +26,8 @@ SITUATIONS = {
              "Potentially, yes. If the lender sells at auction for less than the outstanding mortgage, you remain liable for the shortfall plus their legal costs, and the repossession stays on your credit file for six years. A cash sale before that point avoids the shortfall entirely and you keep whatever equity remains."),
         ],
         "related": ["debt", "urgent-sale", "landlords"],
+        "local_signal": "Our surveyor and solicitor can reach any {place} address within hours — with links including {transport}, there's rarely a transport-related delay standing between an offer and completing before a court date.",
+        "landmark_signal": "{place}'s local pull — {landmarks} — keeps demand for property in the area steady, which is reflected in the fair, current-market offer we make even under a tight repossession timeline.",
     },
     "probate": {
         "label": "Probate",
@@ -49,6 +51,8 @@ SITUATIONS = {
              "Yes. We work directly with executors, estate solicitors, and all named beneficiaries, and can structure distribution of the sale proceeds however the estate requires."),
         ],
         "related": ["urgent-sale", "debt", "divorce"],
+        "local_signal": "{place} is well connected via {transport}, meaning our surveyor can carry out a valuation quickly regardless of whether the property has stood empty during probate.",
+        "landmark_signal": "Properties near {place}'s well-known spots — {landmarks} — tend to hold their value well, which we reflect directly in the offer we make on an inherited estate.",
     },
     "landlords": {
         "label": "Landlord Exit",
@@ -72,6 +76,8 @@ SITUATIONS = {
              "Yes. We buy single buy-to-lets, full portfolios, HMOs, and Article 4 properties, with multiple simultaneous completions available for portfolio exits."),
         ],
         "related": ["debt", "urgent-sale", "repossession"],
+        "local_signal": "With {transport} serving the area, {place} remains an easy letting location for tenants — one reason we're comfortable purchasing tenanted stock here without requiring vacant possession.",
+        "landmark_signal": "Local draws such as {landmarks} help keep {place} rental demand resilient, supporting the price we can offer on a portfolio exit.",
     },
     "debt": {
         "label": "Selling Due to Debt",
@@ -95,6 +101,8 @@ SITUATIONS = {
              "No. The sale is handled with complete discretion, and we can direct funds to creditors directly or to your solicitor for managed distribution if required — nothing is disclosed to third parties without your instruction."),
         ],
         "related": ["repossession", "urgent-sale", "landlords"],
+        "local_signal": "{place}'s transport links — {transport} — support consistent buyer demand in the area, which helps us offer a fair, current-market price when releasing equity to clear debts quickly.",
+        "landmark_signal": "{place}'s local amenities, including {landmarks}, are part of why property values in the area have stayed resilient — good news for the equity you can release.",
     },
     "urgent-sale": {
         "label": "Urgent Sale",
@@ -118,6 +126,8 @@ SITUATIONS = {
              "It helps to have your title deeds or Land Registry title number, current mortgage statement (if applicable), any correspondence from lenders or courts, and identification documents ready — our solicitors guide you through anything else."),
         ],
         "related": ["repossession", "relocation", "divorce"],
+        "local_signal": "Being served by {transport}, {place} is an easy area for our surveyor and solicitor to reach at short notice — a key reason we can commit to tight completion dates here.",
+        "landmark_signal": "{place}'s well-known spots — {landmarks} — are part of what keeps the area in steady demand, letting us move on an urgent sale without discounting the price for speed.",
     },
     "divorce": {
         "label": "Divorce Sale",
@@ -141,6 +151,8 @@ SITUATIONS = {
              "Yes. We can complete quickly if both parties agree, or hold back completion while legal proceedings conclude — we accommodate whatever timeline the courts or your solicitors require."),
         ],
         "related": ["debt", "urgent-sale", "probate"],
+        "local_signal": "{place} is served by {transport}, meaning valuations and viewings can be arranged quickly and discreetly for both parties, wherever they're currently living.",
+        "landmark_signal": "Demand for property near {place}'s local landmarks — {landmarks} — has remained steady, supporting a fair valuation during what is often already a difficult time.",
     },
     "relocation": {
         "label": "Relocation Sale",
@@ -164,6 +176,8 @@ SITUATIONS = {
              "Yes. We align our completion date precisely with your relocation, even at short notice, so you can plan your move around a guaranteed date rather than an open-ended sale."),
         ],
         "related": ["urgent-sale", "landlords", "divorce"],
+        "local_signal": "With {transport} connecting {place} to the rest of London and beyond, arranging a final walkthrough or handover around your moving date is straightforward, even at short notice.",
+        "landmark_signal": "{place}'s local character — including {landmarks} — is part of what keeps demand steady in the area, letting us offer a fair price even on your compressed relocation timeline.",
     },
 }
 

@@ -56,7 +56,38 @@ def extract_location_data(slug):
         if single_m:
             single_price = f"£{single_m.group(1)}"
 
-    return {"slug": slug, "name": name, "zone": zone, "flat": flat, "house": house, "single_price": single_price}
+    transport = extract_transport(html)
+    landmarks = extract_landmarks(html)
+
+    return {"slug": slug, "name": name, "zone": zone, "flat": flat, "house": house,
+            "single_price": single_price, "transport": transport, "landmarks": landmarks}
+
+
+def _clean_list(s):
+    s = s.replace("&middot;", ",").replace("&amp;", "&").replace("&apos;", "'")
+    parts = [p.strip() for p in s.split(",") if p.strip()]
+    return ", ".join(parts)
+
+
+def extract_transport(html):
+    # Three template generations describe transport differently: rich borough
+    # pages ("transport connections serving X include A, B."), M25 town pages
+    # ("Key stations include A, B."), and sub-area/postcode sidebar pages
+    # (a plain "Transport" label/value pair).
+    for pattern in (
+        r'transport connections serving [^<]*?include ([^<.]+)\.',
+        r'Key stations include ([^<.]+)\.',
+        r'Transport</div><div[^>]*>([^<]+)</div>',
+    ):
+        m = re.search(pattern, html)
+        if m:
+            return _clean_list(m.group(1))
+    return None
+
+
+def extract_landmarks(html):
+    m = re.search(r'landmarks(?: and green spaces)? including ([^,<]+),', html)
+    return _clean_list(m.group(1)) if m else None
 
 
 def render_faq_schema(faq_pairs):
@@ -170,6 +201,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="content-section">
     <div class="container">
       <p>{local_para}</p>
+{local_signal_html}
 {sections_html}
       <h2>Frequently Asked Questions</h2>
 {faq_html}
@@ -312,11 +344,32 @@ def render_page(loc_slug, sit_slug):
     def fmt(s):
         return s.format(place=loc["name"], zone=loc["zone"])
 
+    local_signal_parts = []
+    if loc["transport"] and sit.get("local_signal"):
+        local_signal_parts.append(sit["local_signal"].format(place=loc["name"], transport=loc["transport"]))
+    if loc["landmarks"] and sit.get("landmark_signal"):
+        local_signal_parts.append(sit["landmark_signal"].format(place=loc["name"], landmarks=loc["landmarks"]))
+    local_signal_html = "\n".join(f"      <p>{p}</p>" for p in local_signal_parts)
+
     sections_html = "\n".join(
         f'      <h2>{fmt(h2)}</h2>\n      <p>{fmt(p)}</p>' for h2, p in sit["sections"]
     )
+
+    faq_pairs = list(sit["faq"])
+    if loc["flat"] and loc["house"]:
+        price_phrase = f"average flat and house prices in {loc['name']} currently sit at around {loc['flat']} and {loc['house']} respectively"
+    elif loc["single_price"]:
+        price_phrase = f"the average property price in {loc['name']} is currently around {loc['single_price']}"
+    else:
+        price_phrase = None
+    if price_phrase:
+        faq_pairs.append((
+            f"What kind of cash offer could I get for a {sit['label'].lower()} property in {loc['name']}?",
+            f"It depends on your specific property's condition, size and any outstanding secured debt, but as a guide {price_phrase}. We typically offer 75–85% of open market value, and we'll confirm a firm figure for your {loc['name']} property with a free, no-obligation valuation.",
+        ))
+
     faq_html = "\n".join(
-        f'      <p><strong>{q}</strong> {a}</p>' for q, a in sit["faq"]
+        f'      <p><strong>{q}</strong> {a}</p>' for q, a in faq_pairs
     )
     local_facts_html = ""
     if loc["flat"] and loc["house"]:
@@ -342,7 +395,7 @@ def render_page(loc_slug, sit_slug):
         for r in sit["related"]
     )
 
-    faq_schema = render_faq_schema([(q, a) for q, a in sit["faq"]])
+    faq_schema = render_faq_schema(faq_pairs)
     lb_schema = render_local_business_schema(loc, sit_slug, f"https://rapidhousebuyer.co.uk/locations/{loc_slug}/{sit_slug}")
     bc_schema = render_breadcrumb_schema(loc, sit)
     wa_text = quote(f"Hi, I'd like a cash offer for my {loc['name']} property regarding {sit['label'].lower()}")
@@ -352,6 +405,7 @@ def render_page(loc_slug, sit_slug):
         loc_slug=loc_slug, sit_slug=sit_slug, loc_name=loc["name"], sit_label=sit["label"],
         h1=fmt(sit["h1"]), lead=fmt(sit["lead"]), local_para=fmt(sit["local_para"]),
         sections_html=sections_html, faq_html=faq_html, local_facts_html=local_facts_html,
+        local_signal_html=local_signal_html,
         related_pills=related_pills, font_url=FONT_URL, wa_text=wa_text,
         faq_schema=faq_schema, local_business_schema=lb_schema, breadcrumb_schema=bc_schema,
     )
