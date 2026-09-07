@@ -124,6 +124,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="tel:+442071991698" class="mobile-contact-bar__btn mobile-contact-bar__btn--call">📞 Call Now</a>
   <a href="https://wa.me/442071991698?text=Hi+I'd+like+a+free+cash+offer" class="mobile-contact-bar__btn mobile-contact-bar__btn--wa" target="_blank" rel="noopener">💬 WhatsApp</a>
 </div>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
+  <p>We use cookies to improve your experience. <a href="/pages/privacy">Privacy Policy</a> &middot; <a href="/pages/cookies">Cookie Policy</a>.</p>
+  <div class="cookie-banner__actions">
+    <button id="cookieDecline" class="btn btn--outline btn--sm">Essential Only</button>
+    <button id="cookieAccept" class="btn btn--primary btn--sm">Accept All</button>
+  </div>
+</div>
 <script>document.getElementById('footerYear').textContent=new Date().getFullYear();</script>
+<script>
+(function(){
+  var fy=document.getElementById('footerYear'); if(fy) fy.textContent=new Date().getFullYear();
+
+  var banner=document.getElementById('cookieBanner');
+  if(banner && !localStorage.getItem('rhb_consent')){
+    setTimeout(function(){ banner.classList.add('visible'); },1800);
+    var a=document.getElementById('cookieAccept'), d=document.getElementById('cookieDecline');
+    if(a) a.addEventListener('click',function(){ localStorage.setItem('rhb_consent','all'); banner.classList.remove('visible'); });
+    if(d) d.addEventListener('click',function(){ localStorage.setItem('rhb_consent','essential'); banner.classList.remove('visible'); });
+  }
+})();
+</script>
 </body>
 </html>
