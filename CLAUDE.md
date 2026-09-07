@@ -100,6 +100,10 @@ blog/                       One HTML page per blog post (e.g. blog/how-fast-can-
   `<noscript>` iframe right after the opening `<body>` tag, container ID `GTM-ML5MZDK3`. Preserve both
   snippets and the container ID when copying/editing head/body markup. GTM does not expose a global `gtag()`
   function, so don't call `gtag(...)` from page JS — push events to `window.dataLayer` instead (see below).
+  The cookie-consent banner (sitewide on all 1,047 pages — `#cookieBanner`, `rhb_consent` in localStorage) is
+  UI-only: it doesn't gate this GTM snippet, which loads and fires unconditionally regardless of the
+  visitor's Accept/Decline choice. Don't assume accepting/declining the banner has any effect on tracking
+  unless that's wired up.
   All actual tag config (Google Ads conversion tag, GA4, triggers) lives in the GTM container itself
   (tagmanager.google.com), not in this repo. Every page with its own enquiry form pushes
   `{event:'generate_lead', event_category:'Lead'}` to `window.dataLayer` on successful submission — that's not
