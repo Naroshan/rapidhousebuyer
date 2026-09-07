@@ -352,17 +352,26 @@ document.addEventListener('mouseleave', (e) => {
 ## 10. GDPR & Cookie Compliance
 
 ### Implemented ✓
-- Cookie banner with accept/decline ✓
-- Consent stored in localStorage ✓
+- Cookie banner with accept/decline, consent stored in localStorage — **but only on 129 of 1,047 pages**
+  (the homepage + the 128 base location pages, via `gen/generate.py` and `gen/generate_postcodes.py`'s
+  templates). **Missing entirely from all 896 combo pages, all 18 `pages/*.html` files, and all 4 blog
+  posts** — 918 pages (88% of the site) where GTM still loads and fires unconditionally (confirmed: the GTM
+  loader script and noscript iframe are present with no consent gating) with zero cookie-consent UI shown.
+  This is a real gap, not just a documentation one — treat as a priority fix, not a "nice to have" on the
+  Production Checklist below. `gen/generate_combo.py`'s template has no cookie-banner markup or JS at all.
 - Privacy Policy page ✓
 - Cookie Policy page ✓
 - ICO registration noted ✓
-- Form consent checkboxes on all forms ✓
-- Link to Privacy Policy in all forms ✓
+- Form consent checkboxes on all forms ✓ (this one genuinely is sitewide — verified all 1,032 `<form>`
+  elements across every page type carry a `name="gdpr"` checkbox)
+- Link to Privacy Policy in all forms ✓ (same 1,032/1,032 verification)
 
 ### Production Checklist
+- [ ] **Add the cookie banner (markup + JS) to `gen/generate_combo.py`'s template and regenerate all 896
+  combo pages, and hand-add it to the 18 `pages/*.html` files and 4 blog posts** — see the gap noted above
 - [ ] Integrate proper Consent Management Platform (OneTrust, Cookiebot)
-- [ ] Ensure GA4 only fires after consent is given
+- [ ] Ensure GA4 only fires after consent is given (moot on the 918 pages above until they show a banner at
+  all — GTM currently fires unconditionally there)
 - [ ] Implement server-side consent logging
 - [ ] Annual DPIA review
 - [ ] Privacy Policy review with qualified solicitor
