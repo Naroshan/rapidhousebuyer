@@ -7,8 +7,6 @@ from towns_data import TOWNS
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(ROOT, "locations")
 
-BY_SLUG = {t["slug"]: t for t in TOWNS}
-
 def fmt_money(n):
     return "£{:,.0f}".format(n)
 
@@ -19,7 +17,7 @@ def pill(slug, label):
     return '<a href="/locations/%s" class="borough-pill">%s</a>' % (slug, label)
 
 def new_town_label(slug):
-    return BY_SLUG[slug]["name"]
+    return TOWNS[slug]["name"]
 
 EXISTING_LABELS = {
     "harrow":"Harrow","barnet":"Barnet","enfield":"Enfield","waltham-forest":"Waltham Forest",
@@ -529,9 +527,7 @@ if('IntersectionObserver' in window){{
 </html>
 """
 
-def render(t):
-    nearby_slugs = t["nearby_new"] + t["nearby_existing"]
-
+def render(slug, t):
     pills_alt = []
     for s in t["nearby_new"]:
         pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">%s</a>' % (s, new_town_label(s)))
@@ -541,23 +537,24 @@ def render(t):
     wa_text = quote(f"Hi, I'd like a cash offer for my {t['name']} property")
 
     return PAGE_TEMPLATE.format(
-        name=t["name"], county=t["county"], region=t["region"], slug=t["slug"],
-        junction=t["junction"], dist=t["dist"], rail=t["rail"],
+        name=t["name"], county=t["county"], region=t["region"], slug=slug,
+        junction=t["m25_junction"], dist=t["distance_miles"], rail=t["rail"],
         stations_str=" &middot; ".join(t["stations"]),
         landmarks_str=" &middot; ".join(t["landmarks"]),
         areas_str=" &middot; ".join(t["areas"]),
-        flat_fmt=fmt_money(t["flat"]), house_fmt=fmt_money(t["house"]), yld=t["yld"],
+        flat_fmt=fmt_money(t["flat"]), house_fmt=fmt_money(t["house"]), yld=t["rental_yield"],
         stock=t["stock"], seller=t["seller"],
-        t_init=t["t_init"], t_name=t["t_name"], t_area=t["t_area"], t_text=t["t_text"], t_year=t["t_year"],
+        t_init=t["testimonial_initials"], t_name=t["testimonial_name"], t_area=t["testimonial_area"],
+        t_text=t["testimonial_text"], t_year=t["testimonial_year"],
         nearby_pills_alt=nearby_pills_alt, wa_text=wa_text,
         lat=t["lat"], lon=t["lon"],
     )
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
-    for t in TOWNS:
-        html = render(t)
-        path = os.path.join(OUT_DIR, t["slug"] + ".html")
+    for slug, t in TOWNS.items():
+        html = render(slug, t)
+        path = os.path.join(OUT_DIR, slug + ".html")
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
     print("Generated %d pages" % len(TOWNS))
