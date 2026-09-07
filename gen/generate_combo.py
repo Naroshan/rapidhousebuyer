@@ -17,6 +17,26 @@ from situations_data import SITUATIONS, SITUATION_LABELS
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOCATIONS_DIR = os.path.join(ROOT, "locations")
 
+# Locations whose own base page registered at least one real Search Console
+# impression in the 2026-06-17..2026-09-05 export (see git history for the
+# audit). Combo pages for every other location get zero real search demand
+# even on the base page, so their 7-situation combo set is canonicalized
+# back to the base location page instead of competing as its own thin,
+# near-duplicate URL -- consolidating ~86% of the site's pages down to a
+# smaller set Google can evaluate properly, per Google's guidance on
+# handling near-duplicate/thin content with rel=canonical.
+ACTIVE_LOCATIONS = {
+    "angel", "barking", "battersea", "bermondsey", "bethnal-green", "bexley",
+    "bexleyheath", "brixton", "brockley", "bromley", "camberwell",
+    "canary-wharf", "catford", "chelsea", "chingford", "chiswick",
+    "city-of-london", "crouch-end", "croydon", "crystal-palace", "dagenham",
+    "dalston", "deptford", "dulwich", "edmonton", "enfield", "greenwich",
+    "hammersmith-and-fulham", "harrow", "havering", "islington",
+    "kensington-and-chelsea", "kingston-upon-thames", "lambeth", "lewisham",
+    "richmond-upon-thames", "sutton", "upminster", "waltham-forest",
+    "wandsworth",
+}
+
 FONT_URL = "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
 
 
@@ -143,9 +163,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>{meta_title}</title>
 <meta name="description" content="{meta_desc}">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://rapidhousebuyer.co.uk/locations/{loc_slug}/{sit_slug}">
-  <link rel="alternate" hreflang="en-GB" href="https://rapidhousebuyer.co.uk/locations/{loc_slug}/{sit_slug}">
+<meta name="robots" content="{robots}">
+<link rel="canonical" href="{canonical_url}">
+  <link rel="alternate" hreflang="en-GB" href="{canonical_url}">
 <script type="application/ld+json">{faq_schema}</script>
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -400,12 +420,23 @@ def render_page(loc_slug, sit_slug):
     bc_schema = render_breadcrumb_schema(loc, sit)
     wa_text = quote(f"Hi, I'd like a cash offer for my {loc['name']} property regarding {sit['label'].lower()}")
 
+    # Canonical (not noindex): a cross-URL canonical is Google's documented
+    # way to consolidate near-duplicate content while keeping the page
+    # crawlable/followable -- combining it with noindex would instead just
+    # drop the page with no consolidation, which isn't the intent here.
+    is_active = loc_slug in ACTIVE_LOCATIONS
+    canonical_url = (
+        f"https://rapidhousebuyer.co.uk/locations/{loc_slug}/{sit_slug}" if is_active
+        else f"https://rapidhousebuyer.co.uk/locations/{loc_slug}"
+    )
+    robots = "index,follow"
+
     return PAGE_TEMPLATE.format(
         meta_title=fmt(sit["meta_title"]), meta_desc=fmt(sit["meta_desc"]),
         loc_slug=loc_slug, sit_slug=sit_slug, loc_name=loc["name"], sit_label=sit["label"],
         h1=fmt(sit["h1"]), lead=fmt(sit["lead"]), local_para=fmt(sit["local_para"]),
         sections_html=sections_html, faq_html=faq_html, local_facts_html=local_facts_html,
-        local_signal_html=local_signal_html,
+        local_signal_html=local_signal_html, canonical_url=canonical_url, robots=robots,
         related_pills=related_pills, font_url=FONT_URL, wa_text=wa_text,
         faq_schema=faq_schema, local_business_schema=lb_schema, breadcrumb_schema=bc_schema,
     )

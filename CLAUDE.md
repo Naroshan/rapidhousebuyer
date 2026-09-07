@@ -71,7 +71,10 @@ locations/{slug}/           Service x Location combo pages — one per situation
                              locations/croydon/repossession.html, locations/sw11/repossession.html. 128 locations
                              x 7 situations = 896 pages, all generated (not hand-authored) by gen/generate_combo.py
                              from gen/situations_data.py — see "Generators" below before editing any of these by
-                             hand, since a direct edit will be silently overwritten by the next regeneration.
+                             hand, since a direct edit will be silently overwritten by the next regeneration. A
+                             2026-09 Search Console audit found these were ~93.6% textually identical to each
+                             other (only name/zone/price varied) and were getting essentially zero impressions —
+                             see the "Combo page content & indexing" note under Generators for the fix applied.
 blog/                       One HTML page per blog post (e.g. blog/how-fast-can-you-sell-a-house-uk.html),
                              linked from the pages/blog.html hub. Each carries Article + BreadcrumbList JSON-LD
                              with an Organization (not named-person) author — no named individual with real
@@ -158,6 +161,23 @@ structure) rather than relying solely on `css/main.css` — if the sitewide desi
 need the same treatment or they'll start shipping pages in the old look. This has already happened once: the
 initial dark/gold-themed generators were missed by the light/blue redesign and had to be patched separately
 before generating any new pages.
+
+**Combo page content & indexing (2026-09):** A Search Console audit found the 896 combo pages were ~93.6%
+textually identical to each other and getting essentially zero impressions/indexing — Google's URL Inspection
+tool reported sample combo URLs as fully unknown to it despite being present in `sitemap.xml`, consistent with
+a scaled/duplicate-content signal rather than a crawl-discovery problem. Two changes address this in
+`gen/generate_combo.py`:
+- `extract_transport()`/`extract_landmarks()` pull each location's real transport lines/stations and local
+  landmarks (already published on its own `locations/{slug}.html` page) and combine them with per-situation
+  `local_signal`/`landmark_signal` templates in `situations_data.py`, plus a real price-based FAQ entry — all
+  real, already-published facts, no invented content — cutting measured similarity to ~85%.
+- `ACTIVE_LOCATIONS` (a hardcoded set of the ~40 locations whose own base page registered any real impression
+  in the audited GSC export) controls the `<link rel="canonical">` on each combo page: active locations keep a
+  self-referencing canonical (fully indexable); every other location's 7 combo pages canonicalize back to that
+  location's own base page instead of competing as their own near-duplicate URL, consolidating ~616 of the
+  896 combo pages' signal onto the base page. `sitemap.xml` only lists combo URLs for `ACTIVE_LOCATIONS`
+  accordingly — keep both in sync if `ACTIVE_LOCATIONS` is ever revisited (e.g. after a later GSC re-check
+  shows more locations gaining real demand).
 
 ## Working conventions
 
