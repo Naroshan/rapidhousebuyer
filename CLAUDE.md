@@ -101,9 +101,12 @@ blog/                       One HTML page per blog post (e.g. blog/how-fast-can-
   snippets and the container ID when copying/editing head/body markup. GTM does not expose a global `gtag()`
   function, so don't call `gtag(...)` from page JS — push events to `window.dataLayer` instead (see below).
   All actual tag config (Google Ads conversion tag, GA4, triggers) lives in the GTM container itself
-  (tagmanager.google.com), not in this repo. The homepage's enquiry form (and each `locations/*.html` copy of
-  it) pushes `{event:'generate_lead', event_category:'Lead'}` to `window.dataLayer` on successful submission —
-  keep that event name in sync with whatever trigger/tag is configured against it in GTM.
+  (tagmanager.google.com), not in this repo. Every page with its own enquiry form pushes
+  `{event:'generate_lead', event_category:'Lead'}` to `window.dataLayer` on successful submission — that's not
+  just the homepage and the 128 base location pages, but also all 896 combo pages and all 7 situation pages
+  (each has its own on-page form now, not a redirect to the homepage's — see the git history for that fix).
+  1,032 of 1,047 HTML files carry this push in total. Keep the event name in sync with whatever trigger/tag is
+  configured against it in GTM.
 
 ### Postcode pilot (inner London)
 
