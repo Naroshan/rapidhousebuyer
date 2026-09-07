@@ -2,3 +2,52 @@
 https://www.rapidhousebuyer.co.uk/* https://rapidhousebuyer.co.uk/:splat 301!
 http://www.rapidhousebuyer.co.uk/*  https://rapidhousebuyer.co.uk/:splat 301!
 http://rapidhousebuyer.co.uk/*      https://rapidhousebuyer.co.uk/:splat 301!
+
+# Legacy sub-area pages removed in an earlier restructure without a redirect —
+# Google still has these indexed (some, e.g. /locations/kingston, ranking
+# better than most of the current site) so send that equity to the nearest
+# current borough/postcode page instead of 404ing. Found via a Search Console
+# audit on 2026-09-07 (see git history for that analysis).
+/locations/highbury      /locations/islington              301
+/locations/highbury.html /locations/islington              301
+/locations/kennington      /locations/lambeth              301
+/locations/kennington.html /locations/lambeth              301
+/locations/kingston      /locations/kingston-upon-thames   301
+/locations/kingston.html /locations/kingston-upon-thames   301
+/locations/southfields      /locations/wandsworth          301
+/locations/southfields.html /locations/wandsworth          301
+/locations/kilburn      /locations/brent                   301
+/locations/kilburn.html /locations/brent                   301
+/locations/notting-hill      /locations/kensington-and-chelsea  301
+/locations/notting-hill.html /locations/kensington-and-chelsea  301
+/locations/shoreditch      /locations/hackney              301
+/locations/shoreditch.html /locations/hackney              301
+/locations/woodford      /locations/redbridge              301
+/locations/woodford.html /locations/redbridge              301
+/locations/hampstead      /locations/nw3                   301
+/locations/hampstead.html /locations/nw3                   301
+/locations/wood-green      /locations/haringey             301
+/locations/wood-green.html /locations/haringey             301
+/locations/herne-hill      /locations/lambeth              301
+/locations/herne-hill.html /locations/lambeth              301
+/locations/forest-hill      /locations/lewisham            301
+/locations/forest-hill.html /locations/lewisham            301
+/locations/nunhead      /locations/southwark               301
+/locations/nunhead.html /locations/southwark               301
+
+# Legacy .html-suffixed URLs for pages that DO still exist, just at their
+# extensionless canonical URL — same GSC audit found these still indexed,
+# meaning Google may be crawling/indexing both forms as separate URLs
+/pages/repossession.html            /pages/repossession               301
+/pages/probate.html                 /pages/probate                    301
+/pages/debt.html                    /pages/debt                       301
+/pages/about.html                   /pages/about                      301
+/locations/lambeth.html             /locations/lambeth                301
+/locations/bermondsey.html          /locations/bermondsey             301
+/locations/kensington-and-chelsea.html /locations/kensington-and-chelsea 301
+/locations/chelsea.html             /locations/chelsea                301
+/locations/chingford.html           /locations/chingford              301
+/locations/angel.html               /locations/angel                  301
+/locations/battersea.html           /locations/battersea              301
+/locations/barking.html             /locations/barking                301
+/locations/camberwell.html          /locations/camberwell             301
