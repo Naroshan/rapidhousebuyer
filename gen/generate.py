@@ -262,7 +262,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="sticky-sidebar">
         <div class="sidebar-card">
-          <div class="sidebar-card__title">Get a {name} Valuation</div>
+          <div class="sidebar-card__title">Get {article} {name} Valuation</div>
           <a href="tel:+442071991698" class="sidebar-contact"><div class="sidebar-contact__icon">&#128222;</div><div><div class="sidebar-contact__label">Call Direct</div><div class="sidebar-contact__value">020 7199 1698</div></div></a>
           <a href="https://wa.me/442071991698" class="sidebar-contact" target="_blank" rel="noopener"><div class="sidebar-contact__icon">&#128172;</div><div><div class="sidebar-contact__label">WhatsApp</div><div class="sidebar-contact__value">020 7199 1698</div></div></a>
           <p style="font-size:.74rem;color:var(--txt-muted);margin-top:.875rem;line-height:1.6">Response within 2 hours. Same-day survey available in {name}. No obligation.</p>
@@ -535,9 +535,10 @@ def render(slug, t):
         pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">%s</a>' % (s, EXISTING_LABELS.get(s, s.title())))
     nearby_pills_alt = "".join(pills_alt)
     wa_text = quote(f"Hi, I'd like a cash offer for my {t['name']} property")
+    article = "an" if t["name"][0].upper() in "AEIOU" else "a"
 
     return PAGE_TEMPLATE.format(
-        name=t["name"], county=t["county"], region=t["region"], slug=slug,
+        name=t["name"], article=article, county=t["county"], region=t["region"], slug=slug,
         junction=t["m25_junction"], dist=t["distance_miles"], rail=t["rail"],
         stations_str=" &middot; ".join(t["stations"]),
         landmarks_str=" &middot; ".join(t["landmarks"]),

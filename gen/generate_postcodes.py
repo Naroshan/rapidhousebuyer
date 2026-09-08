@@ -32,6 +32,10 @@ def render_page(slug, d):
     nearby = [n for n in d["nearby"] if n != slug]
     faqs = render_faq(code, area_name, parent_name, parent_slug)
     wa_text = quote(f"Hi, I'd like a cash offer for my {code} property")
+    # Postcode codes are read aloud as spoken letter names (e.g. "SE1" -> "ess
+    # ee one"), not spelled words -- the area letter's own spoken name decides
+    # "a"/"an", not the printed first character (hence W10 stays "a": "double-u").
+    article = "an" if code[0].upper() in "AEFHILMNORSX" else "a"
 
     title = f"Sell Your House Fast in {code} | Rapid House Buyer"
     meta_desc = f"Cash property buyers in {code} ({area_name}). Same-day valuation, 24hr exchange, zero fees. Call 020 7199 1698."
@@ -171,7 +175,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="sticky-sidebar">
         <div class="sidebar-card">
-          <div class="sidebar-card__title">Get a {code} Valuation</div>
+          <div class="sidebar-card__title">Get {article} {code} Valuation</div>
           <a href="tel:+442071991698" class="sidebar-contact"><div class="sidebar-contact__icon">&#128222;</div><div><div class="sidebar-contact__label">Call Direct</div><div class="sidebar-contact__value">020 7199 1698</div></div></a>
           <a href="https://wa.me/442071991698" class="sidebar-contact" target="_blank" rel="noopener"><div class="sidebar-contact__icon">&#128172;</div><div><div class="sidebar-contact__label">WhatsApp</div><div class="sidebar-contact__value">020 7199 1698</div></div></a>
           <p style="font-size:.74rem;color:var(--txt-muted);margin-top:.875rem;line-height:1.6">Response within 2 hours. Same-day survey in {code}.</p>
