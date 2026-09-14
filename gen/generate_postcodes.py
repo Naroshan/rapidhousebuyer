@@ -1,4 +1,5 @@
 import os, sys, json
+from datetime import date
 from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -36,6 +37,7 @@ def render_page(slug, d):
     # ee one"), not spelled words -- the area letter's own spoken name decides
     # "a"/"an", not the printed first character (hence W10 stays "a": "double-u").
     article = "an" if code[0].upper() in "AEFHILMNORSX" else "a"
+    last_updated = date.today().strftime("%-d %B %Y")
 
     title = f"Sell Your House Fast in {code} | Rapid House Buyer"
     meta_desc = f"Cash property buyers in {code} ({area_name}). Same-day valuation, 24hr exchange, zero fees. Call 020 7199 1698."
@@ -144,6 +146,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="page-hero__label">{compass} &mdash; {area_name}</div>
     <h1 class="page-hero__title">Sell Your House Fast in {code}</h1>
     <p class="page-hero__sub">{code} covers {area_name}, part of the London Borough of {parent_name}. We are direct cash buyers across {code} with same-day survey capability and 24-hour exchange available when urgency demands it.</p>
+    <p style="font-size:.75rem;color:#6b7280;margin:.5rem 0 0;">Last updated: {last_updated}</p>
     <div class="page-hero__ctas">
       <a href="#enquiry" class="btn btn--primary btn--lg">Get a Free {code} Cash Offer</a>
       <a href="https://wa.me/442071991698?text={wa_text}" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp Us</a>

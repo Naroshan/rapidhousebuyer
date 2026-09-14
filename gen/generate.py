@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, sys
+from datetime import date
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
 from towns_data import TOWNS
@@ -205,6 +206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="page-hero__label">{region}</div>
     <h1 class="page-hero__title">Cash Property Buyers<br>in {name}</h1>
     <p class="page-hero__sub">We are direct cash buyers purchasing residential properties across {name} and the wider {county} stretch of the M25 corridor. Same-day valuations, 24-hour exchange, and zero fees &mdash; a professional service built for {name} homeowners who need to sell fast.</p>
+    <p style="font-size:.75rem;color:#6b7280;margin:.5rem 0 0;">Last updated: {last_updated}</p>
     <div class="page-hero__ctas">
       <a href="#enquiry" class="btn btn--primary btn--lg">Get a Free {name} Cash Offer</a>
       <a href="https://wa.me/442071991698?text={wa_text}" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp Us</a>
@@ -536,9 +538,11 @@ def render(slug, t):
     nearby_pills_alt = "".join(pills_alt)
     wa_text = quote(f"Hi, I'd like a cash offer for my {t['name']} property")
     article = "an" if t["name"][0].upper() in "AEIOU" else "a"
+    last_updated = date.today().strftime("%-d %B %Y")
 
     return PAGE_TEMPLATE.format(
         name=t["name"], article=article, county=t["county"], region=t["region"], slug=slug,
+        last_updated=last_updated,
         junction=t["m25_junction"], dist=t["distance_miles"], rail=t["rail"],
         stations_str=" &middot; ".join(t["stations"]),
         landmarks_str=" &middot; ".join(t["landmarks"]),
