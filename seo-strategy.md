@@ -45,6 +45,10 @@ rapidhousebuyer.co.uk/
 │                                                urgent-sale, divorce, relocation. Priority 0.6)
 └── blog/                         (Priority 0.7 — one page per post, Article + BreadcrumbList JSON-LD,
                                     Organization author — no named individual to attribute posts to)
+404.html                        (Branded 404, noindex,follow — added 2026-09 after a Search Console audit
+                                  found legacy location URLs 404ing with no custom error page; see
+                                  CLAUDE.md's site-structure entry for it and `_redirects` for the
+                                  accompanying 301s)
 ```
 
 Coverage note: the business now positions as **England & Wales**-wide (not London-only) — deepest expertise in the 32 London boroughs plus the M25 corridor, with the rest of England & Wales served but without dedicated location pages. Homepage/about/hero copy and JSON-LD `areaServed` already reflect this; keyword targeting below should too.
@@ -76,7 +80,7 @@ Coverage note: the business now positions as **England & Wales**-wide (not Londo
 ### Tier 3 — Location Pages (x120 base pages, x896 combo pages)
 - London boroughs/sub-areas (60 pages): "cash property buyers [borough]", "sell house fast [area]", "quick sale [area] london"
 - M25-corridor towns (60 pages, Herts/Essex/Kent/Surrey/Bucks/Berks): "cash house buyers [town]", "sell house fast [town]", "we buy houses [town]"
-- Service x Location combos (896 pages, `/locations/[slug]/[situation]`): "stop repossession in [area]", "probate property sale [area]", "sell tenanted property [area]" — pairs each of the 7 situation keywords with every location, each with its own genuinely distinct content (real local data, not templated find/replace) and its own on-page enquiry form
+- Service x Location combos (896 pages, `/locations/[slug]/[situation]`): "stop repossession in [area]", "probate property sale [area]", "sell tenanted property [area]" — pairs each of the 7 situation keywords with every location, each with its own on-page enquiry form and real local data (transport, landmarks, price) woven into the copy rather than a pure find/replace. **As of 2026-09, only ~280 of these 896 (the 7 combos for each of the ~40 `ACTIVE_LOCATIONS`) actually compete to rank on their own `[situation] in [area]` query** — the other 616 canonicalize back to their base location page instead, after a GSC audit found the full set was ~93.6% similar and getting near-zero indexing. See the "Combo-page canonical/indexing consolidation" note in §5 and CLAUDE.md for the mechanics.
 
 ### Tier 3b — Postcode Pilot (x8 base pages, x56 combo pages) — pilot, not yet scaled
 Targets postcode-district search intent directly rather than area name, e.g. "sell house fast SW11" alongside
@@ -190,7 +194,9 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 ### Implemented on Homepage
 - LocalBusiness schema with aggregateRating
 - FAQPage schema (5 key questions, matching the visible accordion exactly)
-- WebSite schema with SearchAction
+- WebSite schema (its `SearchAction` was removed in 2026-09: the site has no `/search` route, so a
+  SearchAction claiming a sitelinks-search-box capability that would 404 was a real, fixable structured-data
+  defect, not a feature worth keeping)
 
 ### Implemented on Service Pages
 - FAQPage schema on all 7 situation pages, faq page, and all 896 combo pages
@@ -200,16 +206,27 @@ Not yet mapped to a page (tracked for future content, no dedicated URL currently
 - LocalBusiness + BreadcrumbList schema on all 128 base location pages and all 896 combo pages
 
 ### Implemented Sitewide ✓
-- BreadcrumbList — static JSON-LD (not JS-injected) on every page except the homepage (1,046 of 1,047 HTML
-  files; the homepage is the one exception, and reasonably so — it's the root, nothing to show a trail back
-  to). Note the homepage is also structurally different from every other page here: it bundles LocalBusiness,
-  WebSite+SearchAction and FAQPage into one `"@graph"` array, while every other page (all 128 base locations,
-  all 896 combo pages, situation/blog/legal pages) emits 2-3 separate JSON-LD `<script>` blocks instead — don't
-  use the homepage's head markup as a template for `@graph` elsewhere, it's not the sitewide pattern
+- BreadcrumbList — static JSON-LD (not JS-injected) on every page except two (1,046 of 1,048 HTML files). The
+  homepage is one exception, and reasonably so — it's the root, nothing to show a trail back to — and bundles
+  LocalBusiness, WebSite and FAQPage into one `"@graph"` array instead (every other page emits 2-3 separate
+  JSON-LD `<script>` blocks — don't use the homepage's head markup as a template for `@graph` elsewhere, it's
+  not the sitewide pattern). 404.html is the second exception, carrying no JSON-LD of any kind — it's
+  noindex, so there's no schema to gain from.
 - HowTo schema on how-it-works.html
 - Review schema (itemscope/itemtype) on testimonial cards on the 32 rich borough pages and 60 M25 town pages,
   plus AggregateRating on the homepage's LocalBusiness node (96 files carry Review/AggregateRating markup)
 - Article + BreadcrumbList schema on all 4 blog posts
+- **Combo-page canonical/indexing consolidation (2026-09)**: a Search Console audit found the 896 combo
+  pages were ~93.6% textually identical to each other and getting essentially zero impressions/indexing.
+  Two fixes, both in `gen/generate_combo.py` (full mechanics in CLAUDE.md's "Combo page content & indexing"
+  note): each combo page now weaves in the location's real transport/landmarks/price data plus a per-situation
+  local-signal paragraph (cut measured similarity to ~85%), and only the ~40 `ACTIVE_LOCATIONS` (locations
+  whose own base page registered a real GSC impression) keep a self-referencing, fully-indexable canonical —
+  the other ~88 locations' 616 combo pages now canonicalize back to their own base location page instead of
+  competing as their own thin, near-duplicate URL. **This changes the Tier 3/keyword-map assumption below**:
+  only ~280 of the 896 combo pages are currently targeting their own "[situation] in [area]" query; the other
+  616 feed their signal into the base location page's general ranking instead. `sitemap.xml` reflects this
+  (only lists combo URLs for `ACTIVE_LOCATIONS`) and should stay in sync if that set is ever revisited.
 
 ### Still to Implement
 - HowTo schema elsewhere (currently only on how-it-works.html)
@@ -254,6 +271,13 @@ All pages have canonical tags matching the extensionless production URLs.
 ### Hreflang
 Not required (English-language site, England & Wales only).
 
+### AI Search / AEO Crawlability ✓ (verified 2026-09)
+`robots.txt` is wide open (`User-agent: * / Allow: /`, only `/admin/` and `/.netlify/` disallowed) — GPTBot,
+ClaudeBot, PerplexityBot, Google-Extended and Bingbot are all free to crawl and cite the site; nothing is
+blocking any AI search engine. `llms.txt` exists at the site root with a short company overview and links to
+all 7 situation pages plus key pages. See CLAUDE.md for the full audit (canonical/meta-robots/sitemap-orphan
+checks, all clean).
+
 ## 7. EEAT Signals (Experience, Expertise, Authoritativeness, Trustworthiness)
 
 ### Implemented
@@ -265,6 +289,9 @@ Not required (English-language site, England & Wales only).
 - ✓ Review schema with AggregateRating (4.9★ stated)
 - ✓ Transparent pricing disclosure (75-85% of market value)
 - ✓ "We recommend independent advice" statements
+- ✓ Visible "Last updated: [date]" line on every page (2026-09) — a real, git/generation-time-derived date,
+  never fabricated; see CLAUDE.md's "Last updated dates" section for the convention and how the three
+  generators keep it current automatically
 
 ### Needs verification before further reliance (flagged, not yet confirmed)
 - [ ] NAPB / TPO / ICO membership numbers — currently stated but not individually verified against the registers
@@ -352,7 +379,8 @@ document.addEventListener('mouseleave', (e) => {
 ## 10. GDPR & Cookie Compliance
 
 ### Implemented ✓
-- Cookie banner with accept/decline, consent stored in localStorage — **sitewide, all 1,047 pages** (fixed:
+- Cookie banner with accept/decline, consent stored in localStorage — **sitewide, all 1,048 pages including
+  404.html** (fixed:
   previously only on the homepage + 128 base location pages, missing from all 896 combo pages, 18
   `pages/*.html` files and 4 blog posts. Added to `gen/generate_combo.py`'s template and regenerated all 896
   combo pages, plus hand-added to the other 22 files)
@@ -425,6 +453,11 @@ window.dataLayer.push({ event: 'generate_lead', event_category: 'Lead' });
   similar-age borough page (e.g. Croydon) for context — this determines whether the postcode approach (§2
   Tier 3b) gets extended to more postcodes/outer London or stays a one-off pilot. No Search Console access
   from this environment, so this has to be pulled and shared manually.
+- **Pending (scheduled ~2026-09-28)**: re-check GSC indexing/impressions for the `ACTIVE_LOCATIONS`-canonicalized
+  combo pages (§5) — whether the ~40 active locations' combo pages have started getting indexed/impressed, and
+  whether the ~40 active base location pages moved at all now that they're competing against fewer
+  near-duplicate URLs — to decide whether `ACTIVE_LOCATIONS` should expand or hold. Same check-in can cover
+  the postcode-pilot review above.
 
 ## 13. Off-Page / Link Building Strategy
 
@@ -445,6 +478,8 @@ window.dataLayer.push({ event: 'generate_lead', event_category: 'Lead' });
 
 ---
 
-*Strategy document prepared for rapidhousebuyer.co.uk. Review quarterly. Last synced to live site: 2026-09-07
+*Strategy document prepared for rapidhousebuyer.co.uk. Review quarterly. Last synced to live site: 2026-09-14
 (128 base location pages + 896 Service x Location combo pages, including an 8-postcode inner-London pilot with
-its own 56 combo pages; England & Wales positioning; GTM/dataLayer analytics; light/blue site redesign).*
+its own 56 combo pages; England & Wales positioning; GTM/dataLayer analytics; light/blue site redesign;
+combo-page content differentiation + `ACTIVE_LOCATIONS` canonical consolidation; 404.html added; sitewide
+"Last updated" freshness dates; homepage SearchAction removed).*
