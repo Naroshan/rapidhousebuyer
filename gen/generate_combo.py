@@ -10,6 +10,7 @@ Usage: python3 gen/generate_combo.py <location-slug> [<location-slug> ...]
        python3 gen/generate_combo.py --all
 """
 import os, re, sys, html as htmllib
+from datetime import date
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
 from situations_data import SITUATIONS, SITUATION_LABELS
@@ -214,6 +215,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p style="font-size:.75rem;color:#2563eb;margin-bottom:.5rem;"><a href="/locations/{loc_slug}" style="color:#2563eb;text-decoration:none;">&larr; {loc_name}</a></p>
       <h1>{h1}</h1>
       <p class="lead">{lead}</p>
+      <p style="font-size:.75rem;color:#6b7280;margin:-.5rem 0 1rem;">Last updated: {last_updated}</p>
       <a href="#enquiry" class="btn btn--primary">Get a Free Cash Offer</a>
       <a href="https://wa.me/442071991698?text={wa_text}" class="btn btn--wa" target="_blank">WhatsApp Us</a>
     </div>
@@ -430,9 +432,11 @@ def render_page(loc_slug, sit_slug):
         else f"https://rapidhousebuyer.co.uk/locations/{loc_slug}"
     )
     robots = "index,follow"
+    last_updated = date.today().strftime("%-d %B %Y")
 
     return PAGE_TEMPLATE.format(
         meta_title=fmt(sit["meta_title"]), meta_desc=fmt(sit["meta_desc"]),
+        last_updated=last_updated,
         loc_slug=loc_slug, sit_slug=sit_slug, loc_name=loc["name"], sit_label=sit["label"],
         h1=fmt(sit["h1"]), lead=fmt(sit["lead"]), local_para=fmt(sit["local_para"]),
         sections_html=sections_html, faq_html=faq_html, local_facts_html=local_facts_html,
