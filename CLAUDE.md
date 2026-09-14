@@ -29,8 +29,8 @@ sitemap.xml, robots.txt, llms.txt
 _headers, _redirects        Netlify config (security headers, caching, non-www redirect)
 seo-strategy.md             SEO/content strategy notes (keyword clusters, internal linking plan)
 css/
-  main.css                  Production stylesheet actually linked from every page's <head> (all 1,047 HTML
-                             files). The original stylesheet is one ~30KB minified line (line 1) — most of
+  main.css                  Production stylesheet actually linked from every page's <head> (all 1,048 HTML
+                             files, including 404.html). The original stylesheet is one ~30KB minified line (line 1) — most of
                              the site's actual CSS rules live there, so grep/read that line specifically
                              rather than assuming `wc -l`'s line count reflects where the rules are. Fixes
                              and new rules added since (the light/blue redesign overrides, the locations-hub
@@ -41,8 +41,8 @@ css/
                              regardless of source line
   pages.css                 Minified per-page-type overrides, linked alongside main.css — not just on
                              `pages/*.html` as the name suggests, but also on all 896 combo pages
-                             (`locations/{slug}/{situation}.html`) and the blog posts (918 files total).
-                             Redeclares its own `:root` subset (colours, fonts) that takes precedence over
+                             (`locations/{slug}/{situation}.html`), the blog posts, and 404.html
+                             (919 files total). Redeclares its own `:root` subset (colours, fonts) that takes precedence over
                              main.css's on every page that loads both, since it's linked second — keep the
                              two in sync when changing shared tokens (this bit both files during the
                              light/blue redesign and had to be fixed in each separately)
@@ -79,6 +79,11 @@ blog/                       One HTML page per blog post (e.g. blog/how-fast-can-
                              linked from the pages/blog.html hub. Each carries Article + BreadcrumbList JSON-LD
                              with an Organization (not named-person) author — no named individual with real
                              credentials exists on the site to attribute posts to; do not invent one.
+404.html                    Branded 404 (noindex,follow) added 2026-09 after a GSC audit found legacy location
+                             URLs 404ing with no custom error page (see `_redirects` for the accompanying 301s
+                             for those specific dead slugs). Loads main.css/pages.css and carries the cookie
+                             banner like every other page, but has no JSON-LD of any kind and no enquiry form —
+                             don't assume it matches the "every page has X" claims below without checking.
 ```
 
 ### Content architecture
@@ -92,18 +97,21 @@ blog/                       One HTML page per blog post (e.g. blog/how-fast-can-
   across all of them. The 120 borough/sub-area/M25-town pages are static, hand-duplicated files (not
   regenerated from `gen/generate.py` — see "Generators" below for why); the 8 postcode-pilot pages *are*
   generator-produced from `gen/generate_postcodes.py` and should be edited via that generator, not by hand.
-- **Structured data**: JSON-LD in `<head>` on effectively every page (1,046 of 1,047 HTML files carry
-  `BreadcrumbList`). The homepage is the one exception that bundles everything into a single `"@graph"` array
-  (`LocalBusiness`, `WebSite`+`SearchAction`, `FAQPage`); every other page — all 128 base location pages, all
-  896 combo pages, the situation/blog/legal pages — instead emits 2-3 separate `<script type="application/
-  ld+json">` blocks (typically `FAQPage`, `LocalBusiness`, `BreadcrumbList`), not a single `@graph`. Don't
-  assume the `@graph` pattern when copying homepage head markup to another page. Keep NAP (name/address/phone)
-  and business details consistent across pages when editing.
+- **Structured data**: JSON-LD in `<head>` on effectively every page except two (1,046 of 1,048 HTML files
+  carry `BreadcrumbList`). The homepage bundles everything into a single `"@graph"` array (`LocalBusiness`,
+  `WebSite`, `FAQPage` — the `WebSite` entry's `SearchAction` was removed in 2026-09, since the site has no
+  `/search` route and a dead SearchAction risked a broken sitelinks search box); 404.html carries no JSON-LD
+  at all (it's noindex, so there's nothing to gain from schema there). Every other page — all 128 base
+  location pages, all 896 combo pages, the situation/blog/legal pages — instead emits 2-3 separate
+  `<script type="application/ld+json">` blocks (typically `FAQPage`, `LocalBusiness`, `BreadcrumbList`), not a
+  single `@graph`. Don't assume the `@graph` pattern when copying homepage head markup to another page. Keep
+  NAP (name/address/phone) and business details consistent across pages when editing.
 - **Analytics**: Google Tag Manager is installed on every page — the loader script inline in `<head>` plus a
   `<noscript>` iframe right after the opening `<body>` tag, container ID `GTM-ML5MZDK3`. Preserve both
   snippets and the container ID when copying/editing head/body markup. GTM does not expose a global `gtag()`
   function, so don't call `gtag(...)` from page JS — push events to `window.dataLayer` instead (see below).
-  The cookie-consent banner (sitewide on all 1,047 pages — `#cookieBanner`, `rhb_consent` in localStorage) is
+  The cookie-consent banner (sitewide on all 1,048 pages, 404.html included — `#cookieBanner`, `rhb_consent`
+  in localStorage) is
   UI-only: it doesn't gate this GTM snippet, which loads and fires unconditionally regardless of the
   visitor's Accept/Decline choice. Don't assume accepting/declining the banner has any effect on tracking
   unless that's wired up.
@@ -112,8 +120,8 @@ blog/                       One HTML page per blog post (e.g. blog/how-fast-can-
   `{event:'generate_lead', event_category:'Lead'}` to `window.dataLayer` on successful submission — that's not
   just the homepage and the 128 base location pages, but also all 896 combo pages and all 7 situation pages
   (each has its own on-page form now, not a redirect to the homepage's — see the git history for that fix).
-  1,032 of 1,047 HTML files carry this push in total. Keep the event name in sync with whatever trigger/tag is
-  configured against it in GTM.
+  1,032 of 1,048 HTML files carry this push in total (404.html has no form, just CTA links, so it's not among
+  them). Keep the event name in sync with whatever trigger/tag is configured against it in GTM.
 
 ### Postcode pilot (inner London)
 
@@ -178,6 +186,30 @@ a scaled/duplicate-content signal rather than a crawl-discovery problem. Two cha
   896 combo pages' signal onto the base page. `sitemap.xml` only lists combo URLs for `ACTIVE_LOCATIONS`
   accordingly — keep both in sync if `ACTIVE_LOCATIONS` is ever revisited (e.g. after a later GSC re-check
   shows more locations gaining real demand).
+
+### "Last updated" dates (freshness signal, 2026-09)
+
+Every one of the 1,048 HTML files (homepage, `pages/*.html` including the 4 legal pages, all 128
+`locations/*.html`, all 896 combo pages, all 4 `blog/*.html` posts, and 404.html) carries a small
+`<p style="font-size:.75rem;color:#6b7280;...">Last updated: [date]</p>` line right after the page's
+`<p class="lead">`/`<p class="page-hero__sub">` paragraph and before its CTA buttons. This exists purely as
+an AI-search/AEO and general E-E-A-T freshness signal — undated content is weighted worse than dated content
+by both Google's core ranking systems and non-Google AI engines (ChatGPT, Perplexity, Claude).
+
+**The date is always real, never fabricated**: for hand-authored files it's that file's actual last-commit
+date (`git log -1 --format=%ad --date=short -- <file>`); for generator-produced files it's `date.today()` at
+generation time. This means:
+
+- If you hand-edit any page's content, update its visible "Last updated" line to match (or re-derive it from
+  `git log` after committing) — it's a hardcoded string, not a live template variable, so it will silently go
+  stale otherwise, which is the exact problem this feature exists to solve.
+- `gen/generate.py`, `gen/generate_postcodes.py`, and `gen/generate_combo.py` all already bake this in
+  automatically (a `last_updated`/`date.today()` value passed into each template) — regenerating any of them
+  naturally produces a correct, current date, nothing extra to do.
+- The 4 blog posts' Article JSON-LD `dateModified` was found stale (frozen at the original `datePublished`)
+  when this was added and was corrected to match the real last-commit date at the same time; `datePublished`
+  itself was left untouched. If you edit a blog post's content, update `dateModified` in its schema too, not
+  just the visible line.
 
 ## Working conventions
 
