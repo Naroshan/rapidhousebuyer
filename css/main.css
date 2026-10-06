@@ -55,3 +55,24 @@ html[data-region-blocked="true"] .region-block-banner a{display:inline!important
 .directory__links a{font-size:.825rem;color:#4b5563;text-decoration:none;padding:2px 0}
 .directory__links a:hover{color:var(--gold-mid);text-decoration:underline}
 @media (max-width:600px){.directory__links{grid-template-columns:repeat(2,1fr)}}
+
+/* PREVIEW — Escape Velocity-inspired pass: bright blue, pure-white sections, boxed cards (2026-10) */
+.section--dark,.section--charcoal{background:#ffffff}
+.section__label{font-weight:800;letter-spacing:.24em}
+.btn--primary{background:#2563eb;background-image:none;border-radius:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.82rem;box-shadow:0 10px 24px -10px rgba(37,99,235,.55);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.btn--primary:hover{background:#1d4ed8;transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(37,99,235,.6)}
+.btn--outline,.btn--outline-dark{border-radius:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.82rem}
+
+.audience-card,.trust-item,.testimonial-card{background:#fff;border:1px solid var(--border-faint);border-top:3px solid #2563eb;border-radius:10px;box-shadow:0 1px 3px rgba(15,23,42,.06);transition:transform .25s ease,box-shadow .25s ease}
+.audience-card:hover,.trust-item:hover,.testimonial-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px -22px rgba(37,99,235,.4)}
+.audience-card__icon,.trust-item__icon{width:52px;height:52px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
+
+.process-step__num{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:50%;background:#2563eb;color:#fff;font-family:var(--serif);font-weight:800;font-size:1.05rem;margin-bottom:1rem}
+
+.testimonial-card__avatar{background:#2563eb;color:#fff}
+
+.stats-bar__inner{background:#fff;border:1px solid var(--border-faint);border-radius:10px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.stat__number span{font-family:var(--serif);font-weight:800;color:#2563eb}
+
+.hero__trust-item{background:#fff;border:1px solid var(--border-faint);border-radius:10px;padding:.9rem 1rem}
+.hero__trust-icon{width:36px;height:36px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
