@@ -124,17 +124,58 @@ body.is-home .header-inner--centered .nav-toggle span{background:#fff}
 }
 
 /* Trust strip under the hero — plain bordered bar, not a gradient banner */
-body.is-home .hero__banner{margin:1.25rem 0 1.5rem;min-height:auto;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;padding:.9rem 1.5rem;background:#f0f5fd;border:1px solid var(--border-faint)}
+body.is-home .hero__banner{margin:1.25rem 0 1.5rem;min-height:auto;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;padding:.9rem 1.5rem;background:#FBF3E2;border:1px solid var(--border-faint)}
 body.is-home .hero__banner span{color:#8F6A2A;font-weight:600;font-size:.95rem;letter-spacing:.01em}
 
 body.is-home .section__label,body.is-home .section__label--dark{display:inline-block;color:#B8893A;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem}
 
-body.is-home .audience-card{display:flex;flex-direction:column;padding:1.75rem 1.5rem 1.5rem}
-body.is-home .audience-card__media{width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border-radius:9px;background:#eef3fc;margin-bottom:1.1rem}
-body.is-home .audience-card__media--1,body.is-home .audience-card__media--2,body.is-home .audience-card__media--3{background:#eef3fc}
-body.is-home .audience-card__title{margin-top:0}
-body.is-home .audience-card__link{display:inline-block;margin-top:1.25rem;color:#8F6A2A;text-decoration:none;font-weight:700;letter-spacing:.02em;font-size:.85rem;border-bottom:2px solid transparent;transition:border-color .2s ease;align-self:flex-start}
-body.is-home .audience-card__link:hover{border-color:#8F6A2A}
+/* --- Situation picker ("What's prompting the sale?") --- */
+.situation-grid{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;max-width:920px;margin-inline:auto}
+.situation-pill{display:inline-flex;align-items:center;gap:8px;padding:.8rem 1.4rem;background:#fff;border:1px solid var(--border-faint);border-radius:var(--rfull);font-size:.9rem;font-weight:600;color:var(--txt-dark);cursor:pointer;transition:all .2s var(--ease)}
+.situation-pill:hover{border-color:var(--border-gold);transform:translateY(-2px)}
+.situation-pill[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.situation-panel{max-width:760px;margin:2.5rem auto 0;background:#fff;border:1px solid var(--border-gold);border-radius:var(--r16);padding:2rem 2.25rem;box-shadow:0 8px 32px -16px rgba(28,37,65,.18);opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease}
+.situation-panel.is-visible{opacity:1;transform:none}
+.situation-panel__title{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--txt-dark);margin-bottom:.6rem}
+.situation-panel__text{font-size:.95rem;line-height:1.75;color:var(--txt-dark-sec);margin-bottom:1.1rem}
+.situation-panel__timeline{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.5rem}
+.situation-panel__timeline span{font-size:.78rem;font-weight:600;color:var(--gold-deep);background:var(--gold-ghost);border:1px solid var(--border-gold);border-radius:var(--rfull);padding:.4rem .9rem}
+.situation-panel__cta{display:inline-flex}
+
+/* --- Honesty / net-proceeds section --- */
+.honesty-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.75rem 2.5rem;margin-bottom:2.5rem}
+.honesty-point{border-left:3px solid var(--gold);padding-left:1.25rem}
+.honesty-point h3{font-family:var(--serif);font-size:1.05rem;font-weight:600;color:var(--txt-dark);margin-bottom:.5rem;line-height:1.4}
+.honesty-point p{font-size:.9rem;line-height:1.72;color:var(--txt-dark-sec)}
+.honesty-subhead{text-align:center;margin:0 0 1.5rem;font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--txt-dark)}
+.honesty-footnote{text-align:center;font-size:.8rem;color:var(--txt-muted);margin-top:1rem}
+@media (max-width:700px){.honesty-grid{grid-template-columns:1fr}}
+
+/* --- Roofline brand mark (header + form progress + thank-you) --- */
+.roofline-logo{display:flex;align-items:center;gap:10px}
+.roofline-logo .logo__text{display:flex;flex-direction:column;gap:2px;text-align:left}
+.roofline{width:34px;height:22px;flex-shrink:0;overflow:visible;color:var(--gold)}
+.roofline__path{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;transition:stroke-dashoffset 1.1s var(--ease)}
+body.is-home .logo--centered .roofline{color:#E9D19D}
+.wizard__progress{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.75rem}
+.wizard__progress .roofline{width:72px;height:40px;color:var(--gold)}
+.wizard__steps-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-muted)}
+
+/* --- Multi-step offer wizard --- */
+.wizard{max-width:560px;margin-inline:auto;background:#fff;border:1px solid var(--border-faint);border-radius:var(--r24);padding:2.25rem;box-shadow:0 8px 40px rgba(28,37,65,.08)}
+.wizard__step-title{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--txt-dark);margin-bottom:.4rem}
+.wizard__step-help{font-size:.85rem;color:var(--txt-muted);margin-bottom:1.25rem}
+.wizard__big-input{font-size:1.1rem;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding:16px;margin-bottom:1rem}
+.wizard__choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.25rem}
+.wizard__choice{padding:.9rem 1rem;background:var(--bg-sec);border:1px solid var(--border-faint);border-radius:var(--r12);font-size:.875rem;font-weight:600;color:var(--txt-dark);cursor:pointer;text-align:center;transition:all .18s ease}
+.wizard__choice:hover{border-color:var(--border-gold)}
+.wizard__choice[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.wizard__step-actions{display:flex;justify-content:space-between;align-items:center;margin:1rem 0}
+.wizard__back,.wizard__skip{background:none;border:none;font-size:.82rem;font-weight:600;color:var(--txt-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:.4rem}
+.wizard__back:hover,.wizard__skip:hover{color:var(--gold-deep)}
+.wizard__next-hint{text-align:center;font-size:.78rem;color:var(--txt-muted);margin-top:1rem}
+.wizard__step h4{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--txt-muted);margin-bottom:.75rem}
+@media (max-width:480px){.wizard{padding:1.5rem}.wizard__choice-grid{grid-template-columns:1fr}}
 
 .cta-band{background:#ffffff;border-top:3px solid #B8893A;border-bottom:none}
 .cta-band p{color:#4b5563}
