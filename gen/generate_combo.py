@@ -9,11 +9,29 @@ situation content in situations_data.py.
 Usage: python3 gen/generate_combo.py <location-slug> [<location-slug> ...]
        python3 gen/generate_combo.py --all
 """
-import os, re, sys, html as htmllib
+import hashlib, os, re, sys, html as htmllib
 from datetime import date
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
 from situations_data import SITUATIONS, SITUATION_LABELS
+
+# Deterministic per-location variant picker: same (slug, seed) always resolves
+# to the same index across regenerations, but different locations land on
+# different phrasing for the same situation -- breaking the literal repeated
+# sentence pattern across the ~40 active locations x 7 situations combo set.
+# Added 2026-10 in response to Google's 2026 spam updates explicitly
+# targeting templated location-page networks for scaled content abuse.
+def variant_index(slug, seed, n):
+    h = hashlib.md5(f"{slug}:{seed}".encode()).hexdigest()
+    return int(h, 16) % n
+
+
+WHY_HERE_VARIANTS = [
+    "Why {place} Specifically",
+    "{place} is in {zone}, served by {transport}, with {landmarks} nearby helping keep local demand steady — real factors we weigh when pricing a {sit_label_lower} sale here, not a blanket {zone}-wide estimate.",
+    "{place}'s links — {transport} — and its proximity to {landmarks} both feed into how we value a {sit_label_lower} property here, rather than applying a generic {zone} figure.",
+    "Transport ({transport}) and local draws like {landmarks} both factor into our {place} valuations for a {sit_label_lower} sale, rather than a one-size-fits-all {zone} number.",
+]
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOCATIONS_DIR = os.path.join(ROOT, "locations")
@@ -367,10 +385,19 @@ def render_page(loc_slug, sit_slug):
         return s.format(place=loc["name"], zone=loc["zone"])
 
     local_signal_parts = []
-    if loc["transport"] and sit.get("local_signal"):
-        local_signal_parts.append(sit["local_signal"].format(place=loc["name"], transport=loc["transport"]))
-    if loc["landmarks"] and sit.get("landmark_signal"):
-        local_signal_parts.append(sit["landmark_signal"].format(place=loc["name"], landmarks=loc["landmarks"]))
+    if loc["transport"] and sit.get("local_signal_variants"):
+        variants = sit["local_signal_variants"]
+        pick = variants[variant_index(loc_slug, f"{sit_slug}:local", len(variants))]
+        local_signal_parts.append(pick.format(place=loc["name"], transport=loc["transport"]))
+    if loc["landmarks"] and sit.get("landmark_signal_variants"):
+        variants = sit["landmark_signal_variants"]
+        pick = variants[variant_index(loc_slug, f"{sit_slug}:landmark", len(variants))]
+        local_signal_parts.append(pick.format(place=loc["name"], landmarks=loc["landmarks"]))
+    if loc["transport"] and loc["landmarks"]:
+        why_pick = WHY_HERE_VARIANTS[1:][variant_index(loc_slug, f"{sit_slug}:why", len(WHY_HERE_VARIANTS) - 1)]
+        why_text = why_pick.format(place=loc["name"], zone=loc["zone"], transport=loc["transport"],
+                                    landmarks=loc["landmarks"], sit_label_lower=sit["label"].lower())
+        local_signal_parts.append(f'<strong>{WHY_HERE_VARIANTS[0].format(place=loc["name"])}:</strong> {why_text}')
     local_signal_html = "\n".join(f"      <p>{p}</p>" for p in local_signal_parts)
 
     sections_html = "\n".join(
