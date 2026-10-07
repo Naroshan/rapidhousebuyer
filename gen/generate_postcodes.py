@@ -1,6 +1,6 @@
 import os, sys, json
 from datetime import date
-from urllib.parse import quote
+from urllib.parse import quote, quote_plus
 
 sys.path.insert(0, os.path.dirname(__file__))
 from postcode_pilot_data import POSTCODES
@@ -30,6 +30,7 @@ def render_page(slug, d):
     avg_price = d["avg_price"]
     transport = d["transport"]
     character = d["character"]
+    map_query = quote_plus(f"{code} {area_name}, {parent_name}, London, UK")
     nearby = [n for n in d["nearby"] if n != slug]
     faqs = render_faq(code, area_name, parent_name, parent_slug)
     wa_text = quote(f"Hi, I'd like a cash offer for my {code} property")
@@ -164,6 +165,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div><div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep)">Average Property Price</div><div style="font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--txt-dark);margin-top:3px">{avg_price}</div></div>
           <div><div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep)">Transport</div><div style="font-size:.85rem;color:var(--smoke);margin-top:3px">{transport}</div></div>
         </div>
+        <h2>Getting Here</h2>
+        <p>{code} covers {area_name} in {compass}, within the London Borough of {parent_name}, served by {transport}. An in-house surveyor or solicitor visiting the area can use the map below for directions.</p>
+        <div class="map-embed" style="border-radius:16px;overflow:hidden;border:1px solid rgba(37,99,235,.2);margin:1rem 0 1.5rem;"><iframe src="https://www.google.com/maps?q={map_query}&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of {code}"></iframe></div>
         <h2>The {code} Property Market</h2>
         <p>{code} takes in {character}</p>
         <p>Our in-house RICS-accredited surveyors are familiar with the specific stock and market dynamics of {code} and provide accurate, evidence-based valuations reflecting the local micro-market rather than broad borough averages.</p>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, sys
 from datetime import date
-from urllib.parse import quote
+from urllib.parse import quote, quote_plus
 sys.path.insert(0, os.path.dirname(__file__))
 from towns_data import TOWNS
 
@@ -240,6 +240,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>{name} is served by {rail}, roughly {dist} miles from central London and close to M25 junction {junction}. Key stations include {stations_str}.</p>
         <h2>Local Landmarks</h2>
         <p>{name} is home to a number of well-known landmarks including {landmarks_str}, which contribute to the town&apos;s consistent residential demand.</p>
+        <h2>Getting Here</h2>
+        <p>{name} is in {county}, served by {rail} (key stations: {stations_str}), roughly {dist} miles from central London near M25 junction {junction}. An in-house surveyor or solicitor visiting the area can use the map below for directions.</p>
+        <div class="map-embed" style="border-radius:16px;overflow:hidden;border:1px solid rgba(37,99,235,.2);margin:1rem 0 1.5rem;"><iframe src="https://www.google.com/maps?q={map_query}&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of {name}"></iframe></div>
         <h2>Why {name} Homeowners Choose Us</h2>
         <p>{name} sellers frequently include {seller}.</p>
         <h2>What We Offer for {name} Properties</h2>
@@ -539,10 +542,11 @@ def render(slug, t):
     wa_text = quote(f"Hi, I'd like a cash offer for my {t['name']} property")
     article = "an" if t["name"][0].upper() in "AEIOU" else "a"
     last_updated = date.today().strftime("%-d %B %Y")
+    map_query = quote_plus(f"{t['name']}, {t['county']}, UK")
 
     return PAGE_TEMPLATE.format(
         name=t["name"], article=article, county=t["county"], region=t["region"], slug=slug,
-        last_updated=last_updated,
+        last_updated=last_updated, map_query=map_query,
         junction=t["m25_junction"], dist=t["distance_miles"], rail=t["rail"],
         stations_str=" &middot; ".join(t["stations"]),
         landmarks_str=" &middot; ".join(t["landmarks"]),
