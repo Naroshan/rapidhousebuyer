@@ -101,43 +101,40 @@ body.is-home .process-steps{margin-bottom:2rem;gap:1.5rem}
 body.is-home .trust-grid{gap:1rem}
 body.is-home .testimonials-grid{gap:1rem}
 
-/* Template's dark centered-logo header band — homepage only */
-body.is-home .site-header{background:linear-gradient(160deg,#0f1b2e 0%,#1d4ed8 100%);border-bottom:none}
-body.is-home .header-inner--centered{flex-direction:column;align-items:center;justify-content:center;height:auto;padding:1.75rem var(--gutter) 1.5rem;position:relative;gap:1rem}
+/* Centered-logo header band — homepage only. Flat navy, no glass-pill nav. */
+body.is-home .site-header{background:#0f1b2e;border-bottom:none}
+body.is-home .header-inner--centered{flex-direction:column;align-items:center;justify-content:center;height:auto;padding:1.5rem var(--gutter) 1.25rem;position:relative;gap:.85rem}
 body.is-home .logo--centered{align-items:center;text-align:center;gap:4px}
 body.is-home .logo--centered .logo__main{color:#fff}
 body.is-home .logo--centered .logo__main em{color:#93c5fd}
 body.is-home .logo--centered .logo__sub{color:#bfdbfe}
-body.is-home .header-inner--centered .header-cta{position:absolute;top:1.75rem;right:var(--gutter)}
+body.is-home .header-inner--centered .header-cta{position:absolute;top:1.5rem;right:var(--gutter)}
 body.is-home .header-inner--centered .btn-call{background:#fff;color:#1d4ed8;border-color:#fff}
 body.is-home .header-inner--centered .nav-toggle{border-color:rgba(255,255,255,.4)}
 body.is-home .header-inner--centered .nav-toggle span{background:#fff}
 @media (min-width:769px){
-  body.is-home .header-inner--centered .main-nav{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:.55rem 1.75rem;gap:1.5rem}
-  body.is-home .header-inner--centered .main-nav a{color:#fff;font-size:.85rem;font-weight:600}
-  body.is-home .header-inner--centered .main-nav a:hover{color:#93c5fd}
+  body.is-home .header-inner--centered .main-nav{gap:2rem;border-top:1px solid rgba(255,255,255,.15);padding-top:.75rem}
+  body.is-home .header-inner--centered .main-nav a{color:#dbeafe;font-size:.85rem;font-weight:600}
+  body.is-home .header-inner--centered .main-nav a:hover{color:#fff}
 }
 @media (max-width:768px){
-  body.is-home .header-inner--centered{padding:1.25rem var(--gutter) 1rem}
+  body.is-home .header-inner--centered{padding:1.1rem var(--gutter) .9rem}
   body.is-home .header-inner--centered .header-cta{top:1.1rem}
   body.is-home .header-inner--centered .btn-call{display:none}
 }
 
-/* Template's "featured image" banner + bridging title-label boxes (HTML5UP Escape Velocity signature) — homepage only */
-body.is-home .hero__banner{margin:1.75rem 0 2rem;border-radius:12px;min-height:160px;display:flex;align-items:center;justify-content:center;text-align:center;padding:1.5rem;background:linear-gradient(135deg,#1d4ed8 0%,#3b82f6 45%,#60a5fa 100%);box-shadow:0 20px 40px -18px rgba(37,99,235,.5)}
-body.is-home .hero__banner span{color:#fff;font-family:var(--serif);font-weight:700;font-size:1.15rem;letter-spacing:.02em;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+/* Trust strip under the hero — plain bordered bar, not a gradient banner */
+body.is-home .hero__banner{margin:1.25rem 0 1.5rem;min-height:auto;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;padding:.9rem 1.5rem;background:#f0f5fd;border:1px solid var(--border-faint)}
+body.is-home .hero__banner span{color:#1d4ed8;font-weight:600;font-size:.95rem;letter-spacing:.01em}
 
-body.is-home .section__label,body.is-home .section__label--dark{display:inline-block;background:#fff;color:#2563eb;border:1px solid var(--border-faint);border-radius:8px;padding:.6rem 1.4rem;box-shadow:0 10px 24px -14px rgba(15,23,42,.35);margin-top:-2.75rem;margin-bottom:1.5rem;position:relative;z-index:3}
+body.is-home .section__label,body.is-home .section__label--dark{display:inline-block;color:#2563eb;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem}
 
-body.is-home .audience-card{display:flex;flex-direction:column;overflow:hidden;padding:0}
-body.is-home .audience-card__media{min-height:140px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;border-radius:10px 10px 0 0}
-body.is-home .audience-card__media--1{background:linear-gradient(135deg,#1d4ed8,#60a5fa)}
-body.is-home .audience-card__media--2{background:linear-gradient(135deg,#2563eb,#38bdf8)}
-body.is-home .audience-card__media--3{background:linear-gradient(135deg,#1e40af,#3b82f6)}
-body.is-home .audience-card__title,body.is-home .audience-card__text{padding-left:1.5rem;padding-right:1.5rem}
-body.is-home .audience-card__title{margin-top:1.25rem}
-body.is-home .audience-card__link{display:inline-block;margin:0 1.5rem 1.5rem;background:#2563eb;color:#fff;text-decoration:none;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.78rem;border-radius:8px;padding:.7rem 1.4rem;box-shadow:0 10px 20px -10px rgba(37,99,235,.5);transition:transform .2s ease,box-shadow .2s ease,background .2s ease;align-self:flex-start}
-body.is-home .audience-card__link:hover{background:#1d4ed8;transform:translateY(-2px)}
+body.is-home .audience-card{display:flex;flex-direction:column;padding:1.75rem 1.5rem 1.5rem}
+body.is-home .audience-card__media{width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border-radius:9px;background:#eef3fc;margin-bottom:1.1rem}
+body.is-home .audience-card__media--1,body.is-home .audience-card__media--2,body.is-home .audience-card__media--3{background:#eef3fc}
+body.is-home .audience-card__title{margin-top:0}
+body.is-home .audience-card__link{display:inline-block;margin-top:1.25rem;color:#1d4ed8;text-decoration:none;font-weight:700;letter-spacing:.02em;font-size:.85rem;border-bottom:2px solid transparent;transition:border-color .2s ease;align-self:flex-start}
+body.is-home .audience-card__link:hover{border-color:#1d4ed8}
 
 .cta-band{background:#ffffff;border-top:3px solid #2563eb;border-bottom:none}
 .cta-band p{color:#4b5563}
