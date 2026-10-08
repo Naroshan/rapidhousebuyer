@@ -16,6 +16,8 @@ a.inline:hover { color:#fff; }
 .flow-logo .roofline { width:24px; height:16px; color:#aab4e0; }
 .flow-exit { color:rgba(255,255,255,0.55); font-family:Raleway,Helvetica,sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-bottom:0; }
 .flow-exit:hover { color:#fff !important; }
+/* Inside the homepage's modal, the panel's own close (X) button is the exit affordance */
+.in-modal .flow-exit { display:none; }
 
 .flow-progress { max-width:52em; margin:0 auto; padding:0 1.5em; height:4px; }
 .flow-progress > span { display:block; height:4px; background:#2e3141; border-radius:3px; overflow:hidden; position:relative; }

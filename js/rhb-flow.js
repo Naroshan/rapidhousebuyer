@@ -454,6 +454,24 @@
 		if (e.target.closest('[data-back]')) w.history.back();
 	});
 
+	/* Running inside the homepage's "Get My Free Cash Offer" modal (an iframe)?
+	   Links to "/" (the header's Exit, the done screen's "Back to homepage")
+	   should close the modal rather than navigate the iframe itself away, and
+	   Escape should close it too — both relayed to the parent via postMessage
+	   since the parent page owns the modal chrome. */
+	if (w.self !== w.top) {
+		d.documentElement.classList.add('in-modal');
+		d.addEventListener('click', function (e) {
+			var a = e.target.closest('a[href="/"]');
+			if (!a) return;
+			e.preventDefault();
+			w.parent.postMessage({ rhbFlow: 'close' }, w.location.origin);
+		}, true);
+		d.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') w.parent.postMessage({ rhbFlow: 'close' }, w.location.origin);
+		});
+	}
+
 	w.addEventListener('popstate', function (e) {
 		if (submitted) { w.location.replace('/'); return; }
 		var step = e.state && e.state.step;

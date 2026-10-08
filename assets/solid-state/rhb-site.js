@@ -105,6 +105,49 @@
 		});
 	}
 
+	/* "Get My Free Cash Offer" modal — pops get-started.html open in an iframe
+	   instead of navigating away. Delegated so it also catches the situation
+	   panel's CTA, which is injected into the DOM after this script runs. */
+	var flowModal = document.getElementById('flowModal');
+	if(flowModal){
+		var flowFrame = flowModal.querySelector('[data-flow-frame]');
+		var flowLastFocus = null;
+
+		function openFlowModal(href){
+			document.body.classList.remove('is-menu-visible');
+			if(flowFrame.getAttribute('src') !== href) flowFrame.setAttribute('src', href);
+			flowLastFocus = document.activeElement;
+			flowModal.hidden = false;
+			document.body.classList.add('flow-modal-open');
+			requestAnimationFrame(function(){
+				flowModal.classList.add('is-visible');
+				var closeBtn = flowModal.querySelector('.flow-modal__close');
+				if(closeBtn) closeBtn.focus();
+			});
+		}
+		function closeFlowModal(){
+			if(flowModal.hidden) return;
+			flowModal.classList.remove('is-visible');
+			document.body.classList.remove('flow-modal-open');
+			setTimeout(function(){ flowModal.hidden = true; }, 250);
+			if(flowLastFocus && flowLastFocus.focus) flowLastFocus.focus();
+		}
+
+		document.addEventListener('click', function(e){
+			var closeTarget = e.target.closest('[data-flow-close]');
+			if(closeTarget){ e.preventDefault(); closeFlowModal(); return; }
+			var link = e.target.closest('a[href^="/get-started.html"]');
+			if(link){ e.preventDefault(); openFlowModal(link.getAttribute('href')); }
+		});
+		document.addEventListener('keydown', function(e){
+			if(e.key === 'Escape' && !flowModal.hidden) closeFlowModal();
+		});
+		window.addEventListener('message', function(e){
+			if(e.origin !== window.location.origin) return;
+			if(e.data && e.data.rhbFlow === 'close') closeFlowModal();
+		});
+	}
+
 	/* Cookie banner */
 	var banner = document.getElementById('cookieBanner');
 	if(banner && !localStorage.getItem('rhb_consent')){
