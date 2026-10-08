@@ -189,3 +189,70 @@ body.is-home .logo--centered .roofline{color:#E9D19D}
 
 .hero__trust-item{background:#fff;border:1px solid var(--border-faint);border-radius:10px;padding:.9rem 1rem}
 .hero__trust-icon{width:36px;height:36px;border-radius:50%;background:#B8893A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+
+/* ============================================================
+   GEN-3: Full dark "Solid State" theme — applies sitewide.
+   Later :root wins the cascade (same mechanism as the two prior
+   recolor passes), so this becomes the authoritative token set.
+   ============================================================ */
+:root{--black:#2e3141;--charcoal:#2e3141;--graphite:#262935;--smoke:#363a52;--silver:rgba(255,255,255,.55);--platinum:rgba(255,255,255,.35);--pearl:rgba(255,255,255,.08);--white:#ffffff;--gold-deep:#4c5c96;--gold:#8d9bd4;--gold-mid:#8d9bd4;--gold-light:#aab4e0;--gold-pale:#c3cbe8;--gold-ghost:rgba(141,155,212,.12);--bg-dark:#2e3141;--bg-sec:#4c5c96;--bg-card:#363a52;--bg-charcoal:#262935;--bg-light:#333650;--bg-cream:#4c5c96;--txt:rgba(255,255,255,.82);--txt-sec:rgba(255,255,255,.68);--txt-muted:rgba(255,255,255,.5);--txt-dark:#ffffff;--txt-dark-sec:rgba(255,255,255,.72);--border:rgba(255,255,255,.15);--border-faint:rgba(255,255,255,.1);--border-gold:rgba(255,255,255,.25);--border-light:rgba(255,255,255,.1);--sans:'Source Sans Pro',Helvetica,Arial,sans-serif;--serif:'Raleway',Helvetica,Arial,sans-serif}
+
+body{background:var(--bg-dark);color:var(--txt)}
+h1,h2,h3,h4,h5,h6{font-weight:700;letter-spacing:.02em}
+.page-hero h1,.section__title,.cta-band__title,.footer__logo{text-transform:uppercase;letter-spacing:.02em}
+
+/* Fix hardcoded light-theme leftovers from earlier redesign passes */
+.form__select option{background:#363a52;color:#fff}
+.page-hero{background:#2e3141;clip-path:polygon(0 0,100% 0,100% 100%,0 calc(100% - 3.5rem));padding-bottom:6.5rem}
+.section--dark,.section--charcoal{background:var(--bg-sec)}
+.stats-bar{background:var(--graphite);border-top:2px solid var(--gold-deep);border-bottom:1px solid var(--border)}
+.stat-item{background:var(--graphite)}
+.hero{background:var(--bg-dark)}
+.cta-band{background:linear-gradient(135deg,var(--graphite) 0%,var(--smoke) 100%);border-top:1px solid var(--border-gold);border-bottom:1px solid var(--border-gold)}
+.testimonial-card{background:var(--bg-card)}
+.testimonial-card blockquote{color:var(--txt-sec)}
+.testimonial-card__name{color:#fff}
+.faq__answer{color:var(--txt-sec)}
+.faq__list{border-color:var(--border-faint)}
+.faq__item{border-bottom-color:var(--border-faint)}
+.faq__question{color:#fff}
+.faq__question:hover{background:rgba(255,255,255,.04)}
+.faq__question[aria-expanded="true"]{background:rgba(141,155,212,.08)}
+.faq__icon{border-color:var(--border-gold);color:var(--gold-light)}
+.article-body h2,.article-body h3,.article-body strong{color:#fff}
+.article-body p,.article-body li{color:var(--txt-sec)}
+.callout-box{background:rgba(141,155,212,.1)}
+.breadcrumb-item:last-child{color:var(--txt-sec)}
+.comparison-row:nth-child(odd) > div{background:var(--graphite)}
+.us-col{color:var(--gold-light) !important}
+.borough-pill{color:var(--txt-sec)}
+.borough-pill:hover{background:rgba(141,155,212,.12)}
+
+/* Buttons — square-ish, uppercase, Solid State button language */
+.btn{border-radius:5px;font-family:var(--serif);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+.btn--primary{background:var(--gold-deep);color:#fff;box-shadow:none}
+.btn--primary:hover{background:#3f4d80;color:#fff;box-shadow:none;transform:none}
+.btn--outline{border:solid 2px rgba(255,255,255,.25);color:#fff}
+.btn--outline:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.04)}
+.btn--outline-dark{border:solid 2px rgba(255,255,255,.25);color:#fff;background:transparent}
+.btn--outline-dark:hover{border-color:#fff;color:#fff}
+
+/* Off-canvas header + menu (sitewide inner pages) */
+#header{position:relative;z-index:9000;padding:2rem var(--gutter) 1.25rem;display:flex;align-items:center;justify-content:space-between;max-width:var(--max);margin-inline:auto}
+#header h1{font-size:1.1rem;margin:0}
+#header h1 a{color:#fff;font-family:var(--serif);font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+#header nav a{display:inline-flex;align-items:center;gap:8px;border:solid 2px rgba(255,255,255,.25);border-radius:5px;padding:.6em 1.1em;color:#fff;font-family:var(--serif);font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:border-color .2s ease,background .2s ease}
+#header nav a:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+#menu{-webkit-overflow-scrolling:touch;background:#262935;visibility:hidden;width:275px;position:fixed;top:0;right:0;height:100%;overflow-y:auto;z-index:10001;transition:transform .5s ease;transform:translateX(100%)}
+#menu.visible{visibility:visible;transform:translateX(0);box-shadow:-2px 0 20px rgba(0,0,0,.4)}
+#menu .inner{padding:3em 2em}
+#menu h2{font-size:1rem;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin-bottom:1em}
+#menu .links{border-top:solid 1px rgba(255,255,255,.1)}
+#menu .links li{border-bottom:solid 1px rgba(255,255,255,.1)}
+#menu .links a{display:block;padding:1em 0;color:rgba(255,255,255,.75);text-decoration:none;font-family:var(--serif);font-weight:600;letter-spacing:.03em}
+#menu .links a:hover{color:#fff}
+#menu .close{position:absolute;top:0;right:0;width:5em;height:5em;cursor:pointer;text-indent:6em;overflow:hidden;white-space:nowrap}
+#menu .close:before{content:'';display:block;position:absolute;top:2.25em;left:2.25em;width:1.25em;height:1.25em;background:no-repeat center/1.25em 1.25em;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cline x1='4' y1='4' x2='20' y2='20'/%3E%3Cline x1='20' y1='4' x2='4' y2='20'/%3E%3C/svg%3E")}
+body.menu-visible #page-shade{content:'';position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000}
+.urgency-bar{background:var(--graphite);color:rgba(255,255,255,.85);border-bottom:1px solid var(--border-faint)}
+.urgency-bar a{color:var(--gold-light)}
