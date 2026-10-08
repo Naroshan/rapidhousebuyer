@@ -45,6 +45,25 @@
 		return '<svg class="i i-' + name + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (isWa ? 0 : 1.9) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (ICONS[name] || ICONS.info) + '</svg>';
 	}
 
+	/* Off-canvas site menu (same #menu panel markup/CSS the rest of the site uses) —
+	   runs regardless of whether the flow itself can find its stage element. */
+	var menuPanel = d.getElementById('menu');
+	if (menuPanel) {
+		d.querySelectorAll('.nav-resume').forEach(function (el) {
+			try {
+				var saved = JSON.parse(w.localStorage.getItem(RHB.config.storageKey));
+				if (saved && saved.ref) el.hidden = false;
+			} catch (e) {}
+		});
+		function closeMenu() { d.body.classList.remove('is-menu-visible'); }
+		d.addEventListener('click', function (e) {
+			if (e.target.closest('a[href="#menu"]')) { e.preventDefault(); d.body.classList.add('is-menu-visible'); return; }
+			if (e.target.closest('#menu .close')) { e.preventDefault(); closeMenu(); return; }
+			if (d.body.classList.contains('is-menu-visible') && !e.target.closest('#menu .inner')) closeMenu();
+		});
+		d.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+	}
+
 	var stage = $('[data-stage]');
 	var aside = $('[data-aside]');
 	var bar = $('[data-progress]');

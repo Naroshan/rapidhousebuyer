@@ -28,10 +28,16 @@ gtag('config', 'GT-5MCNDKRF');
 </head>
 <body class="is-preload">
 
+<div id="page-wrapper">
+
 <header class="flow-header">
 	<a class="flow-logo" href="/"><svg class="roofline" viewBox="0 0 100 60" aria-hidden="true"><path class="roofline__path" d="M6,50 L50,13 L94,50 M63,29 L63,13 L78,13 L78,24"/></svg>Rapid House Buyer</a>
-	<a class="flow-exit" href="/">Exit</a>
+	<nav class="flow-header-nav">
+		<a class="flow-menu-trigger" href="#menu">Menu</a>
+		<a class="flow-exit" href="/">Exit</a>
+	</nav>
 </header>
+
 <div class="flow-progress" data-progress><span></span></div>
 
 <main class="flow">
@@ -43,6 +49,32 @@ gtag('config', 'GT-5MCNDKRF');
 		<p class="flow-noscript">Please enable JavaScript to use this form — or call us directly on <a class="inline" href="tel:+442071991698">020 7199 1698</a>.</p>
 	</noscript>
 </main>
+
+</div>
+
+<!-- #menu sits outside #page-wrapper: that element gets a blur filter while the
+     menu is open (body.is-menu-visible #page-wrapper), and CSS filter makes its
+     host the containing block for position:fixed descendants — nesting #menu
+     inside it would size the fixed overlay to the scrollable page height
+     instead of the viewport. (On index.html, the vendored jQuery works around
+     the same issue by moving #menu to a direct child of <body> at runtime via
+     $menu.appendTo($body); here it's simplest to just author it there.) -->
+<nav id="menu">
+	<div class="inner">
+		<h2>Menu</h2>
+		<ul class="links">
+			<li class="nav-resume" hidden><a href="/get-started.html?view=plan">Your Enquiry</a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/pages/how-it-works">How It Works</a></li>
+			<li><a href="/pages/services">Services</a></li>
+			<li><a href="/pages/locations">Areas</a></li>
+			<li><a href="/pages/about">About</a></li>
+			<li><a href="/pages/faq">FAQ</a></li>
+			<li><a href="/pages/contact">Contact</a></li>
+		</ul>
+		<a href="#" class="close">Close</a>
+	</div>
+</nav>
 
 <script src="/js/rhb-registry.js"></script>
 <script src="/js/rhb-flow.js"></script>
