@@ -22,13 +22,14 @@
 	if(navLogoPath){
 		setTimeout(function(){ navLogoPath.style.strokeDashoffset = 0; }, 400);
 	}
-	var wizardPath = document.querySelector('#wizardRoofline .roofline__path');
-	prep(wizardPath);
-	window.__rhbSetWizardProgress = function(step, total){
-		if(!wizardPath || !wizardPath.__rhbLen) return;
-		wizardPath.style.strokeDashoffset = wizardPath.__rhbLen * (1 - step / total);
-	};
-	if(wizardPath){ window.__rhbSetWizardProgress(1, 4); }
+
+	/* "Your Enquiry" menu link, shown only once a submitted enquiry is saved on this device */
+	try{
+		var savedEnquiry = JSON.parse(localStorage.getItem('rhb.enquiry.v1'));
+		if(savedEnquiry && savedEnquiry.ref){
+			document.querySelectorAll('.nav-resume').forEach(function(el){ el.hidden = false; });
+		}
+	}catch(e){}
 
 	/* Situation picker */
 	var DATA = {
@@ -97,72 +98,53 @@
 					'<h3 class="situation-panel__title">'+d.title+'</h3>'+
 					'<p class="situation-panel__text">'+d.text+'</p>'+
 					'<ul class="situation-panel__timeline">'+d.timeline.map(function(t){ return '<li><span>'+t+'</span></li>'; }).join('')+'</ul>'+
-					'<ul class="actions"><li><a href="#offer-wizard" class="button primary" id="situationCta">'+d.cta+'</a></li></ul>';
+					'<ul class="actions"><li><a href="/get-started.html?situation='+encodeURIComponent(key)+'" class="button primary" id="situationCta">'+d.cta+'</a></li></ul>';
 				panel.hidden = false;
 				requestAnimationFrame(function(){ panel.classList.add('is-visible'); });
-
-				var pillValue = pill.getAttribute('data-value');
-				var situationHidden = document.getElementById('w-situation');
-				if(situationHidden) situationHidden.value = pillValue;
-				var situationGridEl = document.getElementById('w-situation-grid');
-				if(situationGridEl){
-					situationGridEl.querySelectorAll('.wizard-choice').forEach(function(c){
-						c.setAttribute('aria-pressed', c.getAttribute('data-value') === pillValue ? 'true' : 'false');
-					});
-				}
 			});
 		});
 	}
 
-	/* Offer wizard */
-	var form = document.getElementById('offerForm');
-	if(form){
-		var steps = form.querySelectorAll('.wizard-step');
-		var stepLabel = document.getElementById('wizardStepLabel');
-		var total = steps.length;
+	/* "Get My Free Cash Offer" modal — pops get-started.html open in an iframe
+	   instead of navigating away. Delegated so it also catches the situation
+	   panel's CTA, which is injected into the DOM after this script runs. */
+	var flowModal = document.getElementById('flowModal');
+	if(flowModal){
+		var flowFrame = flowModal.querySelector('[data-flow-frame]');
+		var flowLastFocus = null;
 
-		function goTo(n){
-			steps.forEach(function(s){ s.hidden = (parseInt(s.getAttribute('data-step'),10) !== n); });
-			if(stepLabel) stepLabel.textContent = 'Step '+n+' of '+total;
-			if(window.__rhbSetWizardProgress) window.__rhbSetWizardProgress(n, total);
+		function openFlowModal(href){
+			document.body.classList.remove('is-menu-visible');
+			if(flowFrame.getAttribute('src') !== href) flowFrame.setAttribute('src', href);
+			flowLastFocus = document.activeElement;
+			flowModal.hidden = false;
+			document.body.classList.add('flow-modal-open');
+			requestAnimationFrame(function(){
+				flowModal.classList.add('is-visible');
+				var closeBtn = flowModal.querySelector('.flow-modal__close');
+				if(closeBtn) closeBtn.focus();
+			});
+		}
+		function closeFlowModal(){
+			if(flowModal.hidden) return;
+			flowModal.classList.remove('is-visible');
+			document.body.classList.remove('flow-modal-open');
+			setTimeout(function(){ flowModal.hidden = true; }, 250);
+			if(flowLastFocus && flowLastFocus.focus) flowLastFocus.focus();
 		}
 
-		form.querySelectorAll('.wizard-next').forEach(function(btn){
-			btn.addEventListener('click', function(e){
-				e.preventDefault();
-				var step = btn.closest('.wizard-step');
-				if(step && step.getAttribute('data-step') === '1'){
-					var pc = document.getElementById('w-postcode');
-					if(!pc.value.trim()){ pc.style.borderColor = '#c0392b'; pc.focus(); return; }
-					pc.style.borderColor = '';
-				}
-				goTo(parseInt(btn.getAttribute('data-next'),10));
-			});
+		document.addEventListener('click', function(e){
+			var closeTarget = e.target.closest('[data-flow-close]');
+			if(closeTarget){ e.preventDefault(); closeFlowModal(); return; }
+			var link = e.target.closest('a[href^="/get-started.html"]');
+			if(link){ e.preventDefault(); openFlowModal(link.getAttribute('href')); }
 		});
-		form.querySelectorAll('.wizard-back').forEach(function(btn){
-			btn.addEventListener('click', function(e){
-				e.preventDefault();
-				goTo(parseInt(btn.getAttribute('data-back'),10));
-			});
+		document.addEventListener('keydown', function(e){
+			if(e.key === 'Escape' && !flowModal.hidden) closeFlowModal();
 		});
-		form.querySelectorAll('.wizard-choice-grid').forEach(function(group){
-			var targetId = group.getAttribute('data-field-target');
-			var target = targetId ? document.getElementById(targetId) : null;
-			group.querySelectorAll('.wizard-choice').forEach(function(choice){
-				choice.addEventListener('click', function(){
-					group.querySelectorAll('.wizard-choice').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
-					choice.setAttribute('aria-pressed','true');
-					if(target) target.value = choice.getAttribute('data-value');
-					var step = choice.closest('.wizard-step');
-					if(step && step.getAttribute('data-step') === '2'){
-						setTimeout(function(){ goTo(3); }, 220);
-					}
-				});
-			});
-		});
-		form.addEventListener('submit', function(){
-			window.dataLayer = window.dataLayer || [];
-			window.dataLayer.push({event:'generate_lead', event_category:'Lead'});
+		window.addEventListener('message', function(e){
+			if(e.origin !== window.location.origin) return;
+			if(e.data && e.data.rhbFlow === 'close') closeFlowModal();
 		});
 	}
 
