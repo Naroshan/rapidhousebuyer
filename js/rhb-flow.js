@@ -291,6 +291,12 @@
 		return 'RHB-' + out;
 	}
 
+	var store = {
+		get: function (key) { try { return JSON.parse(w.localStorage.getItem(key)); } catch (e) { return null; } },
+		set: function (key, value) { try { w.localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} },
+		remove: function (key) { try { w.localStorage.removeItem(key); } catch (e) {} }
+	};
+
 	function submit() {
 		var ref = makeRef();
 		var c = state.contact;
@@ -344,11 +350,16 @@
 			w.history.replaceState({ step: 'done' }, '');
 			if (w.gtag) { w.gtag('event', 'conversion', { send_to: 'AW-18112548315/I_aTCIawvtEcENub3rxD' }); }
 			if (w.gtag) { w.gtag('event', 'generate_lead', { event_category: 'Lead' }); }
+			store.set(RHB.config.storageKey, {
+				v: 1, ref: ref, createdAt: new Date().toISOString(),
+				situation: state.situation, answers: answers,
+				contact: { name: c.name, phone: c.phone, email: c.email, postcode: c.postcode, pref: c.pref }
+			});
 			renderDone(ref, answers);
 		});
 	}
 
-	function renderDone(ref, answers) {
+	function renderDone(ref, answers, fromStorage, createdAt) {
 		current = 'done';
 		updateProgress(1);
 		var sit = RHB.situation(state.situation);
@@ -367,18 +378,28 @@
 			);
 		}).join('');
 
+		var dateChip = fromStorage && createdAt
+			? '<span class="ref-chip">' + esc(new Date(createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })) + '</span>'
+			: '';
+
 		stage.innerHTML =
 			'<div class="step">' +
-			'<div class="done-top"><span class="ok-chip">' + icon('check') + 'Enquiry received</span><span class="ref-chip">Ref ' + esc(ref) + '</span></div>' +
-			'<h1 class="step-title" tabindex="-1">' + (first ? 'Thank you, ' + esc(first) + '.' : 'Thank you.') + '</h1>' +
+			'<div class="done-top"><span class="ok-chip">' + icon('check') + (fromStorage ? 'Your enquiry' : 'Enquiry received') + '</span><span class="ref-chip">Ref ' + esc(ref) + '</span>' + dateChip + '</div>' +
+			'<h1 class="step-title" tabindex="-1">' + (first ? (fromStorage ? 'Welcome back, ' : 'Thank you, ') + esc(first) + '.' : (fromStorage ? 'Welcome back.' : 'Thank you.')) + '</h1>' +
 			'<p class="step-help">A member of our team will call or WhatsApp you within 2 hours during business hours to talk through your free cash offer for ' + esc(sit.short) + '.</p>' +
 			'<ol class="timeline">' + list + '</ol>' +
 			'<div class="actions">' +
 			'<a class="btn btn-primary" href="tel:' + RHB.config.contact.phoneHref + '">' + icon('phone') + 'Call ' + RHB.config.contact.phone + '</a>' +
 			'<a class="btn" href="' + RHB.config.contact.whatsapp + '" target="_blank" rel="noopener">' + icon('wa') + 'WhatsApp Us</a>' +
 			'</div>' +
-			'<p class="faint small"><a class="inline" href="/">← Back to homepage</a></p>' +
+			'<p class="faint small"><a class="inline" href="/">← Back to homepage</a> &middot; <a class="inline" href="#" data-restart>Start a new enquiry</a></p>' +
 			'</div>';
+
+		$('[data-restart]', stage).addEventListener('click', function (e) {
+			e.preventDefault();
+			store.remove(RHB.config.storageKey);
+			w.location.href = '/get-started.html';
+		});
 
 		renderDoneAside(answers);
 		var h = $('.step-title', stage);
@@ -442,10 +463,25 @@
 	});
 
 	var p = params();
-	var sit = p.situation && RHB.situation(p.situation);
-	if (sit) state.situation = sit.id;
 
-	w.history.replaceState({ step: 'situation' }, '');
-	if (state.situation) go(sequence()[1]);
-	else render('situation');
+	if (p.view === 'plan') {
+		var saved = store.get(RHB.config.storageKey);
+		if (saved && saved.ref) {
+			state.situation = saved.situation;
+			state.answers = {};
+			state.contact = saved.contact || {};
+			submitted = true;
+			w.history.replaceState({ step: 'done' }, '');
+			renderDone(saved.ref, saved.answers || [], true, saved.createdAt);
+		}
+	}
+
+	if (!submitted) {
+		var sit = p.situation && RHB.situation(p.situation);
+		if (sit) state.situation = sit.id;
+
+		w.history.replaceState({ step: 'situation' }, '');
+		if (state.situation) go(sequence()[1]);
+		else render('situation');
+	}
 })(window, document);

@@ -23,6 +23,14 @@
 		setTimeout(function(){ navLogoPath.style.strokeDashoffset = 0; }, 400);
 	}
 
+	/* "Your Enquiry" menu link, shown only once a submitted enquiry is saved on this device */
+	try{
+		var savedEnquiry = JSON.parse(localStorage.getItem('rhb.enquiry.v1'));
+		if(savedEnquiry && savedEnquiry.ref){
+			document.querySelectorAll('.nav-resume').forEach(function(el){ el.hidden = false; });
+		}
+	}catch(e){}
+
 	/* Situation picker */
 	var DATA = {
 		repossession: {
