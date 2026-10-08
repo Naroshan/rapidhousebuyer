@@ -242,7 +242,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>{name} is home to a number of well-known landmarks including {landmarks_str}, which contribute to the town&apos;s consistent residential demand.</p>
         <h2>Getting Here</h2>
         <p>{name} is in {county}, served by {rail} (key stations: {stations_str}), roughly {dist} miles from central London near M25 junction {junction}. An in-house surveyor or solicitor visiting the area can use the map below for directions.</p>
-        <div class="map-embed" style="border-radius:16px;overflow:hidden;border:1px solid rgba(37,99,235,.2);margin:1rem 0 1.5rem;"><iframe src="https://www.google.com/maps?q={map_query}&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of {name}"></iframe></div>
+        <div class="map-embed" style="border-radius:16px;overflow:hidden;border:1px solid rgba(234,88,12,.2);margin:1rem 0 1.5rem;"><iframe src="https://www.google.com/maps?q={map_query}&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of {name}"></iframe></div>
         <h2>Why {name} Homeowners Choose Us</h2>
         <p>{name} sellers frequently include {seller}.</p>
         <h2>What We Offer for {name} Properties</h2>
@@ -297,7 +297,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--charcoal" id="enquiry">
   <div class="container" style="max-width:860px">
     <div class="section__header text-center"><div class="section__label">Free Valuation</div><h2 class="section__title">Get Your Free Cash Offer for Your {name} Property</h2><p class="section__subtitle" style="margin-inline:auto">Response within 2 hours. Same-day survey available in {name}. No obligation whatsoever.</p></div>
-    <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(37,99,235,.35);border-radius:24px;padding:2.25rem;max-width:540px;margin:2rem auto 0" novalidate>
+    <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(234,88,12,.35);border-radius:24px;padding:2.25rem;max-width:540px;margin:2rem auto 0" novalidate>
       <div class="form__header"><h3 class="form__title">{name} Property Valuation</h3><p class="form__subtitle">Response within 2 hours &middot; No obligation &middot; Confidential</p></div>
       <div class="form__group"><label class="form__label" for="lf-name">Full Name *</label><input class="form__input" id="lf-name" name="name" type="text" required autocomplete="name" placeholder="Your full name"></div>
       <div class="form__row">
@@ -489,7 +489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if(j.ok){{
           var s=document.createElement('div');
           s.style.cssText='padding:2rem;text-align:center';
-          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'DM Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#3b82f6">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#3b82f6">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
+          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'DM Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#ea580c">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#ea580c">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
           form.style.display='none'; form.parentNode.appendChild(s);
           window.dataLayer = window.dataLayer || []; window.dataLayer.push({{event:'generate_lead',event_category:'Lead'}});
         }} else {{
@@ -535,9 +535,9 @@ if('IntersectionObserver' in window){{
 def render(slug, t):
     pills_alt = []
     for s in t["nearby_new"]:
-        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">%s</a>' % (s, new_town_label(s)))
+        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(234,88,12,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">%s</a>' % (s, new_town_label(s)))
     for s in t["nearby_existing"]:
-        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">%s</a>' % (s, EXISTING_LABELS.get(s, s.title())))
+        pills_alt.append('\n        <a href="/locations/%s" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(234,88,12,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">%s</a>' % (s, EXISTING_LABELS.get(s, s.title())))
     nearby_pills_alt = "".join(pills_alt)
     wa_text = quote(f"Hi, I'd like a cash offer for my {t['name']} property")
     article = "an" if t["name"][0].upper() in "AEIOU" else "a"

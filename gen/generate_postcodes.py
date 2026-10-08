@@ -65,14 +65,14 @@ def render_page(slug, d):
     )
 
     nearby_links = "\n".join(
-        f'        <a href="/locations/{n}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">{n.replace("-", " ").title()}</a>'
+        f'        <a href="/locations/{n}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(234,88,12,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">{n.replace("-", " ").title()}</a>'
         for n in nearby
     )
 
     sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
     from situations_data import SITUATIONS
     situation_links = "\n".join(
-        f'        <a href="/locations/{slug}/{sit_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">{sit_data["label"]}</a>'
+        f'        <a href="/locations/{slug}/{sit_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(234,88,12,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">{sit_data["label"]}</a>'
         for sit_slug, sit_data in SITUATIONS.items()
     )
 
@@ -167,7 +167,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <h2>Getting Here</h2>
         <p>{code} covers {area_name} in {compass}, within the London Borough of {parent_name}, served by {transport}. An in-house surveyor or solicitor visiting the area can use the map below for directions.</p>
-        <div class="map-embed" style="border-radius:16px;overflow:hidden;border:1px solid rgba(37,99,235,.2);margin:1rem 0 1.5rem;"><iframe src="https://www.google.com/maps?q={map_query}&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of {code}"></iframe></div>
+        <div class="map-embed" style="border-radius:16px;overflow:hidden;border:1px solid rgba(234,88,12,.2);margin:1rem 0 1.5rem;"><iframe src="https://www.google.com/maps?q={map_query}&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of {code}"></iframe></div>
         <h2>The {code} Property Market</h2>
         <p>{code} takes in {character}</p>
         <p>Our in-house RICS-accredited surveyors are familiar with the specific stock and market dynamics of {code} and provide accurate, evidence-based valuations reflecting the local micro-market rather than broad borough averages.</p>
@@ -200,7 +200,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--charcoal" id="enquiry">
   <div class="container" style="max-width:700px">
     <div class="section__header text-center"><div class="section__label">Free Valuation</div><h2 class="section__title">Get Your Free {code} Cash Offer</h2></div>
-    <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(37,99,235,.35);border-radius:24px;padding:2.25rem;max-width:520px;margin:2rem auto 0" novalidate>
+    <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(234,88,12,.35);border-radius:24px;padding:2.25rem;max-width:520px;margin:2rem auto 0" novalidate>
       <div class="form__header"><h3 class="form__title">{code} Property Enquiry</h3><p class="form__subtitle">Response within 2 hours &middot; No obligation</p></div>
       <div class="form__group"><label class="form__label" for="sf-name">Full Name *</label><input class="form__input" id="sf-name" name="name" type="text" required autocomplete="name" placeholder="Your full name"></div>
       <div class="form__row">
@@ -395,7 +395,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if(j.ok){{
           var s=document.createElement('div');
           s.style.cssText='padding:2rem;text-align:center';
-          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'DM Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#3b82f6">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#3b82f6">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
+          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'DM Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#ea580c">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#ea580c">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
           form.style.display='none'; form.parentNode.appendChild(s);
           window.dataLayer = window.dataLayer || []; window.dataLayer.push({{event:'generate_lead',event_category:'Lead'}});
         }} else {{

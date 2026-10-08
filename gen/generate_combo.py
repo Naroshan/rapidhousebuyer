@@ -230,7 +230,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
   <div class="page-hero">
     <div class="container">
-      <p style="font-size:.75rem;color:#2563eb;margin-bottom:.5rem;"><a href="/locations/{loc_slug}" style="color:#2563eb;text-decoration:none;">&larr; {loc_name}</a></p>
+      <p style="font-size:.75rem;color:#ea580c;margin-bottom:.5rem;"><a href="/locations/{loc_slug}" style="color:#ea580c;text-decoration:none;">&larr; {loc_name}</a></p>
       <h1>{h1}</h1>
       <p class="lead">{lead}</p>
       <p style="font-size:.75rem;color:#6b7280;margin:-.5rem 0 1rem;">Last updated: {last_updated}</p>
@@ -245,7 +245,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {sections_html}
       <h2>Frequently Asked Questions</h2>
 {faq_html}
-      <p>To get started, <a href="#enquiry" style="color:#2563eb;">request your free cash offer</a> or call us on <a href="tel:+442071991698" style="color:#2563eb;">020 7199 1698</a>.</p>
+      <p>To get started, <a href="#enquiry" style="color:#ea580c;">request your free cash offer</a> or call us on <a href="tel:+442071991698" style="color:#ea580c;">020 7199 1698</a>.</p>
     </div>
   </div>
 
@@ -254,7 +254,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="section section--charcoal" id="enquiry">
     <div class="container" style="max-width:700px">
       <div class="section__header text-center"><div class="section__label">Free Valuation</div><h2 class="section__title">Get Your Free {loc_name} Cash Offer</h2></div>
-      <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(37,99,235,.35);border-radius:24px;padding:2.25rem;max-width:520px;margin:2rem auto 0" novalidate>
+      <form class="valuation-form" action="https://formspree.io/f/mwvjqywq" method="POST" style="background:var(--bg-card);border:1px solid rgba(234,88,12,.35);border-radius:24px;padding:2.25rem;max-width:520px;margin:2rem auto 0" novalidate>
         <div class="form__header"><h3 class="form__title">{loc_name} {sit_label} Enquiry</h3><p class="form__subtitle">Response within 2 hours &middot; No obligation</p></div>
         <div class="form__group"><label class="form__label" for="cf-name">Full Name *</label><input class="form__input" id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your full name"></div>
         <div class="form__row">
@@ -270,7 +270,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="content-section" style="padding:1.5rem 0 1rem;">
     <div class="container">
-      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563eb;margin-bottom:.875rem;">Other Situations We Help With in {loc_name}</p>
+      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ea580c;margin-bottom:.875rem;">Other Situations We Help With in {loc_name}</p>
       <div style="display:flex;flex-wrap:wrap;gap:.625rem;">
 {related_pills}
       </div>
@@ -279,11 +279,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="content-section" style="padding:1.5rem 0 2rem;">
     <div class="container">
-      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563eb;margin-bottom:.875rem;">More on {sit_label}</p>
+      <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ea580c;margin-bottom:.875rem;">More on {sit_label}</p>
       <div style="display:flex;flex-wrap:wrap;gap:.625rem;">
-        <a href="/pages/{sit_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">{sit_label} &mdash; Full Guide</a>
-        <a href="/locations/{loc_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">All {loc_name} Services</a>
-        <a href="/pages/locations" style="display:inline-block;padding:7px 14px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.35);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">All Locations &rarr;</a>
+        <a href="/pages/{sit_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(234,88,12,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">{sit_label} &mdash; Full Guide</a>
+        <a href="/locations/{loc_slug}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(234,88,12,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">All {loc_name} Services</a>
+        <a href="/pages/locations" style="display:inline-block;padding:7px 14px;background:rgba(234,88,12,.1);border:1px solid rgba(234,88,12,.35);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">All Locations &rarr;</a>
       </div>
     </div>
   </div>
@@ -349,7 +349,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if(j.ok){{
           var s=document.createElement('div');
           s.style.cssText='padding:2rem;text-align:center';
-          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'DM Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#3b82f6">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#3b82f6">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
+          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'DM Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#ea580c">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#ea580c">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
           form.style.display='none'; form.parentNode.appendChild(s);
           window.dataLayer = window.dataLayer || []; window.dataLayer.push({{event:'generate_lead',event_category:'Lead'}});
         }} else {{
@@ -440,7 +440,7 @@ def render_page(loc_slug, sit_slug):
   </section>'''
 
     related_pills = "\n".join(
-        f'        <a href="/locations/{loc_slug}/{r}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(37,99,235,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#2563eb;text-decoration:none;">{SITUATION_LABELS[r]} in {loc["name"]}</a>'
+        f'        <a href="/locations/{loc_slug}/{r}" style="display:inline-block;padding:7px 14px;background:#ffffff;border:1px solid rgba(234,88,12,.2);border-radius:9999px;font-size:.775rem;font-weight:500;color:#ea580c;text-decoration:none;">{SITUATION_LABELS[r]} in {loc["name"]}</a>'
         for r in sit["related"]
     )
 

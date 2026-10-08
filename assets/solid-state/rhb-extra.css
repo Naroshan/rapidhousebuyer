@@ -10,7 +10,10 @@ html { scroll-behavior:smooth; }
 #banner .logo .icon.rhb-roofline-icon .roofline { width:1.3em; height:0.9em; }
 #header h1 a:hover .roofline__path { transition: none; }
 #header h1 a { display: flex; align-items: center; gap: 10px; }
-#header .roofline { width: 26px; height: 17px; color: #fff; }
+#header .roofline { width: 26px; height: 17px; color: #ea580c; }
+/* Plain (non-"alt") header — used on thank-you.html and get-started.html —
+   still had the old dark-navy fill behind it */
+#header { background-color: rgba(255,255,255,.95); box-shadow: 0 1px 0 rgba(0,0,0,.08); }
 
 /* Keep the header (logo + solid background) visible at all times on desktop,
    instead of the template's default behaviour of staying transparent with the
@@ -38,7 +41,7 @@ html { scroll-behavior:smooth; }
 	transition:background 0.2s ease, border-color 0.2s ease;
 }
 .situation-pill:hover { border-color:rgba(255,255,255,0.5); }
-.situation-pill[aria-pressed="true"] { background:#fff; border-color:#fff; color:#4c5c96 !important; }
+.situation-pill[aria-pressed="true"] { background:#fff; border-color:#fff; color:#c2410c !important; }
 
 .situation-panel {
 	max-width:46em; margin:2.5em auto 0;
@@ -82,7 +85,7 @@ html { scroll-behavior:smooth; }
 .flow-modal__backdrop { position:absolute; inset:0; background:rgba(10,11,16,0.72); backdrop-filter:blur(3px); }
 .flow-modal__panel {
 	position:relative; width:100%; max-width:60em; height:min(44em, 100%);
-	background:#2e3141; border-radius:12px; border:solid 1px rgba(255,255,255,0.12);
+	background:#ffffff; border-radius:12px; border:solid 1px rgba(255,255,255,0.12);
 	box-shadow:0 2em 5em -1em rgba(0,0,0,0.7); overflow:hidden;
 	opacity:0; transform:translateY(16px) scale(0.98);
 	transition:opacity 0.25s ease, transform 0.25s ease;
@@ -97,10 +100,99 @@ html { scroll-behavior:smooth; }
 }
 .flow-modal__close:hover { background:rgba(255,255,255,0.18); }
 .flow-modal__close svg { width:1em; height:1em; stroke:currentColor; stroke-width:2; fill:none; stroke-linecap:round; }
-.flow-modal__frame { width:100%; height:100%; border:0; display:block; background:#2e3141; }
+.flow-modal__frame { width:100%; height:100%; border:0; display:block; background:#ffffff; }
 body.flow-modal-open { overflow:hidden; }
 
 @media screen and (max-width: 640px) {
 	.flow-modal { padding:0; }
 	.flow-modal__panel { max-width:none; width:100%; height:100%; border-radius:0; }
 }
+
+/* ============================================================
+   GEN-5: two-tone white + orange theme for the vendored Solid
+   State system (homepage / thank-you / get-started). The vendored
+   CSS's own text/background defaults assume a dark page (global
+   body color:#ffffff, a navy-tinted bg.jpg overlay, white button
+   rings, white-tinted hover washes) — overridden below rather than
+   hand-editing the 76KB vendored file further. Loads after the
+   vendored stylesheet, so same-specificity rules here win.
+   ============================================================ */
+
+/* Base: text dark, drop the dark-navy photographic overlay for a flat page.
+   Headings have their OWN direct h1..h6{color:#fff} rule in the vendored
+   CSS (not just inherited from body), so they need their own override too. */
+body, input, select, textarea { color:#18181b; }
+h1, h2, h3, h4, h5, h6, strong, b, label { color:#18181b; }
+body, #banner, #wrapper > header, #footer { background-image:none; }
+
+/* Links: dark by default, orange on hover — safe against buttons sharing
+   the <a> tag, since .button:hover below reclaims hover color at higher
+   specificity so an orange button's hover text never turns orange-on-orange */
+a { color:#18181b; border-bottom-color:rgba(0,0,0,.25); }
+a:hover { color:#ea580c !important; border-bottom-color:transparent; }
+
+/* Buttons: the vendored template's bare .button is a transparent ghost
+   button with a white ring + white text, meant to sit on a dark hero —
+   invisible on a white page. Flip to a dark ring + dark text; keep
+   .primary's white text (readable on its solid-orange background) but
+   pin it explicitly so link-hover orange can never land on an orange button. */
+input[type="submit"], input[type="reset"], input[type="button"], button, .button {
+	color:#18181b !important;
+	box-shadow: inset 0 0 0 2px rgba(0,0,0,.15);
+}
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, button:hover, .button:hover {
+	background-color: rgba(0,0,0,.035);
+	color:#18181b !important;
+}
+input[type="submit"].icon:before, input[type="reset"].icon:before, input[type="button"].icon:before, button.icon:before, .button.icon:before {
+	color: rgba(0,0,0,.35);
+}
+input[type="submit"].primary, input[type="reset"].primary, input[type="button"].primary, button.primary, .button.primary,
+input[type="submit"].primary:hover, input[type="reset"].primary:hover, input[type="button"].primary:hover, button.primary:hover, .button.primary:hover {
+	color:#ffffff !important;
+}
+
+/* Header "alt" state (transparent-over-banner) now needs a light fill, not dark */
+#header.alt { background-color: rgba(255,255,255,.95); }
+
+/* Hero banner roofline mark — dark page now, so the mark needs real contrast */
+#banner .logo .icon.rhb-roofline-icon { color:#ea580c; }
+
+/* Situation picker — dark pill-on-dark-hero treatment, now pills-on-white */
+.situation-pill { border-color: rgba(0,0,0,.18); background: rgba(0,0,0,.03); color:#18181b; }
+.situation-pill:hover { border-color: rgba(234,88,12,.4); }
+.situation-pill[aria-pressed="true"] { background:#ea580c; border-color:#ea580c; color:#ffffff !important; }
+.situation-panel { background: rgba(0,0,0,.025); border-color: rgba(0,0,0,.1); }
+.situation-panel__title { color:#18181b; }
+.situation-panel__text { color:#4b5563; }
+.situation-panel__timeline span { color:#c2410c; background: rgba(234,88,12,.1); border-color: rgba(234,88,12,.25); }
+
+/* Cookie banner — light bar instead of a dark one */
+#cookieBanner { background: rgba(255,255,255,.95); border-top-color: rgba(0,0,0,.1); box-shadow: 0 -2px 20px rgba(0,0,0,.08); }
+#cookieBanner p { color:#4b5563; }
+#cookieBanner a { color:#c2410c; }
+
+/* Flow modal close (X) — was a white-tinted button on what is now a white panel */
+.flow-modal__close { background: rgba(0,0,0,.05); border-color: rgba(0,0,0,.12); color:#18181b; }
+.flow-modal__close:hover { background: rgba(0,0,0,.09); }
+
+/* Spotlight sections: the template's own design gives each numbered "style"
+   a different solid saturated background (style1/2 are already orange via
+   the hex sweep above, but style3-6 are leftover template demo navy-blues,
+   unrelated to the new palette) — style3 is the one actually used on this
+   page (section "three"), so it's brought back to white rather than adding
+   a third hue the "two-tone" brief doesn't call for. */
+.wrapper.spotlight.style3 { background-color: #ffffff; }
+.wrapper.spotlight.style3:before, .wrapper.spotlight.style3:after {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%23ffffff%3B' /%3E%3C/svg%3E");
+}
+.wrapper.spotlight.style3:before, .wrapper.spotlight.style3:after {
+	box-shadow: inset 0 -1px 0 0 #ffffff, 0 1px 0 0 #ffffff;
+}
+.wrapper.spotlight.style3 h2, .wrapper.spotlight.style3 p, .wrapper.spotlight.style3 a:not(.special) { color:#18181b; }
+.wrapper.spotlight.style3 a.special { color:#c2410c; }
+
+/* Feature cards (".features article") — another leftover dark-navy demo hex
+   (#353849) unrelated to the new palette, used as the card's own background
+   behind its heading/body text */
+.features article { background-color:#ffffff; border:solid 1px rgba(0,0,0,.08); }
