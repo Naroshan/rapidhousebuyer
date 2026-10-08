@@ -22,13 +22,6 @@
 	if(navLogoPath){
 		setTimeout(function(){ navLogoPath.style.strokeDashoffset = 0; }, 400);
 	}
-	var wizardPath = document.querySelector('#wizardRoofline .roofline__path');
-	prep(wizardPath);
-	window.__rhbSetWizardProgress = function(step, total){
-		if(!wizardPath || !wizardPath.__rhbLen) return;
-		wizardPath.style.strokeDashoffset = wizardPath.__rhbLen * (1 - step / total);
-	};
-	if(wizardPath){ window.__rhbSetWizardProgress(1, 4); }
 
 	/* Situation picker */
 	var DATA = {
@@ -97,72 +90,10 @@
 					'<h3 class="situation-panel__title">'+d.title+'</h3>'+
 					'<p class="situation-panel__text">'+d.text+'</p>'+
 					'<ul class="situation-panel__timeline">'+d.timeline.map(function(t){ return '<li><span>'+t+'</span></li>'; }).join('')+'</ul>'+
-					'<ul class="actions"><li><a href="#offer-wizard" class="button primary" id="situationCta">'+d.cta+'</a></li></ul>';
+					'<ul class="actions"><li><a href="/get-started.html?situation='+encodeURIComponent(key)+'" class="button primary" id="situationCta">'+d.cta+'</a></li></ul>';
 				panel.hidden = false;
 				requestAnimationFrame(function(){ panel.classList.add('is-visible'); });
-
-				var pillValue = pill.getAttribute('data-value');
-				var situationHidden = document.getElementById('w-situation');
-				if(situationHidden) situationHidden.value = pillValue;
-				var situationGridEl = document.getElementById('w-situation-grid');
-				if(situationGridEl){
-					situationGridEl.querySelectorAll('.wizard-choice').forEach(function(c){
-						c.setAttribute('aria-pressed', c.getAttribute('data-value') === pillValue ? 'true' : 'false');
-					});
-				}
 			});
-		});
-	}
-
-	/* Offer wizard */
-	var form = document.getElementById('offerForm');
-	if(form){
-		var steps = form.querySelectorAll('.wizard-step');
-		var stepLabel = document.getElementById('wizardStepLabel');
-		var total = steps.length;
-
-		function goTo(n){
-			steps.forEach(function(s){ s.hidden = (parseInt(s.getAttribute('data-step'),10) !== n); });
-			if(stepLabel) stepLabel.textContent = 'Step '+n+' of '+total;
-			if(window.__rhbSetWizardProgress) window.__rhbSetWizardProgress(n, total);
-		}
-
-		form.querySelectorAll('.wizard-next').forEach(function(btn){
-			btn.addEventListener('click', function(e){
-				e.preventDefault();
-				var step = btn.closest('.wizard-step');
-				if(step && step.getAttribute('data-step') === '1'){
-					var pc = document.getElementById('w-postcode');
-					if(!pc.value.trim()){ pc.style.borderColor = '#c0392b'; pc.focus(); return; }
-					pc.style.borderColor = '';
-				}
-				goTo(parseInt(btn.getAttribute('data-next'),10));
-			});
-		});
-		form.querySelectorAll('.wizard-back').forEach(function(btn){
-			btn.addEventListener('click', function(e){
-				e.preventDefault();
-				goTo(parseInt(btn.getAttribute('data-back'),10));
-			});
-		});
-		form.querySelectorAll('.wizard-choice-grid').forEach(function(group){
-			var targetId = group.getAttribute('data-field-target');
-			var target = targetId ? document.getElementById(targetId) : null;
-			group.querySelectorAll('.wizard-choice').forEach(function(choice){
-				choice.addEventListener('click', function(){
-					group.querySelectorAll('.wizard-choice').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
-					choice.setAttribute('aria-pressed','true');
-					if(target) target.value = choice.getAttribute('data-value');
-					var step = choice.closest('.wizard-step');
-					if(step && step.getAttribute('data-step') === '2'){
-						setTimeout(function(){ goTo(3); }, 220);
-					}
-				});
-			});
-		});
-		form.addEventListener('submit', function(){
-			window.dataLayer = window.dataLayer || [];
-			window.dataLayer.push({event:'generate_lead', event_category:'Lead'});
 		});
 	}
 

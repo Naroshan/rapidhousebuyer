@@ -1,0 +1,207 @@
+/* Rapid House Buyer — guided "get started" flow (get-started.html)
+   Loaded on top of the unmodified Solid State template CSS + rhb-extra.css.
+   Note: the template applies `button, .button { color:#fff !important; height:3.75em;
+   border-radius:5px; box-shadow:inset 0 0 0 2px rgba(255,255,255,.125); text-transform:uppercase; }`
+   to every bare <button> sitewide — class selectors below (.option, .btn) override those
+   per-property as needed since a class beats a tag selector regardless of source order. */
+
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+a.inline { color:#aab4e0; border-bottom-color:rgba(170,180,224,0.4); }
+a.inline:hover { color:#fff; }
+
+/* Flow header + progress */
+.flow-header { display:flex; align-items:center; justify-content:space-between; max-width:52em; margin:0 auto; padding:1.75em 1.5em 1.25em; }
+.flow-logo { display:flex; align-items:center; gap:10px; color:#fff; font-family:Raleway,Helvetica,sans-serif; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:1rem; text-decoration:none; border-bottom:0; }
+.flow-logo .roofline { width:24px; height:16px; color:#aab4e0; }
+.flow-exit { color:rgba(255,255,255,0.55); font-family:Raleway,Helvetica,sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-bottom:0; }
+.flow-exit:hover { color:#fff !important; }
+
+.flow-progress { max-width:52em; margin:0 auto; padding:0 1.5em; height:4px; }
+.flow-progress > span { display:block; height:4px; background:#2e3141; border-radius:3px; overflow:hidden; position:relative; }
+.flow-progress > span:before { content:''; position:absolute; inset:0; width:calc(var(--p, 0.04) * 100%); background:linear-gradient(90deg,#4c5c96,#8d9bd4); border-radius:3px; transition:width 0.35s ease; }
+
+/* Layout */
+.flow { max-width:52em; margin:0 auto; padding:2.5em 1.5em 5em; }
+.flow-grid { display:grid; grid-template-columns:1fr 19em; gap:2em; align-items:start; }
+.flow-noscript { max-width:52em; margin:2em auto; padding:1.5em; text-align:center; color:rgba(255,255,255,0.75); }
+
+.flow-stage {
+	background:rgba(255,255,255,0.04);
+	border:solid 1px rgba(255,255,255,0.1);
+	border-radius:10px;
+	box-shadow:0 1.5em 3em -1.5em rgba(0,0,0,0.6);
+	padding:2.5em 2.25em;
+	min-height:22em;
+}
+
+.step { opacity:1; transform:translateY(0); transition:opacity 0.17s ease, transform 0.17s ease; }
+.step.is-leaving { opacity:0; transform:translateY(6px); }
+
+.back-link {
+	display:inline-flex; align-items:center; gap:0.4em;
+	background:none; border:0; box-shadow:none; padding:0; margin:0 0 1.25em;
+	height:auto; line-height:1; text-transform:none; letter-spacing:normal;
+	font-family:'Source Sans Pro',Helvetica,sans-serif; font-weight:600; font-size:0.82rem;
+	color:rgba(255,255,255,0.55) !important; cursor:pointer;
+}
+.back-link:hover { color:#fff !important; }
+.back-link .i { width:1em; height:1em; }
+.back-link[hidden] { display:none; }
+
+.eyebrow { font-family:Raleway,Helvetica,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem; color:#aab4e0; margin:0 0 0.6em; }
+.step-title { font-family:Raleway,Helvetica,sans-serif; font-weight:700; letter-spacing:0.01em; font-size:1.5rem; line-height:1.3; color:#fff; margin:0 0 0.5em; }
+.step-title:focus { outline:none; }
+.step-help { color:rgba(255,255,255,0.65); line-height:1.7; margin:0 0 1.75em; font-size:0.95rem; }
+
+/* Options */
+.options { display:grid; grid-template-columns:1fr; gap:0.75em; margin-bottom:0.5em; }
+.options.cols-2 { grid-template-columns:1fr 1fr; }
+.options.cols-3 { grid-template-columns:1fr 1fr 1fr; }
+
+.option {
+	display:flex; align-items:center; gap:0.9em;
+	width:100%; height:auto; line-height:1.4;
+	background:rgba(255,255,255,0.03);
+	border:solid 2px rgba(255,255,255,0.14);
+	box-shadow:none;
+	border-radius:8px;
+	padding:0.95em 1.1em;
+	text-align:left; text-transform:none; letter-spacing:normal; white-space:normal;
+	font-family:'Source Sans Pro',Helvetica,sans-serif; font-weight:400;
+	color:#fff !important;
+	cursor:pointer;
+	transition:background-color 0.2s ease, border-color 0.2s ease;
+}
+.option:hover { border-color:rgba(255,255,255,0.35); background:rgba(255,255,255,0.05); }
+.option .opt-icon { flex-shrink:0; width:2.1em; height:2.1em; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#aab4e0; }
+.option .opt-icon .i { width:1.1em; height:1.1em; }
+.option .opt-text { flex:1; display:flex; flex-direction:column; gap:0.2em; }
+.option .opt-text strong { font-weight:600; font-size:0.95rem; }
+.option .opt-text small { color:rgba(255,255,255,0.5); font-size:0.78rem; }
+.option .opt-check { flex-shrink:0; width:1.3em; height:1.3em; border-radius:50%; border:solid 2px rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:transparent; transition:border-color 0.2s ease, background 0.2s ease; }
+.option .opt-check .i { width:0.8em; height:0.8em; }
+.option[aria-pressed="true"] { background:#4c5c96; border-color:#4c5c96; }
+.option[aria-pressed="true"] .opt-icon { background:rgba(255,255,255,0.18); color:#fff; }
+.option[aria-pressed="true"] .opt-check { border-color:#fff; background:#fff; color:#4c5c96; }
+
+/* Text question (outside the <form>, so the template's own form>.fields>.field
+   flex rules don't apply — a plain block wrapper is enough here) */
+.text-field textarea { min-height:7em; padding:0.85em 1em; line-height:1.6; }
+
+/* Buttons (flow-local — same visual language as .button/.button.primary) */
+.btn {
+	-moz-appearance:none; -webkit-appearance:none; appearance:none;
+	transition:background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	display:inline-flex; align-items:center; justify-content:center; gap:0.6em;
+	background-color:transparent;
+	border:0; box-shadow:inset 0 0 0 2px rgba(255,255,255,0.2);
+	border-radius:5px;
+	color:#fff !important;
+	cursor:pointer;
+	font-family:Raleway,Helvetica,sans-serif; font-weight:700; font-size:0.8rem;
+	letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; white-space:nowrap;
+	height:auto; line-height:1;
+	padding:1.15em 1.75em;
+}
+.btn .i { width:1em; height:1em; }
+.btn:hover { background-color:rgba(255,255,255,0.04); }
+.btn-primary { background-color:#4c5c96; box-shadow:none; }
+.btn-primary:hover { background-color:#53639e; }
+.btn-lg { width:100%; padding:1.2em 1.75em; }
+
+.step-actions { display:flex; align-items:center; gap:1.25em; flex-wrap:wrap; margin-top:1.5em; }
+.step-actions .faint { margin:0; }
+.faint { color:rgba(255,255,255,0.5); font-size:0.82rem; }
+.faint.small { font-size:0.8rem; margin-top:1.5em; }
+
+/* Details form — .fields/.field/.field.half/.field.third follow the template's own
+   convention (form > .fields > .field, flex-based) already used by the homepage's
+   embedded wizard form; only the bits the template doesn't already cover are added here. */
+.field .label { color:#ffffff; display:block; font-family:Raleway,Helvetica,sans-serif; font-size:0.8em; font-weight:700; letter-spacing:0.1em; margin:0 0 0.7em 0; text-transform:uppercase; }
+.field .opt { text-transform:none; letter-spacing:normal; font-weight:400; color:rgba(255,255,255,0.45); }
+.field-error { color:#ff9b9b; font-size:0.8rem; margin:0.4em 0 0; }
+[aria-invalid="true"] { border-color:#c0392b !important; }
+.error-box { background:rgba(192,57,43,0.15); border:solid 1px rgba(192,57,43,0.4); border-radius:8px; padding:1em 1.25em; color:#ffdada; font-size:0.88rem; line-height:1.6; margin-bottom:1.5em; }
+
+.segmented { display:flex; border:solid 2px rgba(255,255,255,0.14); border-radius:8px; overflow:hidden; }
+.segmented button { flex:1; height:auto; line-height:1; background:transparent; border:0; box-shadow:none; border-radius:0; color:rgba(255,255,255,0.65) !important; text-transform:none; letter-spacing:normal; font-family:'Source Sans Pro',Helvetica,sans-serif; font-weight:600; font-size:0.85rem; padding:0.8em 0.5em; cursor:pointer; transition:background-color 0.2s ease, color 0.2s ease; }
+.segmented button + button { border-left:solid 1px rgba(255,255,255,0.1); }
+.segmented button[aria-pressed="true"] { background:#4c5c96; color:#fff !important; }
+
+.check { display:flex; align-items:flex-start; gap:0.7em; cursor:pointer; color:rgba(255,255,255,0.65); font-size:0.85rem; line-height:1.6; margin-top:0.25em; }
+/* The vendored template forces input[type=checkbox]{opacity:0;float:left;z-index:-1} for its own
+   adjacent-sibling-label pseudo-checkbox pattern — restore a plain native checkbox here instead,
+   since .check wraps the input directly rather than using that pattern. */
+.check input[type="checkbox"] { -moz-appearance:checkbox; -webkit-appearance:checkbox; appearance:checkbox; display:block; float:none; opacity:1; z-index:auto; margin:0.2em 0 0; flex-shrink:0; width:1.1em; height:1.1em; accent-color:#4c5c96; }
+
+.reassure { display:flex; flex-wrap:wrap; gap:1.25em; margin:1.5em 0 0; padding:0; list-style:none; }
+.reassure li { display:flex; align-items:center; gap:0.4em; color:rgba(255,255,255,0.5); font-size:0.78rem; }
+.reassure .i { width:1em; height:1em; color:#8d9bd4; }
+
+/* Plan / notice / timeline (shared by the plan step and the done screen) */
+.notice { display:flex; gap:0.8em; align-items:flex-start; background:rgba(141,155,212,0.1); border-radius:8px; padding:1.1em 1.25em; margin:1.5em 0; color:rgba(255,255,255,0.7); font-size:0.85rem; line-height:1.65; }
+.notice .i { flex-shrink:0; width:1.3em; height:1.3em; margin-top:0.1em; color:#aab4e0; }
+.notice strong { color:#fff; }
+
+.timeline { list-style:none; margin:0 0 0.5em; padding:0; counter-reset:tl; }
+.timeline li { position:relative; display:grid; grid-template-columns:2.6em 1fr; gap:0 1em; padding:0 0 1.75em 0; animation:tl-in 0.4s ease both; animation-delay:calc(var(--i, 0) * 0.08s); }
+.timeline li:last-child { padding-bottom:0; }
+.timeline li:before { content:''; position:absolute; left:1.3em; top:2.6em; bottom:-0.2em; width:2px; background:rgba(255,255,255,0.12); }
+.timeline li:last-child:before { display:none; }
+.timeline li > *:not(.tl-icon) { grid-column:2; }
+.tl-icon { grid-column:1; grid-row:1 / span 3; width:2.6em; height:2.6em; border-radius:50%; background:#4c5c96; color:#fff; display:flex; align-items:center; justify-content:center; z-index:1; }
+.tl-icon .i { width:1.2em; height:1.2em; }
+.timeline h3 { font-family:Raleway,Helvetica,sans-serif; font-weight:700; font-size:0.95rem; color:#fff; margin:0.1em 0 0.15em; }
+.tl-when { display:inline-block; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#aab4e0; margin-bottom:0.35em; }
+.tl-next { display:flex; align-items:flex-start; gap:0.5em; color:rgba(255,255,255,0.6); font-size:0.86rem; line-height:1.55; margin:0; }
+.tl-next .i { flex-shrink:0; width:1em; height:1em; margin-top:0.2em; color:#8d9bd4; }
+
+@keyframes tl-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+/* Building / submitting screen */
+.step.building { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:18em; gap:1.5em; }
+.mark-loop { width:4.5em; height:2.7em; color:#8d9bd4; }
+.mark-loop .roofline__path { animation:mark-pulse 1.4s ease-in-out infinite; }
+.step.building p { color:rgba(255,255,255,0.65); font-size:0.95rem; }
+
+@keyframes mark-pulse { 0%, 100% { opacity:0.35; } 50% { opacity:1; } }
+
+/* Done screen */
+.done-top { display:flex; align-items:center; gap:0.75em; margin-bottom:1.25em; flex-wrap:wrap; }
+.ok-chip, .ref-chip { display:inline-flex; align-items:center; gap:0.4em; border-radius:5em; padding:0.4em 0.9em; font-size:0.72rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; }
+.ok-chip { background:rgba(141,155,212,0.18); color:#aab4e0; }
+.ok-chip .i { width:0.9em; height:0.9em; }
+.ref-chip { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); font-family:'Courier New',monospace; letter-spacing:0.05em; }
+
+.actions { display:flex; gap:1em; flex-wrap:wrap; margin-top:2em; }
+
+/* Aside: live plan-so-far card */
+.flow-aside { position:sticky; top:1.5em; }
+.plan-card { background:rgba(255,255,255,0.04); border:solid 1px rgba(255,255,255,0.1); border-radius:10px; padding:1.5em 1.4em; }
+.plan-card-head { display:flex; align-items:center; gap:0.8em; margin-bottom:1.1em; }
+.plan-card-head .mark { width:2.2em; height:1.4em; color:#aab4e0; flex-shrink:0; }
+.plan-card-head strong { display:block; font-family:Raleway,Helvetica,sans-serif; font-weight:700; font-size:0.82rem; color:#fff; text-transform:uppercase; letter-spacing:0.03em; }
+.plan-card-head small { display:block; color:rgba(255,255,255,0.5); font-size:0.78rem; margin-top:0.15em; }
+.plan-card ol { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.8em; }
+.plan-card ol li { display:flex; align-items:flex-start; gap:0.6em; font-size:0.85rem; color:#fff; line-height:1.4; }
+.plan-card .fi { flex-shrink:0; width:1.1em; height:1.1em; border-radius:50%; background:rgba(141,155,212,0.2); color:#8d9bd4; display:flex; align-items:center; justify-content:center; margin-top:0.1em; }
+.plan-card .fi .i { width:0.65em; height:0.65em; }
+.plan-card ol li small { display:block; color:rgba(255,255,255,0.45); font-size:0.75rem; margin-top:0.15em; font-weight:400; }
+.plan-card .empty { color:rgba(255,255,255,0.45); font-size:0.85rem; line-height:1.6; margin:0; }
+.plan-card-foot { display:flex; align-items:center; gap:0.5em; color:rgba(255,255,255,0.45); font-size:0.78rem; margin:1.25em 0 0; padding-top:1.1em; border-top:solid 1px rgba(255,255,255,0.08); }
+.plan-card-foot .i { flex-shrink:0; width:1em; height:1em; }
+
+@media screen and (max-width: 900px) {
+	.flow-grid { grid-template-columns:1fr; }
+	.flow-aside { position:static; order:2; }
+	.flow-stage { order:1; }
+}
+
+@media screen and (max-width: 560px) {
+	.options.cols-2, .options.cols-3 { grid-template-columns:1fr; }
+	.flow-stage { padding:2em 1.5em; }
+	.step-title { font-size:1.3rem; }
+	.actions { flex-direction:column; }
+	.actions .btn { width:100%; }
+}
