@@ -28,7 +28,7 @@ gtag('event', 'conversion', {'send_to': 'AW-18112548315/I_aTCIawvtEcENub3rxD'});
 <div id="page-wrapper">
 
 <header id="header">
-  <h1><a href="/">Rapid House Buyer</a></h1>
+  <h1><a href="/"><svg class="roofline" viewBox="0 0 100 60" aria-hidden="true"><path class="roofline__path" d="M6,50 L50,13 L94,50 M63,29 L63,13 L78,13 L78,24"/></svg>Rapid House Buyer</a></h1>
   <nav>
     <a href="#menu">Menu</a>
   </nav>
@@ -114,6 +114,15 @@ gtag('event', 'conversion', {'send_to': 'AW-18112548315/I_aTCIawvtEcENub3rxD'});
       path.style.strokeDasharray = len;
       path.style.strokeDashoffset = len;
       setTimeout(function(){ path.style.transition = 'stroke-dashoffset 1.1s ease'; path.style.strokeDashoffset = 0; }, 600);
+    }catch(e){}
+  }
+  var navPath = document.querySelector('#header .roofline .roofline__path');
+  if(navPath){
+    try{
+      var navLen = navPath.getTotalLength();
+      navPath.style.strokeDasharray = navLen;
+      navPath.style.strokeDashoffset = navLen;
+      setTimeout(function(){ navPath.style.strokeDashoffset = 0; }, 400);
     }catch(e){}
   }
   var fy = document.getElementById('footerYear');

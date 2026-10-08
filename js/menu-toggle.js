@@ -1,4 +1,27 @@
 (function(){
+	var path = document.querySelector('#header .roofline .roofline__path');
+	if(path){
+		try{
+			var len = path.getTotalLength();
+			path.style.strokeDasharray = len;
+			path.style.strokeDashoffset = len;
+			setTimeout(function(){ path.style.strokeDashoffset = 0; }, 400);
+			var logoLink = document.querySelector('#header h1 a');
+			if(logoLink){
+				logoLink.addEventListener('mouseenter', function(){
+					path.style.transition = 'none';
+					path.style.strokeDashoffset = len;
+					requestAnimationFrame(function(){
+						path.style.transition = '';
+						requestAnimationFrame(function(){ path.style.strokeDashoffset = 0; });
+					});
+				});
+			}
+		}catch(e){}
+	}
+})();
+
+(function(){
 	var trigger = document.querySelector('#header nav a[href="#menu"]');
 	var menu = document.getElementById('menu');
 	if(!trigger || !menu) return;

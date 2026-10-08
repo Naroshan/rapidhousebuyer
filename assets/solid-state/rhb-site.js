@@ -17,6 +17,11 @@
 	if(headerIconPath){
 		setTimeout(function(){ headerIconPath.style.strokeDashoffset = 0; }, 900);
 	}
+	var navLogoPath = document.querySelector('#header .roofline .roofline__path');
+	prep(navLogoPath);
+	if(navLogoPath){
+		setTimeout(function(){ navLogoPath.style.strokeDashoffset = 0; }, 400);
+	}
 	var wizardPath = document.querySelector('#wizardRoofline .roofline__path');
 	prep(wizardPath);
 	window.__rhbSetWizardProgress = function(step, total){

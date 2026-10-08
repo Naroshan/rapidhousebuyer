@@ -10,6 +10,8 @@ html { scroll-behavior:smooth; }
 #banner .logo .icon.rhb-roofline-icon { display:inline-flex; align-items:center; justify-content:center; color:#fff; }
 #banner .logo .icon.rhb-roofline-icon .roofline { width:1.3em; height:0.9em; }
 #header h1 a:hover .roofline__path { transition: none; }
+#header h1 a { display: flex; align-items: center; gap: 10px; }
+#header .roofline { width: 26px; height: 17px; color: #fff; }
 
 /* Situation picker */
 .situation-grid { display:flex; flex-wrap:wrap; gap:0.75em; justify-content:center; max-width:56em; margin:0 auto; }
