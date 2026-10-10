@@ -203,7 +203,7 @@ body.is-home .logo--centered .roofline{color:#fdba74}
    every background token is now white/light-grey and every
    accent token is a shade of orange.
    ============================================================ */
-:root{--black:#18181b;--charcoal:#ffffff;--graphite:#f3f4f6;--smoke:#4b5563;--silver:#6b7280;--platinum:#e5e7eb;--pearl:#fafafa;--white:#ffffff;--gold-deep:#c2410c;--gold:#ea580c;--gold-mid:#ea580c;--gold-light:#ea580c;--gold-pale:#fdba74;--gold-ghost:rgba(234,88,12,.12);--bg-dark:#ffffff;--bg-sec:#f7f7f8;--bg-card:#ffffff;--bg-charcoal:#f3f4f6;--bg-light:#ffffff;--bg-cream:#fff4ec;--txt:#18181b;--txt-sec:#4b5563;--txt-muted:#6b7280;--txt-dark:#18181b;--txt-dark-sec:#4b5563;--border:rgba(0,0,0,.12);--border-faint:rgba(0,0,0,.08);--border-gold:rgba(234,88,12,.35);--border-light:rgba(0,0,0,.09);--sans:'Source Sans Pro',Helvetica,Arial,sans-serif;--serif:'Raleway',Helvetica,Arial,sans-serif}
+:root{--black:#18181b;--charcoal:#ffffff;--graphite:#f3f4f6;--smoke:#4b5563;--silver:#6b7280;--platinum:#e5e7eb;--pearl:#fafafa;--white:#ffffff;--gold-deep:#c2410c;--gold:#ea580c;--gold-mid:#ea580c;--gold-light:#ea580c;--gold-pale:#fdba74;--gold-ghost:rgba(234,88,12,.12);--bg-dark:#ffffff;--bg-sec:#f7f7f8;--bg-card:#ffffff;--bg-charcoal:#f3f4f6;--bg-light:#ffffff;--bg-cream:#fff4ec;--txt:#18181b;--txt-sec:#4b5563;--txt-muted:#6b7280;--txt-dark:#18181b;--txt-dark-sec:#4b5563;--border:rgba(0,0,0,.12);--border-faint:rgba(0,0,0,.08);--border-gold:rgba(234,88,12,.35);--border-light:rgba(0,0,0,.09);--sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;--serif:var(--sans)}
 
 body{background:var(--bg-dark);color:var(--txt)}
 h1,h2,h3,h4,h5,h6{font-weight:700;letter-spacing:.02em}
@@ -334,3 +334,30 @@ body.menu-visible #page-shade{content:'';position:fixed;inset:0;background:rgba(
 .hero__headline,.hero__trust-item strong{color:var(--txt)}
 .audience-card__title,.process-step h3,.trust-item h3,.sidebar-card__title{color:var(--txt)}
 .sidebar-contact__value{color:var(--txt)}
+
+/* ============================================================
+   Properfy-derived design adoption: self-hosted Plus Jakarta
+   Sans, matching the homepage/flow pages' typography. Every
+   page already links Google Fonts' DM Sans in its own <head>
+   (baked in by gen/generate.py et al) — that link is now an
+   unused, harmless preload rather than something worth sweeping
+   across ~1049 individual HTML files; this @font-face simply
+   gives --sans/--serif (redeclared above) something to resolve
+   to instead of silently falling back to the system font stack.
+   ============================================================ */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/assets/properfy/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/assets/properfy/fonts/plus-jakarta-sans-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}

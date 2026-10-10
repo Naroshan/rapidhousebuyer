@@ -321,7 +321,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section class="section section--charcoal nearby-areas" style="padding:2.5rem 0;">
     <div class="container">
-      <h2 style="font-family:'DM Sans',-apple-system,sans-serif;font-size:1.2rem;font-weight:600;color:#111827;margin-bottom:1.25rem;letter-spacing:-.01em;">Nearby Areas We Cover</h2>
+      <h2 style="font-family:'Plus Jakarta Sans',-apple-system,sans-serif;font-size:1.2rem;font-weight:600;color:#111827;margin-bottom:1.25rem;letter-spacing:-.01em;">Nearby Areas We Cover</h2>
       <div style="display:flex;flex-wrap:wrap;gap:.625rem;">{nearby_pills_alt}
       </div>
     </div>
@@ -489,7 +489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if(j.ok){{
           var s=document.createElement('div');
           s.style.cssText='padding:2rem;text-align:center';
-          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'DM Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#ea580c">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#ea580c">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
+          s.innerHTML='<div style="font-size:2.5rem;margin-bottom:1rem">&#9989;</div><h3 style="font-family:\\'Plus Jakarta Sans\\',-apple-system,sans-serif;color:#111827;margin-bottom:.5rem">Enquiry Received</h3><p style="color:#4b5563;font-size:.875rem;line-height:1.7">A consultant will contact you within <strong style="color:#ea580c">2 hours</strong>.<br>Call <a href="tel:+442071991698" style="color:#ea580c">020 7199 1698</a> or <a href="https://wa.me/442071991698" style="color:#25D366" target="_blank">WhatsApp us</a>.</p>';
           form.style.display='none'; form.parentNode.appendChild(s);
           window.dataLayer = window.dataLayer || []; window.dataLayer.push({{event:'generate_lead',event_category:'Lead'}});
         }} else {{

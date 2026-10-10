@@ -12,16 +12,16 @@
 			path.__rhbPrepped = true;
 		}catch(e){}
 	}
-	var headerIconPath = document.querySelector('#banner .logo .roofline__path');
-	prep(headerIconPath);
-	if(headerIconPath){
-		setTimeout(function(){ headerIconPath.style.strokeDashoffset = 0; }, 900);
-	}
 	var navLogoPath = document.querySelector('#header .roofline .roofline__path');
 	prep(navLogoPath);
 	if(navLogoPath){
 		setTimeout(function(){ navLogoPath.style.strokeDashoffset = 0; }, 400);
 	}
+	var heroMarkPaths = document.querySelectorAll('#banner .roofline__path, .concierge-head .roofline__path');
+	heroMarkPaths.forEach(function(path){
+		prep(path);
+		setTimeout(function(){ path.style.strokeDashoffset = 0; }, 900);
+	});
 
 	/* "Your Enquiry" menu link, shown only once a submitted enquiry is saved on this device */
 	try{
@@ -157,6 +157,4 @@
 		if(d) d.addEventListener('click', function(e){ e.preventDefault(); localStorage.setItem('rhb_consent','essential'); banner.classList.remove('visible'); });
 	}
 
-	var fy = document.getElementById('footerYear');
-	if(fy) fy.textContent = new Date().getFullYear();
 })();

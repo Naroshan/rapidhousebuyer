@@ -61,7 +61,7 @@ a.inline:hover { color:#c2410c; }
 .back-link .i { width:1em; height:1em; }
 .back-link[hidden] { display:none; }
 
-.eyebrow { font-family:Raleway,Helvetica,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem; color:#ea580c; margin:0 0 0.6em; }
+.eyebrow { display:block; font-family:Raleway,Helvetica,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem; color:#ea580c; margin:0 0 0.6em; }
 .step-title { font-family:Raleway,Helvetica,sans-serif; font-weight:700; letter-spacing:0.01em; font-size:1.5rem; line-height:1.3; color:#18181b; margin:0 0 0.5em; }
 .step-title:focus { outline:none; }
 .step-help { color:#4b5563; line-height:1.7; margin:0 0 1.75em; font-size:0.95rem; }
@@ -119,7 +119,7 @@ a.inline:hover { color:#c2410c; }
 }
 .btn .i { width:1em; height:1em; }
 .btn:hover { background-color:rgba(0,0,0,0.035); }
-.btn-primary { background-color:#c2410c; box-shadow:none; }
+.btn-primary { background-color:#c2410c; color:#ffffff !important; box-shadow:none; }
 .btn-primary:hover { background-color:#9a3412; }
 .btn-lg { width:100%; padding:1.2em 1.75em; }
 
@@ -142,7 +142,7 @@ a.inline:hover { color:#c2410c; }
 .segmented button + button { border-left:solid 1px rgba(0,0,0,0.1); }
 .segmented button[aria-pressed="true"] { background:#c2410c; color:#fff !important; }
 
-.check { display:flex; align-items:flex-start; gap:0.7em; cursor:pointer; color:#4b5563; font-size:0.85rem; line-height:1.6; margin-top:0.25em; }
+.check { display:flex; align-items:flex-start; gap:0.7em; cursor:pointer; color:#4b5563; font-size:0.85rem; line-height:1.6; margin:0.25em 0 0; }
 /* The vendored template forces input[type=checkbox]{opacity:0;float:left;z-index:-1} for its own
    adjacent-sibling-label pseudo-checkbox pattern — restore a plain native checkbox here instead,
    since .check wraps the input directly rather than using that pattern. */
