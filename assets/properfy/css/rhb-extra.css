@@ -4,8 +4,8 @@
    as the previous vendored system's rhb-extra.css. Loads after main.css. */
 
 /* Roofline brand mark (header logo, hero banner, thank-you page) */
-.roofline { width: 2.4em; height: 1.6em; overflow: visible; }
-.roofline__path { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; transition: stroke-dashoffset 1.1s ease; }
+.roofline { width: 1.8em; height: 1.8em; overflow: visible; }
+.roofline__path { fill: none; stroke: currentColor; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; transition: stroke-dashoffset 1.1s ease; }
 .logo:hover .roofline__path { transition: none; }
 
 /* ── Situation picker (hero "banner-card") ──────────────────────────────── */
