@@ -331,7 +331,7 @@
 		updateProgress(0.96);
 		stage.innerHTML =
 			'<div class="step building" role="status" aria-live="polite">' +
-			'<svg class="mark-loop" viewBox="0 0 100 60" aria-hidden="true"><path class="roofline__path" d="M6,50 L50,13 L94,50 M63,29 L63,13 L78,13 L78,24"/></svg>' +
+			'<svg class="mark-loop" viewBox="0 0 100 100" aria-hidden="true"><path class="roofline__path" d="M16,80 L50,18 L84,80 M32,92 L68,92"/></svg>' +
 			'<p data-msg>Putting your plan together…</p></div>';
 		var msgs = ['Preparing your request…', 'Almost there…'];
 		var m = 0;
@@ -444,7 +444,7 @@
 
 		aside.innerHTML =
 			'<div class="plan-card">' +
-			'<div class="plan-card-head"><svg class="mark" viewBox="0 0 100 60" aria-hidden="true"><path class="roofline__path" d="M6,50 L50,13 L94,50 M63,29 L63,13 L78,13 L78,24" style="stroke-dashoffset:0"/></svg><div><strong>Your enquiry so far</strong><small>' +
+			'<div class="plan-card-head"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path class="roofline__path" d="M16,80 L50,18 L84,80 M32,92 L68,92" style="stroke-dashoffset:0"/></svg><div><strong>Your enquiry so far</strong><small>' +
 			(sit ? esc(sit.short) : 'Tell us what’s going on') + '</small></div></div>' +
 			(rows.length
 				? '<ol>' + rows.map(function (r) { return '<li><span class="fi">' + icon('check') + '</span><span>' + esc(r.label) + (r.when ? '<small>' + esc(r.when) + '</small>' : '') + '</span></li>'; }).join('') + '</ol>'
@@ -461,7 +461,7 @@
 		}).join('');
 		aside.innerHTML =
 			'<div class="plan-card">' +
-			'<div class="plan-card-head"><svg class="mark" viewBox="0 0 100 60" aria-hidden="true"><path class="roofline__path" d="M6,50 L50,13 L94,50 M63,29 L63,13 L78,13 L78,24" style="stroke-dashoffset:0"/></svg><div><strong>What you told us</strong></div></div>' +
+			'<div class="plan-card-head"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path class="roofline__path" d="M16,80 L50,18 L84,80 M32,92 L68,92" style="stroke-dashoffset:0"/></svg><div><strong>What you told us</strong></div></div>' +
 			(rows ? '<ol>' + rows + '</ol>' : '') +
 			'<p class="plan-card-foot">' + icon('chat') + '<span>Need a hand? Call <a class="inline" href="tel:' + cfg.phoneHref + '">' + cfg.phone + '</a></span></p>' +
 			'</div>';

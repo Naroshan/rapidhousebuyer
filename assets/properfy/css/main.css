@@ -256,7 +256,7 @@ p { margin: 0 0 1.25em; }
 .mark .ft path { stroke: var(--ink-0); }
 
 .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--fg); padding: 6px 0; border-radius: 8px; font-weight: 800; letter-spacing: -0.01em; }
-.logo .roofline { width: 26px; height: 17px; color: var(--coral); flex-shrink: 0; }
+.logo .roofline { width: 20px; height: 20px; color: var(--coral); flex-shrink: 0; }
 
 /* ── Header ─────────────────────────────────────────────────────────────── */
 

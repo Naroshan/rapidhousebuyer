@@ -3,9 +3,12 @@
    close to upstream). Kept deliberately small and namespaced, same pattern
    as the previous vendored system's rhb-extra.css. Loads after main.css. */
 
+/* Hero pill's star-rating variant */
+.pill--rating .i { color: var(--sun); }
+
 /* Roofline brand mark (header logo, hero banner, thank-you page) */
-.roofline { width: 2.4em; height: 1.6em; overflow: visible; }
-.roofline__path { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; transition: stroke-dashoffset 1.1s ease; }
+.roofline { width: 1.8em; height: 1.8em; overflow: visible; }
+.roofline__path { fill: none; stroke: currentColor; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; transition: stroke-dashoffset 1.1s ease; }
 .logo:hover .roofline__path { transition: none; }
 
 /* ── Situation picker (hero "banner-card") ──────────────────────────────── */
