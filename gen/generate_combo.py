@@ -175,9 +175,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <meta charset="UTF-8">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png?v=2">
 <meta name="theme-color" content="#f7f9fc">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>{meta_title}</title>
