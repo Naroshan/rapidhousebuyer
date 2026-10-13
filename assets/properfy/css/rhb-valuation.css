@@ -3,6 +3,19 @@
    borrows directly — only the pieces specific to the results screen live
    here. */
 
+/* This is the only page in the flow system that uses native <select>
+   dropdowns (get-started.html's questions are all button choices) — so
+   it's also the first page to hit assets/properfy/css/main.css's generic
+   select{} rule, which draws its dropdown chevron in solid white. That's
+   invisible against this light page (the rest of that rule — the subtle
+   translucent-white input background, the dark border/text — degrades
+   harmlessly to "plain white box", but a literal white-on-white icon
+   doesn't), so it's repainted here in the same muted gray every other
+   select-style chevron on the site uses. */
+select {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
 .val-block {
 	background: rgba(0, 0, 0, 0.015);
 	border: solid 1px rgba(0, 0, 0, 0.08);
