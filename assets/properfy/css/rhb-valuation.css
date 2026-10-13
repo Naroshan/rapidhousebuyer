@@ -1,0 +1,43 @@
+/* Rapid House Buyer — valuation tool (valuation.html) results display.
+   Loaded after rhb-flow.css, whose .step/.field/.btn/.notice/etc. this
+   borrows directly — only the pieces specific to the results screen live
+   here. */
+
+.val-block {
+	background: rgba(0, 0, 0, 0.015);
+	border: solid 1px rgba(0, 0, 0, 0.08);
+	border-radius: 14px;
+	padding: 1.75em 1.75em 1.5em;
+	margin: 0 0 1.25em;
+	text-align: center;
+}
+.val-label { font-family: Raleway, Helvetica, sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; color: #6b7280; margin-bottom: 0.5em; }
+.val-figure { font-family: Raleway, Helvetica, sans-serif; font-weight: 800; font-size: clamp(2.2rem, 5vw, 3rem); letter-spacing: -0.02em; color: #18181b; line-height: 1.1; }
+.val-range { color: #6b7280; font-size: 0.95rem; margin-top: 0.3em; }
+.val-meta { display: flex; justify-content: center; gap: 1.75em; flex-wrap: wrap; margin-top: 1.25em; padding-top: 1.1em; border-top: solid 1px rgba(0, 0, 0, 0.08); }
+.val-meta-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9ca3af; margin-bottom: 0.2em; }
+.val-meta-value { font-weight: 650; color: #18181b; font-size: 0.92rem; }
+
+.offer-block {
+	background: linear-gradient(135deg, rgba(234, 88, 12, 0.08), rgba(234, 88, 12, 0.03));
+	border: solid 1px rgba(234, 88, 12, 0.25);
+	border-radius: 14px;
+	padding: 1.75em;
+	margin: 0 0 1.25em;
+	text-align: center;
+}
+.offer-label { display: inline-flex; align-items: center; gap: 0.5em; font-weight: 700; font-size: 0.9rem; color: #9a3412; margin-bottom: 0.5em; }
+.offer-label .i { width: 1.1em; height: 1.1em; color: #ea580c; }
+.offer-figure { font-family: Raleway, Helvetica, sans-serif; font-weight: 800; font-size: clamp(1.9rem, 4.2vw, 2.5rem); letter-spacing: -0.02em; color: #c2410c; }
+.offer-note { max-width: 36em; margin: 0.6em auto 0; color: #6b7280; font-size: 0.88rem; line-height: 1.6; }
+
+.lead-block { margin-top: 1.75em; padding-top: 1.75em; border-top: solid 1px rgba(0, 0, 0, 0.08); }
+.lead-block h3 { font-family: Raleway, Helvetica, sans-serif; font-weight: 700; font-size: 1.15rem; color: #18181b; margin-bottom: 0.3em; }
+.lead-block p { color: #6b7280; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.25em; }
+.lead-skip { display: block; margin: 1em auto 0; background: none; border: 0; color: #6b7280; font-size: 0.85rem; text-decoration: underline; cursor: pointer; }
+.lead-skip:hover { color: #18181b; }
+
+@media screen and (max-width: 560px) {
+	.val-meta { gap: 1.1em; }
+	.val-block, .offer-block { padding: 1.4em 1.2em; }
+}
