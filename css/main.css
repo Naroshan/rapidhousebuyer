@@ -247,8 +247,8 @@ h1,h2,h3,h4,h5,h6{font-weight:700;letter-spacing:.02em}
 
 /* Off-canvas header + menu (sitewide inner pages) */
 #header{position:relative;z-index:9000;padding:2rem var(--gutter) 1.25rem;display:flex;align-items:center;justify-content:space-between;max-width:var(--max);margin-inline:auto}
-#header h1{font-size:1.1rem;margin:0}
-#header h1 a{display:flex;align-items:center;gap:10px;color:#fff;font-family:var(--serif);font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+#header .site-mark{font-size:1.1rem;margin:0}
+#header .site-mark a{display:flex;align-items:center;gap:10px;color:#fff;font-family:var(--serif);font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
 #header .roofline{width:20px;height:20px;color:var(--gold-light)}
 #header nav a{display:inline-flex;align-items:center;gap:8px;border:solid 2px rgba(255,255,255,.25);border-radius:5px;padding:.6em 1.1em;color:#fff;font-family:var(--serif);font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:border-color .2s ease,background .2s ease}
 #header nav a:hover{border-color:#fff;background:rgba(255,255,255,.06)}
@@ -275,7 +275,7 @@ body.menu-visible #page-shade{content:'';position:fixed;inset:0;background:rgba(
    ============================================================ */
 
 /* Header / off-canvas menu (sitewide inner pages) */
-#header h1 a{color:var(--txt)}
+#header .site-mark a{color:var(--txt)}
 #header nav a{border-color:rgba(0,0,0,.2);color:var(--txt)}
 #header nav a:hover{border-color:var(--gold);background:rgba(234,88,12,.06)}
 #menu h2{color:var(--txt)}
