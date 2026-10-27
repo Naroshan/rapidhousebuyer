@@ -184,7 +184,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="description" content="{meta_desc}">
 <meta name="robots" content="{robots}">
 <link rel="canonical" href="{canonical_url}">
-  <link rel="alternate" hreflang="en-GB" href="{canonical_url}">
 <script type="application/ld+json">{faq_schema}</script>
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
